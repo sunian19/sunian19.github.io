@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sunian19.github.io","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数据库分类1，层次式数据库       mysql   （小企业）     mariadb2，网络式数据库       oracle （政府企业）     postgresql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;数据库部分&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2019/08/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Sunian&#39;s Blog">
+<meta property="og:description" content="数据库分类1，层次式数据库       mysql   （小企业）     mariadb2，网络式数据库       oracle （政府企业）     postgresql">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-17T12:33:12.000Z">
+<meta property="article:modified_time" content="2020-04-06T06:09:48.924Z">
+<meta property="article:author" content="素念">
+<meta property="article:tag" content="基础知识">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sunian19.github.io/2019/08/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>'数据库部分' | Sunian's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d70c2fd321d2281d853a9197812a8f28";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/sunian19" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2019/08/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="素念">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunian's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          '数据库部分'
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-17 20:33:12" itemprop="dateCreated datePublished" datetime="2019-08-17T20:33:12+08:00">2019-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-06 14:09:48" itemprop="dateModified" datetime="2020-04-06T14:09:48+08:00">2020-04-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">基础知识</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="数据库分类"><a href="#数据库分类" class="headerlink" title="数据库分类"></a>数据库分类</h3><p>1，层次式数据库       mysql   （小企业）     mariadb<br>2，网络式数据库       oracle （政府企业）     postgresql </p>
+<a id="more"></a>
+<p>3，关系型数据库<br>4，非关系型数据库（常见）</p>
+<p>关系型是以表格方式存储的   array(“name” =&gt; ‘zs’,’pass’ =&gt; ‘pass’) 一行存放一个值<br> sql server/mssql运行服务，连接服务，然后进行操作          db2<br>access  及 sqlite (安卓使用)单文件存储，只有数据库没有表 （大数据量查询速度会变慢）<br>非关系型以键值对存储<br>mongodb 大型数据存储  （面向文档形式存储）<br>redis反应速度超级快，存储量相对少，做缓存服务器（中转，相对来说数据不重要）<br>{<br>     ‘uname’ : ‘zs’<br>     ‘age’ : 18<br>     ‘phone’ :{<br>                   ‘phone1’ : 123456699<br>                   ‘phone2’ :  486498887<br>      }<br>}</p>
+<h3 id="MySQL数据库连接"><a href="#MySQL数据库连接" class="headerlink" title="MySQL数据库连接"></a>MySQL数据库连接</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">1，Navicat Premium 12直接连接</span><br><span class="line">2，cmd命令行进入到D:\phpstudy_pro\Extensions\MySQL8.0.12\bin&gt;</span><br><span class="line">使用命令 mysql -uroot -p 进入数据库</span><br><span class="line">show databases;查看数据库</span><br><span class="line">create database wordpress;  创建数据库wordpress</span><br><span class="line">drop database wordpress;    丢弃（删除）数据库</span><br><span class="line"></span><br><span class="line">yum或apt-get安装数据库，默认在var&#x2F;lib&#x2F;mysql路径下</span><br><span class="line">账号密码在data&#x2F;mysql里存放</span><br><span class="line">真正的数据不放在文件夹里，而放在文件里，如 ibdata1</span><br><span class="line"></span><br><span class="line">数据存储操作</span><br><span class="line">mysqld进行存储操作</span><br><span class="line">mysql客户端指使发送指令</span><br><span class="line">而  access，sqlite</span><br><span class="line">只有一个客户端，直接打开文件，进行读取操作</span><br><span class="line"></span><br><span class="line">一般情况先使用 use  mysql 再查看show  tables；</span><br><span class="line">设置主键（id）自增长 AUTO_INCREMENT</span><br><span class="line">not  null，就是设置不为空</span><br><span class="line"></span><br><span class="line">插入sql语句时，可以用数字代替任何内容</span><br><span class="line">DELETE  DROM &#96;mynews&#96; . &#96;tb_users&#96;  WHERE   &#96;username&#96; &#x3D;&#39;1&#39; OR &#96;id&#96; &#x3D; &#96;12&#96;</span><br><span class="line">OR代表符合username&#x3D;1和id&#x3D; 12的删除</span><br><span class="line">DELETE  DROM &#96;mynews&#96; . &#96;tb_users&#96;  WHERE   &#96;username&#96; &#x3D;&#39;1&#39; AND &#96;id&#96; &#x3D; &#96;12&#96;</span><br><span class="line">AND在这里代表同时满足两个条件才能删除</span><br><span class="line"></span><br><span class="line">UPDATE &#96;mynews&#96; . &#96;tb_news&#96;  SET  &#96;author&#96;&#x3D;&#96;admin&#96;;</span><br><span class="line">修改全部author</span><br><span class="line">UPDATE &#96;mynews&#96; . &#96;tb_news&#96;  SET  &#96;title&#96;&#x3D;&#96;香港是中国的&#96; WHERE &#96;id&#96; &#x3D; 1;</span><br><span class="line">修改id &#x3D;1中的 &#96;title&#96;  值为  &#96;香港是中国的&#96;</span><br><span class="line"></span><br><span class="line">UPDATE &#96;mynews&#96; . &#96;tb_news&#96;  SET  &#96;title&#96;&#x3D; &#39;香港是中国的&#39;, &#96;title&#96; &#x3D; &#39;admin&#39;  WHERE &#96;id&#96; &#x3D; 1;</span><br><span class="line">这条命令执行后，title变为admin</span><br><span class="line"></span><br><span class="line">WHERE 设置条件     WHERE &#96;id&#96;&gt; 3</span><br><span class="line">SELECT * FROM &#96;mynews&#96; . &#96;tb_users&#96; LIMIT  0,1000</span><br><span class="line"></span><br><span class="line">ALTER TABLE 语句用于在已有的表中添加、修改或删除列。</span><br><span class="line">要改变表中列的数据类型，请使用下面的语法：</span><br><span class="line">SQL Server &#x2F; MS Access：</span><br><span class="line">ALTER   TABLE   table_name</span><br><span class="line">ALTER（ADD添加，DROP删除）   COLUMN   column_name   datatype</span><br><span class="line">&#x2F;&#x2F;某些数据库系统不允许这种在数据库表中删除列的方式 (DROP COLUMN column_name)</span><br><span class="line"></span><br><span class="line">My SQL &#x2F; Oracle：</span><br><span class="line">ALTER   TABLE   table_name</span><br><span class="line">MODIFY   COLUMN(10G版本之后可省略此单词)   column_name   datatype</span><br><span class="line"></span><br><span class="line">information_schema 数据库存放在内存中，不会有文件夹存在</span><br><span class="line">SCHEMATA文件中存放当前所有数据库</span><br><span class="line">TABLES里存放所有的表</span><br><span class="line">COLUMUS 存放所有字段</span><br><span class="line"></span><br><span class="line">导入</span><br><span class="line">1，命令行导入数据库 source 加文件路径</span><br><span class="line">2，mysql   -uroot   -p  text  &lt;  Destop&#x2F;abc.sql  </span><br><span class="line">          将abc.sql导入到text数据库</span><br><span class="line">导出</span><br><span class="line">mysqldump   -uroot   -p  mysql  &gt;  Destop&#x2F;mysql.sql  </span><br><span class="line">将mysql数据库中的数据导出到mysql.sql文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">导出所有数据库，使用mysqldump –all-databases会导出所有库，</span><br><span class="line">但是包含information_schema、mysql、test，这时需要排除这些库方法：</span><br><span class="line"></span><br><span class="line"> mysql -e &quot;show databases;&quot; -uroot -p| grep -Ev &quot;</span><br><span class="line">Database|information_schema|mysql|test&quot; |</span><br><span class="line"> xargs mysqldump -uroot -p --databases &gt; &#x2F;data&#x2F;mysql_bak.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="SQL函数"><a href="#SQL函数" class="headerlink" title="SQL函数"></a>SQL函数</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">select  &#x3D;&#x3D;&gt;  echo   放到php相当于echo</span><br><span class="line">version( );           @@version;          显示数据库版本号</span><br><span class="line">database( )         查看当前使用的数据库</span><br><span class="line">user( )             当前连接数据库的用户及IP</span><br><span class="line"></span><br><span class="line">concat( )         </span><br><span class="line">concat_ws( )   把查询结果连接起来</span><br><span class="line">可以加~分隔  concat_ws(1,&#39;~&#39;,2,&#39;~&#39;,3 )</span><br><span class="line">group_concat ( )</span><br><span class="line">left( )      从左开始切割              left(&#39;hello world! &#39; ,5 );      结果为hello</span><br><span class="line">right( )    从右开始切割</span><br><span class="line">substr( )    从 * 开始取多少位的值    </span><br><span class="line"> substr(&#39;hello world!&#39;,1,5)    从1开始往后取5位   （从1开始）</span><br><span class="line"> substr(&#39;hello world!&#39;,10,5)    从10开始往后取5位</span><br><span class="line">mid( )    substring( )  用法和substr( )一样</span><br><span class="line">拿数据时，1，10           9，20        19，30</span><br><span class="line">截取数据时尽量1，2个字符重复，还原数据时不会出错</span><br><span class="line"></span><br><span class="line">select  0x7e    输出为~    </span><br><span class="line">concat查询的时候可以把&#39;~&#39; 替换成 0x7e</span><br><span class="line"></span><br><span class="line">&#x2F;*   *&#x2F;    注释 </span><br><span class="line">-- ； 杠杠空格，把后面的注释</span><br><span class="line">distinct 进行去重   放在select后</span><br><span class="line"></span><br><span class="line">union   select 联合查询</span><br><span class="line">select  &#96;username&#96;,&#96;passwd&#96; from &#96;text&#96; . &#96;users&#96; union select 1，2;</span><br><span class="line">select  &#96;username&#96;,&#96;passwd&#96; from &#96;text&#96; . &#96;users&#96; union select user( ),version( ) ;</span><br><span class="line">order  by    排序           放在表名的后面</span><br><span class="line">select  &#96;username&#96;,&#96;passwd&#96; from &#96;text&#96; . &#96;users&#96;  order by &#96;username &#96;;</span><br><span class="line">根据用户名排序</span><br><span class="line">like 模糊查询</span><br><span class="line">like &#39;%a&#39;       a结尾的       like &#39;%a%&#39;  包含a的          like &#39;a%&#39;    a开头的</span><br><span class="line">limit   取数据</span><br><span class="line">select  &#96;username&#96;,&#96;passwd&#96; from &#96;text&#96; . &#96;users&#96;  limit 0，2 ;</span><br><span class="line">下标为0开始取两行</span><br><span class="line"></span><br><span class="line">select username,passwd from text.users where username &#x3D; &#39;admin&#39; </span><br><span class="line">union select 1,(select group_concat(schema_name) from information_schema.schemata);</span><br><span class="line">查询text.users下username &#x3D; &#39;admin&#39; 对应的值，联合查询所有数据库</span><br><span class="line"></span><br><span class="line">select username,passwd from text.users where username &#x3D; &#39;admin&#39; </span><br><span class="line">union select 1,(select group_concat(schema_name)from information_schema.schemata)</span><br><span class="line"></span><br><span class="line">select username,passwd from text.users where username &#x3D; &#39;admin&#39; </span><br><span class="line">union select 1,(select group_concat(table_name)from information_schema.TABLES)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">写文件</span><br><span class="line">into  dumpfile  &quot;filepath&quot;  &#x2F;&#x2F;绝对路径         直接写二进制文件</span><br><span class="line">into  outpfile  &quot;filepath&quot;  &#x2F;&#x2F;绝对路径           写文本文档的文件</span><br><span class="line">select  123  into outfile&#x2F;dumpfile  &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;eval&#x2F;php&#39;;</span><br><span class="line">读文件</span><br><span class="line">load_file(&#39; filepath &#39;)       &#x2F;&#x2F;绝对路径</span><br><span class="line">select  load_file(&#39; &#x2F;etc&#x2F;passwd &#39;);</span><br><span class="line">一般情况将文件转成select  hex（load_file(&#39; &#x2F;etc&#x2F;passwd &#39;); </span><br><span class="line">16进制，然后再解码进行查看</span><br><span class="line">select  123  into outfile  “&#x2F;users&#x2F;Desktop&#x2F;a.txt”</span><br><span class="line">桌面创建一个a.txt   内容为123</span><br><span class="line">mysql的 --secure-file-priv    限制写文件</span><br><span class="line"></span><br><span class="line">本地  使用select  hex（load_file(&#39; &#x2F;etc&#x2F;passwd &#39;)处理二进制文件</span><br><span class="line">服务器上，执行select  unhex(0x十六进制内容) into  dumpfile  &quot;&#x2F;tmp&#x2F;a.exe&quot;</span><br><span class="line"></span><br><span class="line">union 后只能结合 select 使用</span><br><span class="line">不能把两个同级别的语句放到一起，select   delete</span><br><span class="line"></span><br><span class="line">页面输出  只显示第一行</span><br><span class="line"></span><br><span class="line">通过行数判断是否删除</span><br><span class="line">修改密码，删除用户，注册用户，删除新闻，添加新闻</span><br><span class="line">insert  into  updat   delete</span><br><span class="line"></span><br><span class="line">mysql_fetch_array( )</span><br><span class="line">关联数组和索引数组结合</span><br><span class="line">mysql_fetch_assoc( )  关联数组</span><br><span class="line">mysql_fetch_row( )     索引数组</span><br><span class="line"></span><br><span class="line">mysql_affected_rows( )  行数</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="连接数据库语句"><a href="#连接数据库语句" class="headerlink" title="连接数据库语句"></a>连接数据库语句</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">php连接mysql数据库</span><br><span class="line">mysql 驱动        php5.6之前都支持，但5.6在连接时会显示警告 @屏蔽错误</span><br><span class="line">mysqli 驱动       5.0之后都有</span><br><span class="line">pdo 驱动           5.1之后都有</span><br><span class="line"></span><br><span class="line">现在学校，培训机构，80%都是mysql驱动</span><br><span class="line"></span><br><span class="line">mysql_connect 连接数据库</span><br><span class="line">如果失败显示 bool(false)</span><br><span class="line"></span><br><span class="line">@$con &#x3D; mysql_connect(&#39;127.0.0.1&#39;,&#39;root&#39;,&#39;root&#39;);</span><br><span class="line"></span><br><span class="line">var_dump($con);   &#x2F;&#x2F; 输出为resource 资源类型</span><br><span class="line">&#x2F;&#x2F;  mysql_error()</span><br><span class="line">if (!$con)&#123;</span><br><span class="line">        die(mysql_error());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">mysql_select_db( &#39;text&#39; ) or die(mysql_error());</span><br><span class="line">die(mysql_error()); 判断报错信息</span><br><span class="line"></span><br><span class="line">mysql_query( &#39;set names &quot;utf8&quot;&#39;,$con); 设置编码</span><br><span class="line">mysql_query 函数用于执行sql语句查询，设置编码等</span><br><span class="line">mysql_error()作用是显示报错信息</span><br><span class="line">连接成功 报错信息为空</span><br><span class="line"></span><br><span class="line">@$con &#x3D; mysql_connect(&#39;127.0.0.1&#39;,&#39;root&#39;,&#39;root&#39;) or die(mysql_error());</span><br><span class="line">&#x2F;&#x2F;  第二种写法，正确 输出or前面的代码 ，错误 输出后面的代码</span><br><span class="line"></span><br><span class="line">以上所述结合最终语句：PHP中连接本地mysql数据库</span><br><span class="line">&lt;?php</span><br><span class="line">@$con &#x3D; mysql_connect(&#39;127.0.0.1&#39;,&#39;root&#39;,&#39;root&#39;);</span><br><span class="line">mysql_select_db(&#39;mysql&#39;) or die(mysql_error());</span><br><span class="line">mysql_query(&#39;set names &quot;utf8&quot;&#39;) or die(mysql_error());</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"># 基础知识</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/13/union/" rel="prev" title="'联合查询'">
+      <i class="fa fa-chevron-left"></i> '联合查询'
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/17/%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0/" rel="next" title="'文件函数部分'">
+      '文件函数部分' <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">数据库分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.</span> <span class="nav-text">MySQL数据库连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">SQL函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">连接数据库语句</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="素念"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">素念</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://wp.fmk.pub/" title="http:&#x2F;&#x2F;wp.fmk.pub&#x2F;" rel="noopener" target="_blank">Defender</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">素念</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

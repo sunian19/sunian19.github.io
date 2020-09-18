@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sunian19.github.io","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Web源码泄露的漏洞：git源码泄露svn源码泄露hg源码泄漏网站备份压缩文件WEB-INF&#x2F;web.xml 泄露DS_Store 文件泄露SWP 文件泄露CVS泄露Bzr泄露GitHub源码泄漏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;常见源码泄露&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2020/02/29/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="Sunian&#39;s Blog">
+<meta property="og:description" content="Web源码泄露的漏洞：git源码泄露svn源码泄露hg源码泄漏网站备份压缩文件WEB-INF&#x2F;web.xml 泄露DS_Store 文件泄露SWP 文件泄露CVS泄露Bzr泄露GitHub源码泄漏">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-29T04:25:04.000Z">
+<meta property="article:modified_time" content="2020-04-06T06:11:26.071Z">
+<meta property="article:author" content="素念">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="信息泄露">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sunian19.github.io/2020/02/29/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>'常见源码泄露' | Sunian's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d70c2fd321d2281d853a9197812a8f28";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/sunian19" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/02/29/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="素念">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunian's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          '常见源码泄露'
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-29 12:25:04" itemprop="dateCreated datePublished" datetime="2020-02-29T12:25:04+08:00">2020-02-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-06 14:11:26" itemprop="dateModified" datetime="2020-04-06T14:11:26+08:00">2020-04-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">基础知识</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Web源码泄露的漏洞："><a href="#Web源码泄露的漏洞：" class="headerlink" title="Web源码泄露的漏洞："></a>Web源码泄露的漏洞：</h3><p>git源码泄露<br>svn源码泄露<br>hg源码泄漏<br>网站备份压缩文件<br>WEB-INF/web.xml 泄露<br>DS_Store 文件泄露<br>SWP 文件泄露<br>CVS泄露<br>Bzr泄露<br>GitHub源码泄漏</p>
+<a id="more"></a>
+<h3 id="1、git源码泄露"><a href="#1、git源码泄露" class="headerlink" title="1、git源码泄露"></a>1、git源码泄露</h3><p>Git是一个开源的分布式版本控制系统，在执行git init初始化目录的时候，会在当前目录下自动创建一个.git目录，用来记录代码的变更记录等。发布代码的时候，如果没有把.git这个目录删除，就直接发布到了服务器上，攻击者就可以通过它来恢复源代码。</p>
+<p>漏洞利用工具：GitHack</p>
+<p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/lijiejie/GitHack">https://github.com/lijiejie/GitHack</a></p>
+<p>用法示例：</p>
+<p>GitHack.py <a target="_blank" rel="noopener" href="http://www.openssl.org/.git/">http://www.openssl.org/.git/</a><br>修复建议：删除.git目录或者修改中间件配置进行对.git隐藏文件夹的访问。</p>
+<h3 id="2、SVN-源码泄露"><a href="#2、SVN-源码泄露" class="headerlink" title="2、SVN 源码泄露"></a>2、SVN 源码泄露</h3><p>SVN是一个开放源代码的版本控制系统。在使用SVN管理本地代码过程中，会自动生成一个名为.svn的隐藏文件夹，其中包含重要的源代码信息。网站管理员在发布代码时，没有使用‘导出’功能，而是直接复制代码文件夹到WEB服务器上，这就使.svn隐藏文件夹被暴露于外网环境，可以利用.svn/entries文件，获取到服务器源码。</p>
+<p>漏洞利用工具：<br><a target="_blank" rel="noopener" href="https://github.com/admintony/svnExploit/">https://github.com/admintony/svnExploit/</a><br><a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper/">https://github.com/kost/dvcs-ripper/</a></p>
+<p>修复建议：删除web目录中所有.svn隐藏文件夹，开发人员在使用SVN时，严格使用导出功能，禁止直接复制代码。</p>
+<h3 id="3、-hg源码泄漏"><a href="#3、-hg源码泄漏" class="headerlink" title="3、 hg源码泄漏"></a>3、 hg源码泄漏</h3><p>Mercurial 是一种轻量级分布式版本控制系统，使用 hg init的时候会生成.hg。</p>
+<p>漏洞利用工具：dvcs-ripper</p>
+<p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a></p>
+<p>用法示例：</p>
+<p>rip-hg.pl -v -u <a target="_blank" rel="noopener" href="http://www.example.com/.hg/">http://www.example.com/.hg/</a></p>
+<h3 id="4、CVS泄露"><a href="#4、CVS泄露" class="headerlink" title="4、CVS泄露"></a>4、CVS泄露</h3><p>CVS是一个C/S系统，多个开发人员通过一个中心版本控制系统来记录文件版本，从而达到保证文件同步的目的。主要是针对 CVS/Root以及CVS/Entries目录，直接就可以看到泄露的信息。</p>
+<p><a target="_blank" rel="noopener" href="http://url/CVS/Root">http://url/CVS/Root</a> 返回根信息<br><a target="_blank" rel="noopener" href="http://url/CVS/Entries">http://url/CVS/Entries</a> 返回所有文件的结构<br>漏洞利用工具：dvcs-ripper</p>
+<p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper.git">https://github.com/kost/dvcs-ripper.git</a></p>
+<p>运行示例:</p>
+<p>rip-cvs.pl -v -u <a target="_blank" rel="noopener" href="http://www.example.com/CVS/">http://www.example.com/CVS/</a></p>
+<h3 id="5、Bazaar-bzr泄露"><a href="#5、Bazaar-bzr泄露" class="headerlink" title="5、Bazaar/bzr泄露"></a>5、Bazaar/bzr泄露</h3><p>bzr也是个版本控制工具, 虽然不是很热门, 但它也是多平台支持, 并且有不错的图形界面。</p>
+<p>运行示例：</p>
+<p>rip-bzr.pl -v -u <a target="_blank" rel="noopener" href="http://www.example.com/.bzr/">http://www.example.com/.bzr/</a></p>
+<h3 id="6、网站备份压缩文件"><a href="#6、网站备份压缩文件" class="headerlink" title="6、网站备份压缩文件"></a>6、网站备份压缩文件</h3><p>管理员将网站源代码备份在Web目录下，攻击者通过猜解文件路径，下载备份文件，导致源代码泄露。<br>常见的备份文件后缀：<br>.rar<br>.zip<br>.7z<br>.tar.gz<br>.bak<br>.txt<br>.old<br>.temp<br>漏洞利用工具：御剑</p>
+<h3 id="7、WEB-INF-web-xml-泄露"><a href="#7、WEB-INF-web-xml-泄露" class="headerlink" title="7、WEB-INF/web.xml 泄露"></a>7、WEB-INF/web.xml 泄露</h3><p>WEB-INF是Java的WEB应用的安全目录，如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。</p>
+<p>WEB-INF 主要包含一下文件或目录：</p>
+<p>WEB-INF/web.xml : Web应用程序配置文件, 描述了servlet和其他的应用组件配置及命名规则.<br>WEB-INF/database.properties : 数据库配置文件<br>WEB-INF/classes/ : 一般用来存放Java类文件(.class)<br>WEB-INF/lib/ : 用来存放打包好的库(.jar)<br>WEB-INF/src/ : 用来放源代码(.asp和.php等)<br>通过找到 web.xml 文件，推断 class 文件的路径，最后直接 class 文件，再通过反编译 class 文件，得到网站源码。</p>
+<h3 id="8、DS-Store-文件泄露"><a href="#8、DS-Store-文件泄露" class="headerlink" title="8、DS_Store 文件泄露"></a>8、DS_Store 文件泄露</h3><p>.DS_Store是Mac下Finder用来保存如何展示 文件/文件夹 的数据文件，每个文件夹下对应一个。如果将.DS_Store上传部署到服务器，可能造成文件目录结构泄漏，特别是备份文件、源代码文件。</p>
+<p>漏洞利用工具：</p>
+<p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/lijiejie/ds_store_exp">https://github.com/lijiejie/ds_store_exp</a></p>
+<p>用法示例：</p>
+<p>ds_store_exp.py <a target="_blank" rel="noopener" href="http://hd.zj.qq.com/themes/galaxyw/.DS_Store">http://hd.zj.qq.com/themes/galaxyw/.DS_Store</a></p>
+<h3 id="9、SWP-文件泄露"><a href="#9、SWP-文件泄露" class="headerlink" title="9、SWP 文件泄露"></a>9、SWP 文件泄露</h3><p>swp即swap文件，在编辑文件时产生的临时文件，它是隐藏文件，如果程序正常退出，临时文件自动删除，如果意外退出就会保留，文件名为 .filename.swp。</p>
+<p>漏洞利用：直接访问.swp文件，下载回来后删掉末尾的.swp，获得源码文件。</p>
+<h3 id="10、GitHub源码泄漏"><a href="#10、GitHub源码泄漏" class="headerlink" title="10、GitHub源码泄漏"></a>10、GitHub源码泄漏</h3><p>GitHub是一个面向开源及私有软件项目的托管平台，很多人喜欢把自己的代码上传到平台托管。攻击者通过关键词进行搜索，可以找到关于目标站点的敏感信息，甚至可以下载网站源码。</p>
+<p>类似的代码托管平台还有很多，人才是最大的漏洞。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/search?q=smtp+user+@qq.com&amp;type=code">https://github.com/search?q=smtp+user+@qq.com&amp;type=code</a></p>
+<h2 id="转自bypass公众号"><a href="#转自bypass公众号" class="headerlink" title="转自bypass公众号"></a>转自bypass公众号</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
+              <a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag"># 信息泄露</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/06/%E5%88%87%E7%89%87%E7%88%AC%E8%99%AB%E8%84%9A%E6%9C%AC/" rel="prev" title="'利用切片爬取先知'">
+      <i class="fa fa-chevron-left"></i> '利用切片爬取先知'
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/13/LD_PRELOAD/" rel="next" title="'CTFhub LD_PRELOAD'">
+      'CTFhub LD_PRELOAD' <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Web%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E7%9A%84%E6%BC%8F%E6%B4%9E%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">Web源码泄露的漏洞：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81git%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-number">2.</span> <span class="nav-text">1、git源码泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81SVN-%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-number">3.</span> <span class="nav-text">2、SVN 源码泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81-hg%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">3、 hg源码泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81CVS%E6%B3%84%E9%9C%B2"><span class="nav-number">5.</span> <span class="nav-text">4、CVS泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81Bazaar-bzr%E6%B3%84%E9%9C%B2"><span class="nav-number">6.</span> <span class="nav-text">5、Bazaar&#x2F;bzr泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E7%BD%91%E7%AB%99%E5%A4%87%E4%BB%BD%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">6、网站备份压缩文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81WEB-INF-web-xml-%E6%B3%84%E9%9C%B2"><span class="nav-number">8.</span> <span class="nav-text">7、WEB-INF&#x2F;web.xml 泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81DS-Store-%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="nav-number">9.</span> <span class="nav-text">8、DS_Store 文件泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9%E3%80%81SWP-%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="nav-number">10.</span> <span class="nav-text">9、SWP 文件泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10%E3%80%81GitHub%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">10、GitHub源码泄漏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E8%87%AAbypass%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number"></span> <span class="nav-text">转自bypass公众号</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="素念"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">素念</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://wp.fmk.pub/" title="http:&#x2F;&#x2F;wp.fmk.pub&#x2F;" rel="noopener" target="_blank">Defender</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">素念</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
