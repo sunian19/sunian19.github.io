@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"sunian19.github.io","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="SSH协议一个普通的ssh远程连接命令ssh &amp;#114;&amp;#111;&amp;#111;&amp;#x74;&amp;#64;&amp;#49;&amp;#57;&amp;#50;&amp;#x2e;&amp;#49;&amp;#x36;&amp;#56;&amp;#x2e;&amp;#49;&amp;#46;&amp;#x31;">
+  <meta name="description" content="SSH协议一个普通的ssh远程连接命令ssh &amp;#114;&amp;#111;&amp;#111;&amp;#x74;&amp;#64;&amp;#x31;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#49;&amp;#x36;&amp;#x38;&amp;#x2e;&amp;#x31;&amp;#46;&amp;#x31;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&#39;应用层隧道技术&#39;">
 <meta property="og:url" content="https://sunian19.github.io/2020/03/31/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/index.html">
 <meta property="og:site_name" content="Sunian&#39;s Blog">
-<meta property="og:description" content="SSH协议一个普通的ssh远程连接命令ssh &amp;#114;&amp;#111;&amp;#111;&amp;#x74;&amp;#64;&amp;#49;&amp;#57;&amp;#50;&amp;#x2e;&amp;#49;&amp;#x36;&amp;#56;&amp;#x2e;&amp;#49;&amp;#46;&amp;#x31;">
+<meta property="og:description" content="SSH协议一个普通的ssh远程连接命令ssh &amp;#114;&amp;#111;&amp;#111;&amp;#x74;&amp;#64;&amp;#x31;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#49;&amp;#x36;&amp;#x38;&amp;#x2e;&amp;#x31;&amp;#46;&amp;#x31;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/p33.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/p34.png">
@@ -277,17 +277,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="SSH协议"><a href="#SSH协议" class="headerlink" title="SSH协议"></a>SSH协议</h2><p>一个普通的ssh远程连接命令<br>ssh <a href="mailto:&#114;&#111;&#111;&#x74;&#64;&#49;&#57;&#50;&#x2e;&#49;&#x36;&#56;&#x2e;&#49;&#46;&#x31;">&#114;&#111;&#111;&#x74;&#64;&#49;&#57;&#50;&#x2e;&#49;&#x36;&#56;&#x2e;&#49;&#46;&#x31;</a></p>
+        <h2 id="SSH协议"><a href="#SSH协议" class="headerlink" title="SSH协议"></a>SSH协议</h2><p>一个普通的ssh远程连接命令<br>ssh <a href="mailto:&#114;&#111;&#111;&#x74;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x31;&#46;&#x31;">&#114;&#111;&#111;&#x74;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x31;&#46;&#x31;</a></p>
 <a id="more"></a>
 <p>创建SSH隧道常用参数如下:<br>-C：压缩传输，提高传输速度<br>-f：将SSH传输转入后台执行，不占用当前的shell<br>-N：建立静默连接(建立了连接，但看不到具体的会话)<br>-g：允许远程主机连接本地用于转发的端口<br>-L：本地端口转发<br>-R：远程端口转发<br>-D：动态转发(SOCKS代理)<br>-P：指定SSH端口</p>
 <h3 id="1、本地转发"><a href="#1、本地转发" class="headerlink" title="1、本地转发"></a>1、本地转发</h3><blockquote>
-<p>kali(攻击机)执行，会要求输入跳板机密码<br>ssh -CfNg -L 1153(攻击机):1.1.1.10(目标机).3389(目标机) <a href="mailto:&#x72;&#111;&#111;&#x74;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#x2e;&#x31;&#46;&#x31;">&#x72;&#111;&#111;&#x74;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#x2e;&#x31;&#46;&#x31;</a>(跳板机)<br>netstat -tulnp | grep “1153” 查看端口<br>rdesktop 127.0.0.1:1153 进行连接<br>本地转发是将远程主机某个端口的数据转发到本地机器的指定端口。</p>
+<p>kali(攻击机)执行，会要求输入跳板机密码<br>ssh -CfNg -L 1153(攻击机):1.1.1.10(目标机).3389(目标机) <a href="mailto:&#x72;&#111;&#111;&#x74;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#56;&#x2e;&#49;&#46;&#49;">&#x72;&#111;&#111;&#x74;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#56;&#x2e;&#49;&#46;&#49;</a>(跳板机)<br>netstat -tulnp | grep “1153” 查看端口<br>rdesktop 127.0.0.1:1153 进行连接<br>本地转发是将远程主机某个端口的数据转发到本地机器的指定端口。</p>
 </blockquote>
 <h3 id="2、远程转发"><a href="#2、远程转发" class="headerlink" title="2、远程转发"></a>2、远程转发</h3><blockquote>
-<p>WEB服务器(跳板机)执行<br>ssh -CfNg -R 3307(攻击机):1.1.1.10(目标机):3389(目标机) <a href="mailto:&#114;&#111;&#111;&#116;&#x40;&#49;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#46;&#x31;&#x2e;&#52;">&#114;&#111;&#111;&#116;&#x40;&#49;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#46;&#x31;&#x2e;&#52;</a>(攻击机)<br>远程转发是在远程服务器上监听一个端口，所有访问远程服务器指定端口的数据都会通过SSH隧道传输到本地的对应端口。</p>
+<p>WEB服务器(跳板机)执行<br>ssh -CfNg -R 3307(攻击机):1.1.1.10(目标机):3389(目标机) <a href="mailto:&#114;&#x6f;&#111;&#x74;&#x40;&#49;&#57;&#50;&#46;&#49;&#54;&#x38;&#x2e;&#x31;&#x2e;&#x34;">&#114;&#x6f;&#111;&#x74;&#x40;&#49;&#57;&#50;&#46;&#49;&#54;&#x38;&#x2e;&#x31;&#x2e;&#x34;</a>(攻击机)<br>远程转发是在远程服务器上监听一个端口，所有访问远程服务器指定端口的数据都会通过SSH隧道传输到本地的对应端口。</p>
 </blockquote>
 <h3 id="3、动态转发"><a href="#3、动态转发" class="headerlink" title="3、动态转发"></a>3、动态转发</h3><blockquote>
-<p>kali(攻击机)执行命令，建立SOCKS 4/5代理通道<br>ssh -CfNg -D 7000 <a href="mailto:&#x72;&#111;&#111;&#116;&#64;&#49;&#x39;&#x32;&#x2e;&#49;&#x36;&#56;&#x2e;&#49;&#x2e;&#49;">&#x72;&#111;&#111;&#116;&#64;&#49;&#x39;&#x32;&#x2e;&#49;&#x36;&#56;&#x2e;&#49;&#x2e;&#49;</a>(WEB服务器)<br>配置SOCKS代理 127.0.0.1 7000<br>浏览器访问1.1.1.2(内网web服务器)即可看到web服务</p>
+<p>kali(攻击机)执行命令，建立SOCKS 4/5代理通道<br>ssh -CfNg -D 7000 <a href="mailto:&#x72;&#111;&#x6f;&#116;&#64;&#49;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#49;&#x2e;&#x31;">&#x72;&#111;&#x6f;&#116;&#64;&#49;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#49;&#x2e;&#x31;</a>(WEB服务器)<br>配置SOCKS代理 127.0.0.1 7000<br>浏览器访问1.1.1.2(内网web服务器)即可看到web服务</p>
 </blockquote>
 <h3 id="4、防御SSH隧道攻击的思路"><a href="#4、防御SSH隧道攻击的思路" class="headerlink" title="4、防御SSH隧道攻击的思路"></a>4、防御SSH隧道攻击的思路</h3><blockquote>
 <p>系统中配置SSH远程管理白名单，在ACL中限制只有指定IP地址才能访问SSH，以及设置系统完全使用带外管理等。如果没有足够的资源建立带外管理的网络结构，至少限制SSH远程登陆IP，并设置双向访问控制策略(从外到内，从内到外)。</p>
@@ -359,7 +359,7 @@
 <p>安装客户端<br>iodine -f -P suniana -M 200 vpn.sunian.top<br>PS：需要使用管理员权限启动</p>
 </blockquote>
 <p><img src="/imgss/a46.png"><br>-r：有时会自动切换为UDP通道，该命令强制使用DNS隧道(无论什么情况)<br>-M：指定上行主机名的大小。<br>-m：调节最大下行分片的大小。<br>-T：指定DNS请求类型。可选NULL、PRIVATE、TXT、SRV、CNAME、MX、A。<br>-O：指定数据编码规范。<br>-L：是否开启懒惰模式。<br>-I：指定请求与请求之间的时间间隔。<br><img src="/imgss/a48.png"><br>若出现”Connection setup complete,transmitting data”的提示信息，就代表DNS隧道已建立。</p>
-<p>(3)使用DNS隧道<br>因为处于同一个局域网中，只需直接访问服务端即可。例如，ssh <a href="mailto:&#x73;&#117;&#110;&#105;&#x61;&#110;&#x40;&#49;&#48;&#46;&#x30;&#x2e;&#x30;&#x2e;&#49;">&#x73;&#117;&#110;&#105;&#x61;&#110;&#x40;&#49;&#48;&#46;&#x30;&#x2e;&#x30;&#x2e;&#49;</a> 命令。<br><img src="/imgss/a49.png"></p>
+<p>(3)使用DNS隧道<br>因为处于同一个局域网中，只需直接访问服务端即可。例如，ssh <a href="mailto:&#115;&#x75;&#x6e;&#105;&#97;&#x6e;&#64;&#x31;&#x30;&#x2e;&#48;&#x2e;&#48;&#x2e;&#49;">&#115;&#x75;&#x6e;&#105;&#97;&#x6e;&#64;&#x31;&#x30;&#x2e;&#48;&#x2e;&#48;&#x2e;&#49;</a> 命令。<br><img src="/imgss/a49.png"></p>
 <h2 id="防御DNS隧道攻击"><a href="#防御DNS隧道攻击" class="headerlink" title="防御DNS隧道攻击"></a>防御DNS隧道攻击</h2><p>(1)、禁止网络中任何人向外部服务器发送DNS请求，只允许受信任的DNS服务器通信。<br>(2)、将邮件服务器/网关列入白名单并阻止传入和传出流量中的TXT请求。<br>(3)、跟踪用户的DNS查询次数。达到阈值，就生成相应的报告。<br>(4)、阻止ICMP。</p>
 
     </div>
@@ -509,6 +509,9 @@
         <li class="links-of-blogroll-item">
           <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
         </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
     </ul>
   </div>
 
@@ -529,7 +532,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
