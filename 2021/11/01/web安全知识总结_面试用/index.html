@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言：心态出了问题辞职了，想着把知识点复习一下，应对实习生面试应该是够了。 写出来主要是增加自己的印象，其次就是给新人用。我争取11月底写完。 涉及知识点如下 1、交换机与路由器 2、OSI七层 TCP&#x2F;IP四层 各种网络协议 3、信息搜集 常用waf绕过 4、常见web漏洞：SQL注入、XSS、CSRF、文件上传、文件包含LFI RFI、命令执行、代码执行、SSRF、XXE、jsonp、cors">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;web安全知识总结_面试用&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2021/11/01/web%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93_%E9%9D%A2%E8%AF%95%E7%94%A8/index.html">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="前言：心态出了问题辞职了，想着把知识点复习一下，应对实习生面试应该是够了。 写出来主要是增加自己的印象，其次就是给新人用。我争取11月底写完。 涉及知识点如下 1、交换机与路由器 2、OSI七层 TCP&#x2F;IP四层 各种网络协议 3、信息搜集 常用waf绕过 4、常见web漏洞：SQL注入、XSS、CSRF、文件上传、文件包含LFI RFI、命令执行、代码执行、SSRF、XXE、jsonp、cors">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n1.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n1.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n2.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n3.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n4.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n5.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n6.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n7.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n8.png">
+<meta property="article:published_time" content="2021-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-07T03:05:18.000Z">
+<meta property="article:author" content="zer0_c|imb">
+<meta property="article:tag" content="面试题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/n1.jpg">
+
+
+<link rel="canonical" href="https://sunian19.github.io/2021/11/01/web%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93_%E9%9D%A2%E8%AF%95%E7%94%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2021/11/01/web%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93_%E9%9D%A2%E8%AF%95%E7%94%A8/","path":"2021/11/01/web安全知识总结_面试用/","title":"'web安全知识总结_面试用'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'web安全知识总结_面试用' | zer0_c|imb's blog</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#di-yi-jie"><span class="nav-number">1.</span> <span class="nav-text">第一节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jiao-huan-ji"><span class="nav-number">1.1.</span> <span class="nav-text">交换机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jiao-huan-ji-yuan-li-yu-pei-zhi"><span class="nav-number">1.1.1.</span> <span class="nav-text">交换机原理与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yi-tai-wang-zheng-jie-gou"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">以太网帧结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ethernet-ii-zheng-ge-shi"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">Ethernet II帧格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ieee-802-3-zheng-ge-shi-jin-zuo-liao-jie"><span class="nav-number">1.1.1.1.2.</span> <span class="nav-text">IEEE 802.3帧格式(仅作了解)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jiao-huan-ji-gong-zuo-yuan-li"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">交换机工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jiao-huan-ji-zhuan-fa-shu-ju-guo-cheng"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">交换机转发数据过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lu-you-qi"><span class="nav-number">1.2.</span> <span class="nav-text">路由器</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2021/11/01/web%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93_%E9%9D%A2%E8%AF%95%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'web安全知识总结_面试用'
+        </h1>
+
+
+        <div class="post-meta">
+        
+           <i class=""></i>
+           <font color="#1fa67a"><strong>⬆置顶</strong></font>
+           <span class="post-meta-divider">|</span>
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-01 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-01T00:00:00+08:00">2021-11-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-07 11:05:18" itemprop="dateModified" datetime="2022-02-07T11:05:18+08:00">2022-02-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>前言：心态出了问题辞职了，想着把知识点复习一下，应对实习生面试应该是够了。<br>
+写出来主要是增加自己的印象，其次就是给新人用。我争取11月底写完。</p>
+<p>涉及知识点如下<br>
+1、交换机与路由器<br>
+2、OSI七层 TCP/IP四层 各种网络协议<br>
+3、信息搜集 常用waf绕过<br>
+4、常见web漏洞：SQL注入、XSS、CSRF、文件上传、文件包含LFI RFI、命令执行、代码执行、SSRF、XXE、jsonp、cors、逻辑漏洞、反序列化、未授权类<br>
+5、日志审计：windows linux 中间件 数据库<br>
+6、云函数的使用<br>
+7、系统提权，数据库提权，第三方软件提权，提权UAC保护绕过<br>
+8、windows与linux权限维持<br>
+9、内网信息搜集、LM hash与NTLM hash中继攻击、Kerberos体系委派攻击、pth ptk ptt传递攻击、windows远程命令执行<br>
+10、不出网类<br>
+11、扩展：docker逃逸(单独再开一篇文章)</p>
+<a id="more"></a>
+<p><img src="/imgss/n1.jpg" alt=""></p>
+<h1 id="di-yi-jie">第一节</h1>
+<h2 id="jiao-huan-ji" id="交换机">交换机</h2>
+<p>按照交换机是否可管理：可把交换机分为可管理型交换机和不可管理型交换机，它们的区别在于对SNMP、RMON等网管协议的支持。可管理型交换机便于网络监控、流量分析，但成本也相对较高。有大中型网络在汇聚层应该选择可管理型交换机，在接入层视应用需要而定，核心层交换机则全部是可管理型交换机。<br>
+<img src="/imgss/n1.png" alt=""></p>
+<p>交换机里面有 ARP (地址解析协议) 缓存表：根据 IP 地址获取物理地址的 TCP/IP 协议。里面存放了 IP 地址、MAC 地址。**在以太网环境下，同一个网段的主机之间需要知道对方的MAC地址，才能进行通信。**主机发送信息时将包含 IP 地址的 ARP 请求广播到局域网上的所有主机，并接受返回消息，以此来确定目标的物理地址，收到返回消息后将该 IP 地址和物理地址存入本机 ARP 缓存中并保留一段时间，下次请求时直接查询 ARP 表以节约资源。</p>
+<h3 id="jiao-huan-ji-yuan-li-yu-pei-zhi" id="交换机原理与配置">交换机原理与配置</h3>
+<h4 id="yi-tai-wang-zheng-jie-gou" id="以太网帧结构">以太网帧结构</h4>
+<p>以太网上使用两种标准帧格式。Ethernet II帧格式 和 IEEE 802.3帧格式。<br>
+<img src="/imgss/n2.png" alt=""><br>
+这两种格式的主要区别在于Ethernet II格式中包含一个Type字段，标识以太帧处理完成之后将被发送到上层协议(由type字段判断是哪个上层协议)进行处理，IEEE 802.3格式中，同样的位置是Length字段。<br>
+可以利用Type字段值来区分两种帧的类型：当字段值&gt;=1536时为Ethernet II格式，当字段值&lt;=1500时为IEEE 802.3格式。<strong>大多数使用Ethernet II格式。</strong></p>
+<h5 id="ethernet-ii-zheng-ge-shi" id="Ethernet-II帧格式">Ethernet II帧格式</h5>
+<p>Ethernet_II 帧类型值大于等于1536 (0x0600)，以太网数据帧的长度在64-1518字节之间。<br>
+<img src="/imgss/n3.png" alt=""><br>
+<img src="/imgss/n4.png" alt=""><br>
+流程：主机检查帧头中的目的MAC地址，如果目的MAC地址不是本机MAC地址，也不是本机侦听的组播或广播MAC地址，则主机会丢弃收到的帧。<br>
+如果目的MAC地址是本机MAC地址，则接收该帧，检查帧校验序列（FCS）字段，并与本机计算的值对比来确定帧在传输过程中是否保持了完整性。如果检查通过，就会剥离帧头和帧尾，然后根据帧头中的Type字段来决定把数据发送到哪个上层协议进行后续处理。</p>
+<h5 id="ieee-802-3-zheng-ge-shi-jin-zuo-liao-jie" id="IEEE-802-3帧格式-仅作了解">IEEE 802.3帧格式(仅作了解)</h5>
+<p>IEEE802.3帧长度字段值小于等于1500 (0x05DC)<br>
+<img src="/imgss/n5.png" alt=""><br>
+IEEE802.3帧格式类似于Ethernet_II帧，只是Ethernet_II帧的Type域被802.3帧的Length域取代，并且占用了Data字段的8个字节作为LLC和SNAP字段。Length字段定义了Data字段包含的字节数。</p>
+<p>逻辑链路控制LLC：由目的服务访问点DSAP（Destination Service Access Point）、源服务访问点SSAP（Source Service Access Point）和Control字段组成。<br>
+(1)、<strong>DSAP 字段</strong><br>
+目的服务接入点(DSAP)标识LPDU的目标SAP。DSAP由六个地址位、一个用户位(U)和一个个人/组(I/G)位组成，如下所示：</p>
+<blockquote>
+<p>D-D-D-D-D-D-D-I/G</p>
+</blockquote>
+<p>U位表示地址是由IEEE(1)定义还是由用户定义(0)。 I/G位指示SAP是组地址(1)还是单个地址(0)。 这里只需要理解<code>DSAP是LPDU的目的地</code>即可。<br>
+(2)、<strong>SSAP 字段</strong><br>
+源服务接入点(SSAP)标识发起LPDU的SAP。SSAP由六个地址位、一个用户位(U)和一个命令/响应(C/R)位组成，如下所示：</p>
+<blockquote>
+<p>S-S-S-S-S-S-U-C/R</p>
+</blockquote>
+<p>U位表示地址是由IEEE(1)定义还是由用户定义(0)。 C/R位指示LPDU是命令还是响应。收到LPDU帧时，C/R位不被视为SSAP的一部分。因此，SSAP通常仅被视为最左侧的七位。<br>
+(3)、<strong>控制字段</strong><br>
+LPDU控制字段包含命令、响应和序列号信息。</p>
+<blockquote>
+<p>X-X-X-X-X-X-X-0 = I Frame I帧<br>
+X-X-X-X-X-X-0-1 = Supervisory Frame 监督帧<br>
+X-X-X-X-X-X-1-1 = Unnumbered frame 未编号帧</p>
+</blockquote>
+<p>SNAP：由机构代码（Org Code）和类型（Type）字段组成。<br>
+由机构代码（Org Code）和类型（Type）字段组成。Org Code三个字节都为0。Type字段的含义与Ethernet_II帧中的Type字段相同。</p>
+<p><strong>IEEE802.3帧根据DSAP和SSAP字段的取值，又可以分为以下几类：</strong><br>
+1：当DSAP和SSAP都取特定值0xff时，802.3帧就变成了Netware-ETHERNET帧，用来承载NetWare类型的数据<br>
+2：当DSAP和SSAP都取特定值0xaa时，802.3帧就变成了ETHERNET_SNAP帧。此帧可以用于传输多种协议。<br>
+3：DSAP和SSAP其他的取值均为纯IEEE802.3帧</p>
+<h4 id="jiao-huan-ji-gong-zuo-yuan-li" id="交换机工作原理">交换机工作原理</h4>
+<p>广播：又称为泛洪，即为一对多的形式发送数据<br>
+单播：一对一的形式发送数据<br>
+<img src="/imgss/n6.png" alt=""><br>
+交换机的mac地址表默认老化时间为300秒，其arp缓存表默认老化时间为1200秒。<br>
+终端第一次发送经过交换机的报文（无论是何种报文），交换机就会学习到其mac地址，直到老化时间结束再重新学习。当交换机的某一端口down关闭时，交换机会立刻从mac地址表中删除其mac和对应端口，直到其重新连接并发出经过交换机的报文，交换机会重新学习其mac。</p>
+<h4 id="jiao-huan-ji-zhuan-fa-shu-ju-guo-cheng" id="交换机转发数据过程">交换机转发数据过程</h4>
+<p><img src="/imgss/n7.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>交换机操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>转发</td>
+<td>交换机根据mac地址表<strong>单播</strong>转发数据帧</td>
+</tr>
+<tr>
+<td>学习</td>
+<td>mac地址表是交换机通过学习接收的数据帧的源mac地址形成的</td>
+</tr>
+<tr>
+<td>广播</td>
+<td>如果目标地址在mac表中不存在，交换机就向除接收到该数据帧的端口外的<strong>其他所有端口广播</strong>该数据帧</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>交换机mac地址表老化时间是300秒。 交换机如果发现一个帧的入端口和mac地址表中源mac地址的所在端口不同，交换机将mac地址重新学习到新的端口</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lu-you-qi" id="路由器">路由器</h2>
+<p>路由：从源主机到目标主机，对数据包选择路径的过程(简述：选择优先路径 转发数据包)。比如 你想去图书馆，不知道怎么走，你去问路，别人告诉你先坐地铁，再怎么走才会到，类比到网络中，你去的图书馆就是要到达的IP地址，怎么走就是路由需要做的工作。<br>
+<img src="/imgss/n8.png" alt=""><br>
+路由器里面的路由表：主要包含三个元素，目的网络地址(Destination)、掩码(Mask)、下一跳地址(网关Gateway)，功能是路由寻址，对不同的网络之间的数据包进行储存、分组转发处理。是连接两个或多个网络的硬件设备，在网络间起到网关的作用，分析不同类型网络传来的数据包的目的地址，把非TCP/IP网络的地址转换为TCP/IP地址，或者反之；根据选定的路由算法把各数据包按最佳路线传送到指定位置。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"># 面试题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/29/%E5%86%85%E7%BD%91%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E5%AF%BC%E8%88%AA/" rel="prev" title="'内网系列文章导航'">
+                  <i class="fa fa-chevron-left"></i> '内网系列文章导航'
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/12/UCMS%20v.1.4.8%20Command%20execution/" rel="next" title="'UCMS v.1.4.8 Command execution'">
+                  'UCMS v.1.4.8 Command execution' <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

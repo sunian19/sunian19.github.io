@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="hello，师傅们好，我是c|imb，你也可以叫我爪巴，距离我上一次写文章还是在上次。 事情是这样的，最近想搞个上线提醒脚本，虽然现在网上有几个现成的(https:&#x2F;&#x2F;github.com&#x2F;sry309&#x2F;cobalt_strike_bot.git )，但感觉微信消息太多，email和tg不常看，所以只剩下钉钉可以用一下。后来我又看到了 某个师傅写了cs-sms-send短信消息提醒，嗯，能搞。话不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;CobaltStrike上线提醒篇&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2021/11/12/CobaltStrike%E4%B8%8A%E7%BA%BF%E6%8F%90%E9%86%92%E7%AF%87/index.html">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="hello，师傅们好，我是c|imb，你也可以叫我爪巴，距离我上一次写文章还是在上次。 事情是这样的，最近想搞个上线提醒脚本，虽然现在网上有几个现成的(https:&#x2F;&#x2F;github.com&#x2F;sry309&#x2F;cobalt_strike_bot.git )，但感觉微信消息太多，email和tg不常看，所以只剩下钉钉可以用一下。后来我又看到了 某个师傅写了cs-sms-send短信消息提醒，嗯，能搞。话不">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n9.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n10.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n11.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n12.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n13.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n14.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n15.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n16.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n20.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n21.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n22.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n23.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n24.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n25.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n26.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n27.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n28.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n29.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n17.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n18.jpg">
+<meta property="og:image" content="https://sunian19.github.io/imgss/n19.jpg">
+<meta property="article:published_time" content="2021-11-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-29T02:38:10.774Z">
+<meta property="article:author" content="zer0_c|imb">
+<meta property="article:tag" content="CobaltStrike">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/n9.png">
+
+
+<link rel="canonical" href="https://sunian19.github.io/2021/11/12/CobaltStrike%E4%B8%8A%E7%BA%BF%E6%8F%90%E9%86%92%E7%AF%87/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2021/11/12/CobaltStrike%E4%B8%8A%E7%BA%BF%E6%8F%90%E9%86%92%E7%AF%87/","path":"2021/11/12/CobaltStrike上线提醒篇/","title":"'CobaltStrike上线提醒篇'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'CobaltStrike上线提醒篇' | zer0_c|imb's blog</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ding-ding-shang-xian-ti-xing"><span class="nav-number">1.</span> <span class="nav-text">钉钉上线提醒</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ding-ding-jian-ge-xin-qun"><span class="nav-number">1.0.1.</span> <span class="nav-text">钉钉建个新群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chuang-jian-ge-zi-ding-yi-ji-qi-ren"><span class="nav-number">1.0.2.</span> <span class="nav-text">创建个自定义机器人</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cna-jiao-ben"><span class="nav-number">1.0.3.</span> <span class="nav-text">cna脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#py-jiao-ben"><span class="nav-number">1.0.4.</span> <span class="nav-text">py脚本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#duan-xin-shang-xian-ti-xing"><span class="nav-number">2.</span> <span class="nav-text">短信上线提醒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#piao-liang-mao"><span class="nav-number">3.</span> <span class="nav-text">漂亮猫</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2021/11/12/CobaltStrike%E4%B8%8A%E7%BA%BF%E6%8F%90%E9%86%92%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'CobaltStrike上线提醒篇'
+        </h1>
+
+
+        <div class="post-meta">
+        
+           <i class=""></i>
+           <font color="#1fa67a"><strong>⬆置顶</strong></font>
+           <span class="post-meta-divider">|</span>
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-12 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-12T00:00:00+08:00">2021-11-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-09-29 10:38:10" itemprop="dateModified" datetime="2022-09-29T10:38:10+08:00">2022-09-29</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CobaltStrike/" itemprop="url" rel="index"><span itemprop="name">CobaltStrike</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>hello，师傅们好，我是c|imb，你也可以叫我爪巴，距离我上一次写文章还是在上次。<br>
+事情是这样的，最近想搞个上线提醒脚本，虽然现在网上有几个现成的(<a target="_blank" rel="noopener" href="https://github.com/sry309/cobalt_strike_bot.git">https://github.com/sry309/cobalt_strike_bot.git</a> )，但感觉微信消息太多，email和tg不常看，所以只剩下钉钉可以用一下。后来我又看到了<br>
+某个师傅写了cs-sms-send短信消息提醒，嗯，能搞。话不多说，直接开冲。</p>
+<a id="more"></a>
+<p><img src="/imgss/n9.png" alt=""></p>
+<h2 id="ding-ding-shang-xian-ti-xing" id="钉钉上线提醒">钉钉上线提醒</h2>
+<p>想直接偷懒用该脚本来着<br>
+<img src="/imgss/n10.png" alt=""><br>
+发现不太行，算了，放弃了，开车回家睡觉。(周少19年买的车.jpg) 划掉此条，我在吹牛<br>
+<img src="/imgss/n11.jpg" alt=""><br>
+学汽修的男生岂能轻言放弃！<br>
+<img src="/imgss/n12.jpg" alt=""><br>
+于是我找到了一个项目(忘记地址了)，原理就是CobaltStrike cna插件脚本检测到上线后调用python发包</p>
+<h4 id="ding-ding-jian-ge-xin-qun" id="钉钉建个新群">钉钉建个新群</h4>
+<p>发起群聊—&gt; 同学群 —&gt; 随便起个名CS_bot 创建即可<br>
+电脑端貌似不能自己一个人建群，必须要添加个人。(也可能是我没找到)我这里是用手机创建的。<br>
+<img src="/imgss/n13.jpg" alt=""></p>
+<h4 id="chuang-jian-ge-zi-ding-yi-ji-qi-ren" id="创建个自定义机器人">创建个自定义机器人</h4>
+<p>创建机器人需要电脑端才行。否则就会如下情况<br>
+<img src="/imgss/n14.jpg" alt=""><br>
+群设置 —&gt; 智能群助手 —&gt; 添加机器人 —&gt; 自定义机器人<br>
+起个名，设置关键词，想设置CobaltStrike的，发现有长度限制，算了，就这样吧<br>
+<img src="/imgss/n15.png" alt=""><br>
+生成一个access_token记一下<br>
+<img src="/imgss/n16.png" alt=""></p>
+<h4 id="cna-jiao-ben" id="cna脚本">cna脚本</h4>
+<p>大致构想就是：检测IP、计算机名、用户名；检测到新会话，就运行一遍写好的脚本。<br>
+看了下官方文档，嗯，懂了。<br>
+Reacting to new Beacons<br>
+beacon_initial函数：对新Beacons做出反应。<br>
+提示：如果要DNS Beacon，则使用beacon_initial_empty函数。<br>
+我这里使用的是https Beacon，所以无所谓。<br>
+beacon_info函数：从Beacon session’s会话中获取元数据(字段)信息。跟awk差不多。<br>
+(last | awk ‘{print $3}’) awk是指定第几行的字段，而beacon_info是可以直接第二个参数指定元数据。如图所示<br>
+<img src="/imgss/n20.png" alt=""></p>
+<p>最终经过修改，代码如下<br>
+当有主机上线时，获取我们需要的参数，将参数发给py脚本，py脚本再执行将参数发送给钉钉</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">on beacon_initial &#123;</span><br><span class="line">    println(&quot;Initial Beacon Checkin: &quot; . $1 . &quot; PID: &quot; . beacon_info($1,&quot;pid&quot;));</span><br><span class="line">    local(&#39;$internalIP $computerName $userName&#39;);</span><br><span class="line">    $internalIP &#x3D; replace(beacon_info($1,&quot;internal&quot;),&quot; &quot;,&quot;_&quot;);</span><br><span class="line">    $computerName &#x3D; replace(beacon_info($1,&quot;computer&quot;),&quot; &quot;,&quot;_&quot;);</span><br><span class="line">    $userName &#x3D; replace(beacon_info($1,&quot;user&quot;),&quot; &quot;,&quot;_&quot;);</span><br><span class="line">    $cmd &#x3D; &#39;python3 &#x2F;root&#x2F;cob4.1&#x2F;cs_dingding_request.py --computername &#39; . $computerName . &quot; --internalip &quot; . $internalIP . &quot; --username &quot; . $userName;</span><br><span class="line"></span><br><span class="line">    println(&quot;Sending dingding Notification: &quot; . $cmd);</span><br><span class="line">    exec($cmd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="py-jiao-ben" id="py脚本">py脚本</h4>
+<p>py这里就是个简单的发送请求的脚本<br>
+接收参数的值，消息类型选择为text，使用isAtAll@所有人，也可以指定用户或手机号，发送给机器人接口<br>
+参考文档：钉钉官方机器人开发https://open.dingtalk.com/document/group/custom-robot-access</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PY"><figure class="iseeu highlight /py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">&#x27;Beacon Info&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--computername&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--internalip&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--username&#x27;</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line">computername = args.computername</span><br><span class="line">internalip = args.internalip</span><br><span class="line">username = args.username</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">msg</span>(<span class="params">text</span>):</span></span><br><span class="line">    json_text = &#123;</span><br><span class="line">        <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;text&quot;</span>,</span><br><span class="line">        <span class="string">&quot;at&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;isAtAll&quot;</span>: <span class="literal">True</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;text&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;content&quot;</span>: text</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(requests.post(api_url, json.dumps(json_text), headers=headers).content)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    token =<span class="string">&quot;这里为钉钉bot_token&quot;</span></span><br><span class="line">    text = <span class="string">&quot;CobaltStrike主机上线提醒+1\n计算机名: &quot;</span>+computername+<span class="string">&quot;\nIP地址: &quot;</span>+internalip+<span class="string">&quot;\n用户名: &quot;</span>+username+<span class="string">&quot;.&quot;</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json;charset=utf-8&#x27;</span>&#125;</span><br><span class="line">    api_url = <span class="string">&quot;https://oapi.dingtalk.com/robot/send?access_token=%s&quot;</span> % token</span><br><span class="line">    msg(text)</span><br></pre></td></tr></table></figure></div>
+<p>启动cs</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;teamserver IP地址 密码 .profele(没有可以不用)</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/n21.png" alt=""><br>
+启动cna</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;agscript IP地址 端口 robot(随便写这是用户) 密码 dingding.cna</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/n22.png" alt=""><br>
+最终发送给钉钉的聊天群<br>
+<img src="/imgss/n23.png" alt=""></p>
+<p>如果有手表，可以对手表进行设置(以华为为例)<br>
+运动健康APP，选择华为手表，点击“消息通知”，选择钉钉 即可<br>
+<img src="/imgss/n24.png" alt=""><br>
+<img src="/imgss/n25.jpg" alt=""></p>
+<h2 id="duan-xin-shang-xian-ti-xing" id="短信上线提醒">短信上线提醒</h2>
+<p>思路：和刚才钉钉上线提醒一样，CS cna脚本判断是否有新主机，如果有新主机上线，则调用cna脚本，启动python调用腾讯云短信API发送短信，若没有，则cna的beacon_initial继续判断。</p>
+<p>1、申请腾讯云短信服务<br>
+腾讯云的短信API每个账户前100条免费。<br>
+使用腾讯云的短信API需要一个公众号，服务号，企业号或者小程序。<br>
+我这里使用的公众号进行的申请。<br>
+(1)按照要求先创建签名<br>
+<img src="/imgss/n26.png" alt=""><br>
+(2)然后创建模板<br>
+<img src="/imgss/n27.png" alt=""><br>
+模板内容如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">设备：&#123;1&#125; </span><br><span class="line">用户名：&#123;2&#125; </span><br><span class="line">计算机名：&#123;3&#125; </span><br><span class="line">IP地址：&#123;4&#125; </span><br><span class="line">已上线</span><br></pre></td></tr></table></figure></div>
+<p>(3)获取SDKAppID 和 AppKey<br>
+在短信控制台的应用信息里获取这两个值。<br>
+<img src="/imgss/n28.png" alt=""></p>
+<p>2、接下来配置SDK<br>
+pip install qcloudsms_py</p>
+<p>准备必要参数</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">appid &#x3D; 14000xxxxx</span><br><span class="line">appkey &#x3D; &quot;4fcd263d315340bf57xxxxxxxxxxxxxx&quot;</span><br><span class="line">phone_numbers &#x3D; [&quot;152xxxxxxx&quot;, &quot;181xxxxxxxx&quot;] #手机号可以添加多个</span><br><span class="line">template_id &#x3D; 74039 #模板ID，在自己的控制台能够看到 </span><br><span class="line">sms_sign &#x3D; &#39;你自己的签名名称&#39;</span><br></pre></td></tr></table></figure></div>
+<p>这里有点坑，本以为不需要sms_sign这个参数，一直报错“签名格式错误或者签名未审批”，最后还是把他加了回来，并且他会验证，不能随便填写。</p>
+<p>最终脚本如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PY"><figure class="iseeu highlight /py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> qcloudsms_py <span class="keyword">import</span> SmsSingleSender</span><br><span class="line"><span class="keyword">from</span> qcloudsms_py.httpclient <span class="keyword">import</span> HTTPError</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">&#x27;Beacon Info&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--computername&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--internalip&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--username&#x27;</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line">computername = args.computername</span><br><span class="line">internalip = args.internalip[<span class="number">0</span>: <span class="number">10</span>]</span><br><span class="line">username = args.username</span><br><span class="line"></span><br><span class="line">appid = 1400XXXXXX</span><br><span class="line">appkey = <span class="string">&quot;3d3d5XXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span></span><br><span class="line">phone_numbers = [<span class="string">&quot;180XXXXXXX&quot;</span>, <span class="string">&quot;180XXXXXX&quot;</span>] <span class="comment">#手机号可以添加多个多个</span></span><br><span class="line">template_id = XXXXX</span><br><span class="line">sms_sign = <span class="string">&#x27;XXXX公众号&#x27;</span></span><br><span class="line"></span><br><span class="line">ssender = SmsSingleSender(appid, appkey)</span><br><span class="line"><span class="comment">#单条发送，所以参数phone_numbers[0]，想群发自行更改成“SmsMultiSender”</span></span><br><span class="line">params = [<span class="string">&quot;win&quot;</span>, username, computername, internalip]  </span><br><span class="line"><span class="comment">#固定win，因为在第一行不换行，不咋好看</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    result = ssender.send_with_param(<span class="number">86</span>, phone_numbers[<span class="number">0</span>], template_id, params, sign=sms_sign)</span><br><span class="line"><span class="keyword">except</span> HTTPError <span class="keyword">as</span> e:</span><br><span class="line">    response = &#123;<span class="string">&#x27;result&#x27;</span>: <span class="number">1000</span>, <span class="string">&#x27;errmsg&#x27;</span>: <span class="string">&quot;网络异常发送失败&quot;</span>&#125;</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure></div>
+<p>还有一个坑，IP发不过来，模板参数长度限制，每个参数最大只能12<br>
+而一个IP占用14。所以我这里IP是去掉了最后3位。(有点无奈)<br>
+如果想要去掉长度限制，需申请企业服务。</p>
+<p>最后cna脚本则直接将cs_dingding_request.py改为短信的py脚本即可<br>
+看了一眼，阿里云也可以用短信服务，不过要花钱。总体来说算是个思路吧。</p>
+<p>参考文档<br>
+<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/382/37745">https://cloud.tencent.com/document/product/382/37745</a></p>
+<p>最终效果如下：<br>
+<img src="/imgss/n29.png" alt=""><br>
+?url=<br>
+小tips：<br>
+以小米手机为例，如果短信被拦截，可以在&quot;设置&quot;–&gt;“骚扰拦截”–&gt;“短信拦截&quot;中设置&quot;关键词白名单”，以防短信被吃<br>
+<a target="_blank" rel="noopener" href="http://0.0.0.0:3000/search?url=http://10.244.80.2:8080/">http://0.0.0.0:3000/search?url=http://10.244.80.2:8080/</a></p>
+<h2 id="piao-liang-mao" id="漂亮猫">漂亮猫</h2>
+<p>我会有猫的！！！<br>
+<img src="/imgss/n17.jpg" alt=""><br>
+<img src="/imgss/n18.jpg" alt=""><br>
+<img src="/imgss/n19.jpg" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CobaltStrike/" rel="tag"># CobaltStrike</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/12/UCMS%20v.1.4.8%20Command%20execution/" rel="prev" title="'UCMS v.1.4.8 Command execution'">
+                  <i class="fa fa-chevron-left"></i> 'UCMS v.1.4.8 Command execution'
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/29/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97%E5%AF%BC%E8%88%AA/" rel="next" title="'java安全系列导航'">
+                  'java安全系列导航' <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

