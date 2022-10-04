@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -265,10 +265,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-09-29 00:00:00 / 修改时间：10:53:21" itemprop="dateCreated datePublished" datetime="2022-09-29T00:00:00+08:00">2022-09-29</time>
+      <time title="创建时间：2022-09-29 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-29T00:00:00+08:00">2022-09-29</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-09-30 21:10:00" itemprop="dateModified" datetime="2022-09-30T21:10:00+08:00">2022-09-30</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -292,7 +298,7 @@
     <div class="post-body" itemprop="articleBody">
           <h3 id="java-an-quan-xi-lie-dao-hang" id="java安全系列导航：">java安全系列导航：</h3>
 <p><a href="">java反序列化-基础</a><br>
-<a href="">java反序列化-URLDNS</a></p>
+<a href="">Java反序列化-URLDNS</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/09/29/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97%E5%AF%BC%E8%88%AA/#more" rel="contents">
@@ -1106,7 +1112,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/09/18/UCMS%20v1.5.0%20Arbitrary%20file%20upload%20vulnerability/">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/09/30/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-URLDNS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/imgss/touxiang.jpg">
@@ -1119,7 +1125,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/09/18/UCMS%20v1.5.0%20Arbitrary%20file%20upload%20vulnerability/" class="post-title-link" itemprop="url">未命名</a>
+          <a href="/2022/09/30/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-URLDNS/" class="post-title-link" itemprop="url">'Java反序列化-URLDNS'</a>
         </h2>
 
 
@@ -1132,15 +1138,24 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-09-18 16:49:16" itemprop="dateCreated datePublished" datetime="2020-09-18T16:49:16+08:00">2020-09-18</time>
+      <time title="创建时间：2022-09-30 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-30T00:00:00+08:00">2022-09-30</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-11-01 20:58:50" itemprop="dateModified" datetime="2021-11-01T20:58:50+08:00">2021-11-01</time>
+        <time title="修改时间：2022-10-04 17:04:16" itemprop="dateModified" datetime="2022-10-04T17:04:16+08:00">2022-10-04</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -1153,22 +1168,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="ucms-v-1-5-0-arbitrary-file-upload-vulnerability">UCMS v1.5.0 Arbitrary file upload vulnerability</h1>
-<h2 id="vulnerability-type" id="Vulnerability-Type">Vulnerability Type :</h2>
-<p>File upload</p>
-<h2 id="vulnerability-version" id="Vulnerability-Version">Vulnerability Version :</h2>
-<p>1.5.0</p>
-<h2 id="recurring-environment" id="Recurring-environment">Recurring environment:</h2>
+          <h3 id="yi-fan-xu-lie-hua-de-xiang-fa" id="一、反序列化的想法">一、反序列化的想法</h3>
+<p>readObject中的代码会自动执行，给予攻击者在服务器上运行代码的能力。</p>
 <ul>
-<li>Windows 10</li>
-<li>PHP 5.4.5</li>
-<li>Apache 2.4.23</li>
+<li>
+<p>1、直接通过入口类的readObject直接调用危险方法。</p>
+</li>
+<li>
+<p>2、入口类参数包含可控类，该类有危险方法。</p>
+</li>
+<li>
+<p>3、继续套娃，入口类包含可控类，该类有调用其他有危险方法的类，readObject时调用。</p>
+</li>
 </ul>
-<h2 id="vulnerability-description-and-recurrence" id="Vulnerability-Description-AND-recurrence">Vulnerability Description AND recurrence:</h2>
-<p>The upload bug is very simple</p>
+<p>pojo类中添加代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream ois)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">    ois.defaultReadObject();</span><br><span class="line">    Runtime.getRuntime().exec(<span class="string">&quot;calc&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>流程：正常进行序列化与反序列化，调用readObject，ObjectInputStream输入流，读取defaultReadObject对象。执行calc命令。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/18/UCMS%20v1.5.0%20Arbitrary%20file%20upload%20vulnerability/#more" rel="contents">
+              <a class="btn" href="/2022/09/30/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-URLDNS/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
