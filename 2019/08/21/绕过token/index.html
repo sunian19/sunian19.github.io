@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -48,8 +48,8 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/82.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/83.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/84.png">
-<meta property="article:published_time" content="2019-08-21T13:50:12.000Z">
-<meta property="article:modified_time" content="2020-04-06T06:08:46.000Z">
+<meta property="article:published_time" content="2019-08-22T04:50:12.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:00.156Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="基础知识">
 <meta property="article:tag" content="靶场">
@@ -172,7 +172,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#shi-yong-hong-rao-guo-csrf-token-yan-zheng"><span class="nav-number">1.</span> <span class="nav-text">使用宏绕过CSRF TOKEN验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lu-zhi-hong"><span class="nav-number">2.</span> <span class="nav-text">录制宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#di-er-chong-fang-fa"><span class="nav-number">3.</span> <span class="nav-text">第二种方法</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%8F%E7%BB%95%E8%BF%87CSRF-TOKEN%E9%AA%8C%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">使用宏绕过CSRF TOKEN验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%95%E5%88%B6%E5%AE%8F"><span class="nav-number">2.</span> <span class="nav-text">录制宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">第二种方法</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -187,7 +187,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -198,7 +198,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -290,14 +290,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-21 21:50:12" itemprop="dateCreated datePublished" datetime="2019-08-21T21:50:12+08:00">2019-08-21</time>
+      <time title="创建时间：2019-08-21 21:50:12" itemprop="dateCreated datePublished" datetime="2019-08-21T21:50:12-07:00">2019-08-21</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-04-06 14:08:46" itemprop="dateModified" datetime="2020-04-06T14:08:46+08:00">2020-04-06</time>
+        <time title="修改时间：2024-01-18 08:56:00" itemprop="dateModified" datetime="2024-01-18T08:56:00-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -327,17 +327,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="shi-yong-hong-rao-guo-csrf-token-yan-zheng" id="使用宏绕过CSRF-TOKEN验证">使用宏绕过CSRF TOKEN验证</h3>
+        <h3 id="使用宏绕过CSRF-TOKEN验证">使用宏绕过CSRF TOKEN验证</h3>
 <p>1，先将DVWA的security调为high<br>
 2，选取CSRF输入密码，然后抓包</p>
-<a id="more"></a>
+<span id="more"></span>
 <p><img src="/imgss/64.png" alt=""><br>
 3，发包到Repeater模块<br>
 <img src="/imgss/65.png" alt=""><br>
 4，点击Go查看响应，第一次token响应为200 OK，所以这时再点击一次Go，<br>
 5，发现token失效，302，重定向到index.php页面<br>
 <img src="/imgss/66.png" alt=""></p>
-<h3 id="lu-zhi-hong" id="录制宏">录制宏</h3>
+<h3 id="录制宏">录制宏</h3>
 <p>宏的管理界面位于Project Options → Sessions,点击Add,新建一个宏<br>
 <img src="/imgss/67.png" alt=""><br>
 从HTTP请求记录中选择获取CSTF TOKEN的请求，选择后确定<br>
@@ -363,7 +363,7 @@ Configure Macro Item、Macro Editor全部点击确定，完成宏的录制。<br
 验证规则是否生效<br>
 回到Repeater页面（确保会话登陆有效，如超时，请重新登陆），再次发送密码修改的请求包，可以看到在提交请求后，user_token值自动更新，密码修改成功。<br>
 <img src="/imgss/77.png" alt=""></p>
-<h3 id="di-er-chong-fang-fa" id="第二种方法">第二种方法</h3>
+<h3 id="第二种方法">第二种方法</h3>
 <p>1，准备工作，配置运行环境<br>
 Python<br>
 下载地址：<a target="_blank" rel="noopener" href="http://www.jython.org/downloads.html">http://www.jython.org/downloads.html</a><br>
@@ -435,7 +435,7 @@ security还是选择high<br>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

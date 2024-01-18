@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,8 +27,8 @@
 <meta property="og:site_name" content="zer0_c|imb&#39;s blog">
 <meta property="og:description" content="Web源码泄露的漏洞： git源码泄露 svn源码泄露 hg源码泄漏 网站备份压缩文件 WEB-INF&#x2F;web.xml 泄露 DS_Store 文件泄露 SWP 文件泄露 CVS泄露 Bzr泄露 GitHub源码泄漏">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-29T04:25:04.000Z">
-<meta property="article:modified_time" content="2020-04-06T06:11:28.000Z">
+<meta property="article:published_time" content="2020-02-29T20:25:04.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:00.452Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="信息泄露">
@@ -150,7 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#web-yuan-ma-xie-lu-de-lou-dong"><span class="nav-number">1.</span> <span class="nav-text">Web源码泄露的漏洞：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-git-yuan-ma-xie-lu"><span class="nav-number">2.</span> <span class="nav-text">1、git源码泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-svn-yuan-ma-xie-lu"><span class="nav-number">3.</span> <span class="nav-text">2、SVN 源码泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-hg-yuan-ma-xie-lou"><span class="nav-number">4.</span> <span class="nav-text">3、 hg源码泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-cvs-xie-lu"><span class="nav-number">5.</span> <span class="nav-text">4、CVS泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-bazaar-bzr-xie-lu"><span class="nav-number">6.</span> <span class="nav-text">5、Bazaar&#x2F;bzr泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-wang-zhan-bei-fen-ya-suo-wen-jian"><span class="nav-number">7.</span> <span class="nav-text">6、网站备份压缩文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-web-inf-web-xml-xie-lu"><span class="nav-number">8.</span> <span class="nav-text">7、WEB-INF&#x2F;web.xml 泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-ds-store-wen-jian-xie-lu"><span class="nav-number">9.</span> <span class="nav-text">8、DS_Store 文件泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-swp-wen-jian-xie-lu"><span class="nav-number">10.</span> <span class="nav-text">9、SWP 文件泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-git-hub-yuan-ma-xie-lou"><span class="nav-number">11.</span> <span class="nav-text">10、GitHub源码泄漏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zhuan-zi-bypass-gong-zhong-hao"><span class="nav-number"></span> <span class="nav-text">转自bypass公众号</span></a></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Web%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E7%9A%84%E6%BC%8F%E6%B4%9E%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">Web源码泄露的漏洞：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81git%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-number">2.</span> <span class="nav-text">1、git源码泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81SVN-%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-number">3.</span> <span class="nav-text">2、SVN 源码泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81-hg%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">3、 hg源码泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81CVS%E6%B3%84%E9%9C%B2"><span class="nav-number">5.</span> <span class="nav-text">4、CVS泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81Bazaar-bzr%E6%B3%84%E9%9C%B2"><span class="nav-number">6.</span> <span class="nav-text">5、Bazaar&#x2F;bzr泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E7%BD%91%E7%AB%99%E5%A4%87%E4%BB%BD%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">6、网站备份压缩文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81WEB-INF-web-xml-%E6%B3%84%E9%9C%B2"><span class="nav-number">8.</span> <span class="nav-text">7、WEB-INF&#x2F;web.xml 泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81DS-Store-%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="nav-number">9.</span> <span class="nav-text">8、DS_Store 文件泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9%E3%80%81SWP-%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="nav-number">10.</span> <span class="nav-text">9、SWP 文件泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10%E3%80%81GitHub%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">10、GitHub源码泄漏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E8%87%AAbypass%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number"></span> <span class="nav-text">转自bypass公众号</span></a></div>
         </div>
         <!--/noindex-->
 
@@ -165,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -176,7 +176,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -268,14 +268,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-02-29 12:25:04" itemprop="dateCreated datePublished" datetime="2020-02-29T12:25:04+08:00">2020-02-29</time>
+      <time title="创建时间：2020-02-29 12:25:04" itemprop="dateCreated datePublished" datetime="2020-02-29T12:25:04-08:00">2020-02-29</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-04-06 14:11:28" itemprop="dateModified" datetime="2020-04-06T14:11:28+08:00">2020-04-06</time>
+        <time title="修改时间：2024-01-18 08:56:00" itemprop="dateModified" datetime="2024-01-18T08:56:00-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -305,7 +305,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="web-yuan-ma-xie-lu-de-lou-dong" id="Web源码泄露的漏洞：">Web源码泄露的漏洞：</h3>
+        <h3 id="Web源码泄露的漏洞：">Web源码泄露的漏洞：</h3>
 <p>git源码泄露<br>
 svn源码泄露<br>
 hg源码泄漏<br>
@@ -316,27 +316,27 @@ SWP 文件泄露<br>
 CVS泄露<br>
 Bzr泄露<br>
 GitHub源码泄漏</p>
-<a id="more"></a>
-<h3 id="1-git-yuan-ma-xie-lu" id="1、git源码泄露">1、git源码泄露</h3>
+<span id="more"></span>
+<h3 id="1、git源码泄露">1、git源码泄露</h3>
 <p>Git是一个开源的分布式版本控制系统，在执行git init初始化目录的时候，会在当前目录下自动创建一个.git目录，用来记录代码的变更记录等。发布代码的时候，如果没有把.git这个目录删除，就直接发布到了服务器上，攻击者就可以通过它来恢复源代码。</p>
 <p>漏洞利用工具：GitHack</p>
 <p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/lijiejie/GitHack">https://github.com/lijiejie/GitHack</a></p>
 <p>用法示例：</p>
 <p><a target="_blank" rel="noopener" href="http://GitHack.py">GitHack.py</a> <a target="_blank" rel="noopener" href="http://www.openssl.org/.git/">http://www.openssl.org/.git/</a><br>
 修复建议：删除.git目录或者修改中间件配置进行对.git隐藏文件夹的访问。</p>
-<h3 id="2-svn-yuan-ma-xie-lu" id="2、SVN-源码泄露">2、SVN 源码泄露</h3>
+<h3 id="2、SVN-源码泄露">2、SVN 源码泄露</h3>
 <p>SVN是一个开放源代码的版本控制系统。在使用SVN管理本地代码过程中，会自动生成一个名为.svn的隐藏文件夹，其中包含重要的源代码信息。网站管理员在发布代码时，没有使用‘导出’功能，而是直接复制代码文件夹到WEB服务器上，这就使.svn隐藏文件夹被暴露于外网环境，可以利用.svn/entries文件，获取到服务器源码。</p>
 <p>漏洞利用工具：<br>
 <a target="_blank" rel="noopener" href="https://github.com/admintony/svnExploit/">https://github.com/admintony/svnExploit/</a><br>
 <a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper/">https://github.com/kost/dvcs-ripper/</a></p>
 <p>修复建议：删除web目录中所有.svn隐藏文件夹，开发人员在使用SVN时，严格使用导出功能，禁止直接复制代码。</p>
-<h3 id="3-hg-yuan-ma-xie-lou" id="3、-hg源码泄漏">3、 hg源码泄漏</h3>
+<h3 id="3、-hg源码泄漏">3、 hg源码泄漏</h3>
 <p>Mercurial 是一种轻量级分布式版本控制系统，使用 hg init的时候会生成.hg。</p>
 <p>漏洞利用工具：dvcs-ripper</p>
 <p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a></p>
 <p>用法示例：</p>
 <p><a target="_blank" rel="noopener" href="http://rip-hg.pl">rip-hg.pl</a> -v -u <a target="_blank" rel="noopener" href="http://www.example.com/.hg/">http://www.example.com/.hg/</a></p>
-<h3 id="4-cvs-xie-lu" id="4、CVS泄露">4、CVS泄露</h3>
+<h3 id="4、CVS泄露">4、CVS泄露</h3>
 <p>CVS是一个C/S系统，多个开发人员通过一个中心版本控制系统来记录文件版本，从而达到保证文件同步的目的。主要是针对 CVS/Root以及CVS/Entries目录，直接就可以看到泄露的信息。</p>
 <p><a target="_blank" rel="noopener" href="http://url/CVS/Root">http://url/CVS/Root</a> 返回根信息<br>
 <a target="_blank" rel="noopener" href="http://url/CVS/Entries">http://url/CVS/Entries</a> 返回所有文件的结构<br>
@@ -344,11 +344,11 @@ GitHub源码泄漏</p>
 <p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper.git">https://github.com/kost/dvcs-ripper.git</a></p>
 <p>运行示例:</p>
 <p><a target="_blank" rel="noopener" href="http://rip-cvs.pl">rip-cvs.pl</a> -v -u <a target="_blank" rel="noopener" href="http://www.example.com/CVS/">http://www.example.com/CVS/</a></p>
-<h3 id="5-bazaar-bzr-xie-lu" id="5、Bazaar-bzr泄露">5、Bazaar/bzr泄露</h3>
+<h3 id="5、Bazaar-bzr泄露">5、Bazaar/bzr泄露</h3>
 <p>bzr也是个版本控制工具, 虽然不是很热门, 但它也是多平台支持, 并且有不错的图形界面。</p>
 <p>运行示例：</p>
 <p><a target="_blank" rel="noopener" href="http://rip-bzr.pl">rip-bzr.pl</a> -v -u <a target="_blank" rel="noopener" href="http://www.example.com/.bzr/">http://www.example.com/.bzr/</a></p>
-<h3 id="6-wang-zhan-bei-fen-ya-suo-wen-jian" id="6、网站备份压缩文件">6、网站备份压缩文件</h3>
+<h3 id="6、网站备份压缩文件">6、网站备份压缩文件</h3>
 <p>管理员将网站源代码备份在Web目录下，攻击者通过猜解文件路径，下载备份文件，导致源代码泄露。<br>
 常见的备份文件后缀：<br>
 .rar<br>
@@ -360,7 +360,7 @@ GitHub源码泄漏</p>
 .old<br>
 .temp<br>
 漏洞利用工具：御剑</p>
-<h3 id="7-web-inf-web-xml-xie-lu" id="7、WEB-INF-web-xml-泄露">7、WEB-INF/web.xml 泄露</h3>
+<h3 id="7、WEB-INF-web-xml-泄露">7、WEB-INF/web.xml 泄露</h3>
 <p>WEB-INF是Java的WEB应用的安全目录，如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。</p>
 <p>WEB-INF 主要包含一下文件或目录：</p>
 <p>WEB-INF/web.xml : Web应用程序配置文件, 描述了servlet和其他的应用组件配置及命名规则.<br>
@@ -369,20 +369,20 @@ WEB-INF/classes/ : 一般用来存放Java类文件(.class)<br>
 WEB-INF/lib/ : 用来存放打包好的库(.jar)<br>
 WEB-INF/src/ : 用来放源代码(.asp和.php等)<br>
 通过找到 web.xml 文件，推断 class 文件的路径，最后直接 class 文件，再通过反编译 class 文件，得到网站源码。</p>
-<h3 id="8-ds-store-wen-jian-xie-lu" id="8、DS-Store-文件泄露">8、DS_Store 文件泄露</h3>
+<h3 id="8、DS-Store-文件泄露">8、DS_Store 文件泄露</h3>
 <p>.DS_Store是Mac下Finder用来保存如何展示 文件/文件夹 的数据文件，每个文件夹下对应一个。如果将.DS_Store上传部署到服务器，可能造成文件目录结构泄漏，特别是备份文件、源代码文件。</p>
 <p>漏洞利用工具：</p>
 <p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/lijiejie/ds_store_exp">https://github.com/lijiejie/ds_store_exp</a></p>
 <p>用法示例：</p>
 <p>ds_store_exp.py <a target="_blank" rel="noopener" href="http://hd.zj.qq.com/themes/galaxyw/.DS_Store">http://hd.zj.qq.com/themes/galaxyw/.DS_Store</a></p>
-<h3 id="9-swp-wen-jian-xie-lu" id="9、SWP-文件泄露">9、SWP 文件泄露</h3>
+<h3 id="9、SWP-文件泄露">9、SWP 文件泄露</h3>
 <p>swp即swap文件，在编辑文件时产生的临时文件，它是隐藏文件，如果程序正常退出，临时文件自动删除，如果意外退出就会保留，文件名为 .filename.swp。</p>
 <p>漏洞利用：直接访问.swp文件，下载回来后删掉末尾的.swp，获得源码文件。</p>
-<h3 id="10-git-hub-yuan-ma-xie-lou" id="10、GitHub源码泄漏">10、GitHub源码泄漏</h3>
+<h3 id="10、GitHub源码泄漏">10、GitHub源码泄漏</h3>
 <p>GitHub是一个面向开源及私有软件项目的托管平台，很多人喜欢把自己的代码上传到平台托管。攻击者通过关键词进行搜索，可以找到关于目标站点的敏感信息，甚至可以下载网站源码。</p>
 <p>类似的代码托管平台还有很多，人才是最大的漏洞。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/search?q=smtp+user+@qq.com&amp;type=code">https://github.com/search?q=smtp+user+@qq.com&amp;type=code</a></p>
-<h2 id="zhuan-zi-bypass-gong-zhong-hao" id="转自bypass公众号">转自bypass公众号</h2>
+<h2 id="转自bypass公众号">转自bypass公众号</h2>
 
     </div>
 
@@ -428,7 +428,7 @@ WEB-INF/src/ : 用来放源代码(.asp和.php等)<br>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

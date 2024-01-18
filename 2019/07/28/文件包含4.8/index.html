@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -30,8 +30,8 @@
 <meta property="og:image" content="https://b2.bmp.ovh/imgs/2019/07/96e66bab44b66494.png">
 <meta property="og:image" content="https://b2.bmp.ovh/imgs/2019/07/34c7de401e956427.png">
 <meta property="og:image" content="https://b2.bmp.ovh/imgs/2019/07/99d099dae768bdf0.png">
-<meta property="article:published_time" content="2019-07-28T01:54:41.000Z">
-<meta property="article:modified_time" content="2020-07-27T03:04:08.000Z">
+<meta property="article:published_time" content="2019-07-28T16:54:41.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:00.923Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="漏洞复现">
 <meta property="article:tag" content="文件包含">
@@ -154,7 +154,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#bai-ke"><span class="nav-number">1.</span> <span class="nav-text">百科：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lou-dong-yuan-li"><span class="nav-number">2.</span> <span class="nav-text">漏洞原理:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lou-dong-fu-xian"><span class="nav-number">3.</span> <span class="nav-text">漏洞复现：</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BE%E7%A7%91%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">百科：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">漏洞原理:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">漏洞复现：</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -169,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -180,7 +180,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -272,14 +272,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-07-28 09:54:41" itemprop="dateCreated datePublished" datetime="2019-07-28T09:54:41+08:00">2019-07-28</time>
+      <time title="创建时间：2019-07-28 09:54:41" itemprop="dateCreated datePublished" datetime="2019-07-28T09:54:41-07:00">2019-07-28</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-07-27 11:04:08" itemprop="dateModified" datetime="2020-07-27T11:04:08+08:00">2020-07-27</time>
+        <time title="修改时间：2024-01-18 08:56:00" itemprop="dateModified" datetime="2024-01-18T08:56:00-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,13 +309,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="bai-ke" id="百科：">百科：</h2>
-<p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。通过phpMyAdmin 可以完全对数据库进行操作，例如建立、复制和删除数据等等。phpMyAdmin一个更大的优势在于phpMyAdmin跟其他PHP程序<a id="more"></a>一样在网页服务器上执行，用户可以在任何地方使用这些程序产生的HTML页面，也就可以远端管理MySQL数据库，方便的建立、修改、删除数据库及资料表。</p>
-<h2 id="lou-dong-yuan-li" id="漏洞原理">漏洞原理:</h2>
+        <h2 id="百科：">百科：</h2>
+<p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。通过phpMyAdmin 可以完全对数据库进行操作，例如建立、复制和删除数据等等。phpMyAdmin一个更大的优势在于phpMyAdmin跟其他PHP程序<span id="more"></span>一样在网页服务器上执行，用户可以在任何地方使用这些程序产生的HTML页面，也就可以远端管理MySQL数据库，方便的建立、修改、删除数据库及资料表。</p>
+<h2 id="漏洞原理">漏洞原理:</h2>
 <p>攻击者可以在服务器上包含（查看和潜在执行）文件的漏洞被发现。该漏洞来自一部分代码，其中页面在phpMyAdmin中被重定向和加载，以及对白名单页面进行不正确测试。攻击者必须经过身份验证，但以下情况除外：<br>
 $cfg[‘AllowArbitraryServer’] = true  攻击者可以指定他/她已经控制的任何主机，并在phpMyAdmin上执行任意代码<br>
 $cfg[‘ServerDefult’] = 0  这会绕过登录并在没有任何身份验证的情况下运行易受攻击的代码</p>
-<h2 id="lou-dong-fu-xian" id="漏洞复现：">漏洞复现：</h2>
+<h2 id="漏洞复现：">漏洞复现：</h2>
 <p>1，环境为LAMP，网上下载phpMyAdmin4.8.1</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">登录phpMyAdmin，SQL查询语句SELECT &#39;&lt;?php phpinfo();?&gt;&#39; 如图1所示</span><br></pre></td></tr></table></figure></div>
 <p><img src="https://b2.bmp.ovh/imgs/2019/07/96e66bab44b66494.png" alt="图1"><br>
@@ -383,7 +383,7 @@ $cfg[‘ServerDefult’] = 0  这会绕过登录并在没有任何身份验证�
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

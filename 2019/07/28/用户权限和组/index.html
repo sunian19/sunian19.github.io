@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -28,8 +28,8 @@
 <meta property="og:description" content="用户与用户组权限 UID用户身份标识 GID用户组身份标识 用户信息位置 &#x2F;etc&#x2F;passwd    &#x2F;etc&#x2F;shadow">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/%E5%9B%BE%E7%89%871.png">
-<meta property="article:published_time" content="2019-07-28T01:54:41.000Z">
-<meta property="article:modified_time" content="2020-04-06T06:11:04.000Z">
+<meta property="article:published_time" content="2019-07-28T16:54:41.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:00.314Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="基础知识">
 <meta property="article:tag" content="linux">
@@ -152,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#yong-hu-yu-yong-hu-zu-quan-xian"><span class="nav-number">1.</span> <span class="nav-text">用户与用户组权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yong-hu-mi-ma-wen-jian-passwd"><span class="nav-number">2.</span> <span class="nav-text">用户密码文件passwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yong-hu-ying-zi-wen-jian-shadow"><span class="nav-number">3.</span> <span class="nav-text">用户影子文件shadow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-bian-ji-qi"><span class="nav-number">4.</span> <span class="nav-text">vim编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mo-xing-mo-shi"><span class="nav-number">5.</span> <span class="nav-text">末行模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wen-jian-quan-xian"><span class="nav-number">6.</span> <span class="nav-text">文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yan-se-qu-fen-wen-jian"><span class="nav-number">7.</span> <span class="nav-text">颜色区分文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mei-ge-wen-jian-ju-ti-fang-zhi-ming-ling-ru-xia"><span class="nav-number">8.</span> <span class="nav-text">每个文件具体放置命令如下</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BB%84%E6%9D%83%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">用户与用户组权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E6%96%87%E4%BB%B6passwd"><span class="nav-number">2.</span> <span class="nav-text">用户密码文件passwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%BD%B1%E5%AD%90%E6%96%87%E4%BB%B6shadow"><span class="nav-number">3.</span> <span class="nav-text">用户影子文件shadow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">vim编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">末行模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">6.</span> <span class="nav-text">文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2%E5%8C%BA%E5%88%86%E6%96%87%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">颜色区分文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E6%96%87%E4%BB%B6%E5%85%B7%E4%BD%93%E6%94%BE%E7%BD%AE%E5%91%BD%E4%BB%A4%E5%A6%82%E4%B8%8B"><span class="nav-number">8.</span> <span class="nav-text">每个文件具体放置命令如下</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -270,14 +270,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-07-28 09:54:41" itemprop="dateCreated datePublished" datetime="2019-07-28T09:54:41+08:00">2019-07-28</time>
+      <time title="创建时间：2019-07-28 09:54:41" itemprop="dateCreated datePublished" datetime="2019-07-28T09:54:41-07:00">2019-07-28</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-04-06 14:11:04" itemprop="dateModified" datetime="2020-04-06T14:11:04+08:00">2020-04-06</time>
+        <time title="修改时间：2024-01-18 08:56:00" itemprop="dateModified" datetime="2024-01-18T08:56:00-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -307,17 +307,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="yong-hu-yu-yong-hu-zu-quan-xian" id="用户与用户组权限">用户与用户组权限</h3>
+        <h3 id="用户与用户组权限">用户与用户组权限</h3>
 <p>UID用户身份标识<br>
 GID用户组身份标识<br>
 用户信息位置 /etc/passwd    /etc/shadow</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>组信息 位置  /etc/group     /etc/gshadow</p>
 <p>UID标识符在centos7中在UID1-999中为虚拟用户不需要登陆，无虚拟权限，傀儡账户<br>
 普通用户 1000起，centos6里普通用户是500起，超级用户是0<br>
 而Centos6普通用户500起，1-499为虚拟用户，超级用户是0<br>
 可在/etc/login.defs中查看</p>
-<h3 id="yong-hu-mi-ma-wen-jian-passwd" id="用户密码文件passwd">用户密码文件passwd</h3>
+<h3 id="用户密码文件passwd">用户密码文件passwd</h3>
 <p>文件用处：用于存放用户信息<br>
 存储路径：/etc/passwd<br>
 文件特点：文本格式/全局可读<br>
@@ -329,7 +329,7 @@ pwunconv是不隐藏密码<br>
 $6代表的是sha512加密<br>
 <img src="/imgss/%E5%9B%BE%E7%89%871.png" alt=""><br>
 当使用pwunconv将密码导入到passwd中去时，再去看shadwo是显示不出信息的</p>
-<h3 id="yong-hu-ying-zi-wen-jian-shadow" id="用户影子文件shadow">用户影子文件shadow</h3>
+<h3 id="用户影子文件shadow">用户影子文件shadow</h3>
 <p>文件用处：存放用户密码散列、密码管理信息等<br>
 存储路径：/etc/shadow<br>
 文件特点:文本格式/仅对root可读可写<br>
@@ -341,7 +341,7 @@ $6代表的是sha512加密<br>
 getent passwd root查看用户密码<br>
 附加权限 SUID GUID Sticky<br>
 .bak备份文件</p>
-<h3 id="vim-bian-ji-qi" id="vim编辑器">vim编辑器</h3>
+<h3 id="vim编辑器">vim编辑器</h3>
 <p>gedit   文件名  编辑文件  （gedit编辑器）<br>
 i:在光标所在字符前开始插入<br>
 a:在光标所在字符后开始插入<br>
@@ -353,7 +353,7 @@ O:在光标所在行的上面另起一行开始插入<br>
 S:删除光标所在行并开始插入<br>
 x向后删除一个字符<br>
 X向前删除一个字符</p>
-<h3 id="mo-xing-mo-shi" id="末行模式">末行模式</h3>
+<h3 id="末行模式">末行模式</h3>
 <p>set nu 设置行号<br>
 /word 搜索光标下所有带word字符串<br>
 按n代表重复前一个搜寻动作（相当于搜索中的↓键）<br>
@@ -361,7 +361,7 @@ X向前删除一个字符</p>
 yy复制pp粘贴<br>
 dd删除一整行<br>
 ；分号表示换行</p>
-<h3 id="wen-jian-quan-xian" id="文件权限">文件权限</h3>
+<h3 id="文件权限">文件权限</h3>
 <p>drwxrwxrwx<br>
 d代表文件夹<br>
 r:读 w:写 x:执行<br>
@@ -370,7 +370,7 @@ c:Character device即字符设备文件<br>
 l:Symbolic link 即符号链接文件，又称软连接文件<br>
 p:Pipe 即命名管道文件<br>
 s:socket即套接字文件，用于实现两个进程进行通信</p>
-<h3 id="yan-se-qu-fen-wen-jian" id="颜色区分文件">颜色区分文件</h3>
+<h3 id="颜色区分文件">颜色区分文件</h3>
 <p>蓝色文件                               目录<br>
 白色文件（就是默认黑色的）    一般性文件，如文本文件，配置文件，源码文件等<br>
 浅蓝色文件                    链接文件，主要是使用ln命令建立的文件<br>
@@ -378,7 +378,7 @@ s:socket即套接字文件，用于实现两个进程进行通信</p>
 红色文件                      压缩文件或者包文件<br>
 红色闪烁                      表示链接的文件有问题了<br>
 黄色                          设备文件</p>
-<h3 id="mei-ge-wen-jian-ju-ti-fang-zhi-ming-ling-ru-xia" id="每个文件具体放置命令如下">每个文件具体放置命令如下</h3>
+<h3 id="每个文件具体放置命令如下">每个文件具体放置命令如下</h3>
 <p>bin:<br>
 bin为binary的简写，主要放置系统的必备执行文件，例如：<br>
 cat,cp,chmod,df,demesg,gzip,kill,ls,mkdir,more,mount,rm,su,tar等<br>
@@ -436,7 +436,7 @@ Dhcpd,httpd,imap,inetd,lpd,named,samba等</p>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

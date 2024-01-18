@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -43,8 +43,8 @@
 <meta property="og:image" content="https://sunian19.github.io/imgss/%E5%9B%BE%E7%89%8764.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/%E5%9B%BE%E7%89%8765.png">
 <meta property="og:image" content="https://sunian19.github.io/imgss/%E5%9B%BE%E7%89%8766.png">
-<meta property="article:published_time" content="2019-12-06T11:01:00.000Z">
-<meta property="article:modified_time" content="2020-04-06T06:08:28.000Z">
+<meta property="article:published_time" content="2019-12-07T03:01:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:01.602Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="SQL注入">
 <meta name="twitter:card" content="summary">
@@ -166,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#kuan-zi-jie-zhu-ru"><span class="nav-number">1.</span> <span class="nav-text">宽字节注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#er-ci-bian-ma-zhu-ru"><span class="nav-number">2.</span> <span class="nav-text">二次编码注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chang-zi-fu-jie-duan"><span class="nav-number">3.</span> <span class="nav-text">长字符截断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xff-tou-zhu-ru"><span class="nav-number">4.</span> <span class="nav-text">XFF头注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert"><span class="nav-number">5.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user-agent-qing-qiu-tou-zhu-ru"><span class="nav-number">6.</span> <span class="nav-text">User-agent请求头注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tu-pian-shang-chuan-sql-zhu-ru"><span class="nav-number">7.</span> <span class="nav-text">图片上传sql注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#er-ci-zhu-ru"><span class="nav-number">8.</span> <span class="nav-text">二次注入</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">宽字节注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E7%BC%96%E7%A0%81%E6%B3%A8%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">二次编码注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%BF%E5%AD%97%E7%AC%A6%E6%88%AA%E6%96%AD"><span class="nav-number">3.</span> <span class="nav-text">长字符截断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XFF%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">XFF头注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert"><span class="nav-number">5.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#User-agent%E8%AF%B7%E6%B1%82%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="nav-number">6.</span> <span class="nav-text">User-agent请求头注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0sql%E6%B3%A8%E5%85%A5"><span class="nav-number">7.</span> <span class="nav-text">图片上传sql注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5"><span class="nav-number">8.</span> <span class="nav-text">二次注入</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,7 +181,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -192,7 +192,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -284,14 +284,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-12-06 19:01:00" itemprop="dateCreated datePublished" datetime="2019-12-06T19:01:00+08:00">2019-12-06</time>
+      <time title="创建时间：2019-12-06 19:01:00" itemprop="dateCreated datePublished" datetime="2019-12-06T19:01:00-08:00">2019-12-06</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-04-06 14:08:28" itemprop="dateModified" datetime="2020-04-06T14:08:28+08:00">2020-04-06</time>
+        <time title="修改时间：2024-01-18 08:56:01" itemprop="dateModified" datetime="2024-01-18T08:56:01-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -321,18 +321,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="kuan-zi-jie-zhu-ru" id="宽字节注入">宽字节注入</h3>
+        <h3 id="宽字节注入">宽字节注入</h3>
 <p>了解魔术引号，magic_quotes_gpc<br>
 所有的 '（单引号），&quot;（双引号），\（反斜线）和 NULL 字符都会被自动加上一个反斜线进行转义</p>
-<a id="more"></a>
-<p>使用魔术引号时，'转义 ’ 这时我们添加%df或%81或%d5与\反斜杠结合，变成一个繁体汉字，使单引号通过，再闭合就造成了宽字节注入。<br>
+<span id="more"></span>
+<p>使用魔术引号时，'转义 ' 这时我们添加%df或%81或%d5与\反斜杠结合，变成一个繁体汉字，使单引号通过，再闭合就造成了宽字节注入。<br>
 当编码为gbk时，%df%27或%81%27数据为空<br>
-就是说客户端发送的数据编码是gbk时，那么可能会吃掉转义字符’反斜杠<br>
+就是说客户端发送的数据编码是gbk时，那么可能会吃掉转义字符'反斜杠<br>
 闭合之后页面恢复正常，存在宽字节注入<br>
 <img src="/imgss/%E5%9B%BE%E7%89%8749.png" alt=""></p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sqlmap中</span><br><span class="line">--prefix  &#39;%df%27&#39;      指定前缀</span><br><span class="line">--suffix  &#39;-- l&#39;           指定后缀</span><br><span class="line">--tamper   </span><br><span class="line">宽字节推荐加前缀和后缀，不推荐写tamper</span><br><span class="line">sqlmap --purge  清除所有缓存</span><br><span class="line"></span><br><span class="line">加*构造注入点（比-p更稳定），让sqlmap对构造注入点进行注入攻击（\*优先级更高）</span><br><span class="line"></span><br><span class="line">--technique B 注入测试时，指定布尔盲注</span><br><span class="line">--threads  5   多线程检索</span><br><span class="line">5.3之前PDO还是受宽字节影响</span><br><span class="line"></span><br><span class="line">宽字节防御：</span><br><span class="line">mysql_set_charset(&#39;GBK&#39;)</span><br><span class="line">mysql_real_escape_string()</span><br><span class="line">第10行和第24行必须同时使用，才可防止宽字节注入，要么就更换编码格式</span><br></pre></td></tr></table></figure></div>
 <p><img src="/imgss/%E5%9B%BE%E7%89%8750.png" alt=""></p>
-<h3 id="er-ci-bian-ma-zhu-ru" id="二次编码注入">二次编码注入</h3>
+<h3 id="二次编码注入">二次编码注入</h3>
 <p>代码中使用urldecode() 函数<br>
 %2527 先解码成%27 再解码成’单引号</p>
 <p>这时我们就可进行注入<br>
@@ -340,9 +340,9 @@ sqlmap -u <a target="_blank" rel="noopener" href="http://192.168.100.141/index.p
 设置后缀，以防sqlmap自动使用内联注入<br>
 使用自带的脚本进行注入<br>
 <img src="/imgss/%E5%9B%BE%E7%89%8751.png" alt=""></p>
-<h3 id="chang-zi-fu-jie-duan" id="长字符截断">长字符截断</h3>
+<h3 id="长字符截断">长字符截断</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into users(id,username,password) values(2,&#39;admin  &#39;,&#39;admin&#39;);</span><br><span class="line">会提示一个warning，但还是会插入到数据库，所以构建一个&quot;admin   &quot;账户，即可进入后台</span><br></pre></td></tr></table></figure></div>
-<h3 id="xff-tou-zhu-ru" id="XFF头注入">XFF头注入</h3>
+<h3 id="XFF头注入">XFF头注入</h3>
 <p>update user set loat_loginip = ‘8.8.8.8’ where id =1 and sleep(5) #’ where username = ‘zs’;<br>
 id根据网站用户量取一个中间值，测试是否有注入，设置XFF头，如果网站不报错，可尝试此注入<br>
 <img src="/imgss/t17.png" alt=""><br>
@@ -351,20 +351,20 @@ where id =1     and/or/union select/ and ‘’=’ /and sleep()</p>
 <p>*优先级最高，不需要-p参数<br>
 使用base64编码sql语句进行注入攻击<br>
 <img src="/imgss/%E5%9B%BE%E7%89%8756.png" alt=""></p>
-<h3 id="insert" id="insert">insert</h3>
+<h3 id="insert">insert</h3>
 <p>insert into users (id,ua,ip,uname) values (‘1’,‘firfox’,(select 1 where 1=1),1)#<br>
 <img src="/imgss/%E5%9B%BE%E7%89%8757.png" alt=""><br>
 把1替换成sql语句</p>
-<h3 id="user-agent-qing-qiu-tou-zhu-ru" id="User-agent请求头注入">User-agent请求头注入</h3>
+<h3 id="User-agent请求头注入">User-agent请求头注入</h3>
 <p><img src="/imgss/%E5%9B%BE%E7%89%8758.png" alt=""></p>
-<h3 id="tu-pian-shang-chuan-sql-zhu-ru" id="图片上传sql注入">图片上传sql注入</h3>
+<h3 id="图片上传sql注入">图片上传sql注入</h3>
 <p>猜结构，为时间戳加文件名<br>
 <img src="/imgss/%E5%9B%BE%E7%89%8759.png" alt=""><br>
 <img src="/imgss/%E5%9B%BE%E7%89%8760.png" alt=""><br>
 替换and sleep（3）为* 进行salmap检测<br>
 <img src="/imgss/%E5%9B%BE%E7%89%8761.png" alt=""></p>
-<h3 id="er-ci-zhu-ru" id="二次注入">二次注入</h3>
-<p>abc’数据经过addslashes过滤，单引号前面添加反斜杠abc’<br>
+<h3 id="二次注入">二次注入</h3>
+<p>abc’数据经过addslashes过滤，单引号前面添加反斜杠abc'<br>
 但传入到数据库的数据还是abc’<br>
 <img src="/imgss/%E5%9B%BE%E7%89%8762.png" alt=""><br>
 手机号处存在二次注入<br>
@@ -422,7 +422,7 @@ Union select</p>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

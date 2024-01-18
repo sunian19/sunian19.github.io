@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -28,8 +28,8 @@
 <meta property="og:description" content="前两天面试了360，总结了下笔试题及参考答案">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sunian19.github.io/imgss/111.png">
-<meta property="article:published_time" content="2020-01-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-01T12:21:12.000Z">
+<meta property="article:published_time" content="2020-01-28T08:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:05.133Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="面试题">
 <meta name="twitter:card" content="summary">
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#qian-liang-tian-mian-shi-liao-360-zong-jie-liao-xia-bi-shi-ti-ji-can-kao-da-an"><span class="nav-number">1.</span> <span class="nav-text">前两天面试了360，总结了下笔试题及参考答案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ru-guo-cun-zai-sql-zhu-ru-zen-yao-pan-duan-bu-tong-de-shu-ju-ku"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、如果存在 SQL 注入怎么判断不同的数据库。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-jian-shu-xia-liu-lan-qi-de-zi-jie-ma-ji-zhi"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、简述下浏览器的自解码机制。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-na-dao-mu-biao-zhan-zen-yao-jin-xing-shen-tou-xu-yao-zhu-yi-shi-yao"><span class="nav-number">1.0.3.</span> <span class="nav-text">3、拿到目标站怎么进行渗透，需要注意什么。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-csrf-lou-dong-de-yuan-li-shi-shi-yao-zen-yao-xiu-fu"><span class="nav-number">1.0.4.</span> <span class="nav-text">4、CSRF 漏洞的原理是什么？怎么修复？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-dai-ma-shen-ji-zen-yao-zuo"><span class="nav-number">1.0.5.</span> <span class="nav-text">5、代码审计怎么做？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-na-xie-lou-dong-shi-waf-bu-neng-fang-yu-de-qing-ju-chu-zhi-shao-san-lei-lou-dong"><span class="nav-number">1.0.6.</span> <span class="nav-text">6、哪些漏洞是 WAF 不能防御的？请举出至少三类漏洞。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-kao-lu-yi-xia-chang-jing-yi-ge-duo-yong-hu-de-bo-ke-xi-tong-lei-si-yu-csdn-pu-tong-yong-hu-deng-lu-dao-ge-ren-zhong-xin-hou-fa-xian-shan-chu-zi-ji-mou-pian-wen-zhang-suo-qing-qiu-de-uri-wei-delete-php-article-id-24-qing-kao-lu-zhe-ge-di-fang-zui-you-ke-neng-chu-xian-na-xie-an-quan-wen-ti"><span class="nav-number">1.0.7.</span> <span class="nav-text">7、考虑以下场景：一个多用户的博客系统（类似于 CSDN），普通用户登陆到个人中心后， 发现删除自己某篇文章所请求的 URI 为 delete.php?article_id&#x3D;24，请考虑这个地方最有可能 出现哪些安全问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-php-5-huan-jing-xia-ru-guo-pei-zhi-wen-jian-zhong-magic-quotes-gpc-wei-on-ze-php-hui-dui-qing-qiu-can-shu-zhong-de-na-xie-zi-fu-jin-xing-zi-dong-zhuan-yi"><span class="nav-number">1.0.8.</span> <span class="nav-text">8、PHP5 环境下，如果配置文件中 magic_quotes_gpc 为 On，则 PHP 会对请求参数中的哪些 字符进行自动转义？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-shi-yong-sqlmap-gong-ju-jin-xing-sql-zhu-ru-lou-dong-li-yong-shi-ke-yi-chang-shi-shi-yong-xuan-xiang-huo-qu-yi-ge-cao-zuo-xi-tong-shell"><span class="nav-number">1.0.9.</span> <span class="nav-text">9、使用 sqlmap 工具进行 sql 注入漏洞利用时，可以尝试使用（）选项获取一个操作系统 shell。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-shen-tou-shi-hou-duan-huan-jing-shi-apache-php-mysql-de-qing-kuang-xia-li-yong-sql-zhu-ru-xie-webshell-yi-ban-lai-shuo-xu-yao-man-zu-san-ge-tiao-jian-1-mysql-yong-hu-xu-yao-you-quan-xian-2-xu-yao-zhi-dao-lu-jing-3-fu-hao-bu-neng-bei-guo-lu"><span class="nav-number">1.0.10.</span> <span class="nav-text">10、渗透时后端环境是 apache+php+mysql 的情况下，利用 sql 注入写 webshell 一般来说需 要满足三个条件：1.mysql 用户需要有（）权限；2.需要知道（）路径；3.（）（符号）不能 被过滤。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jia-ru-zhi-shi-xing-qiu-huo-qu-geng-duo-shen-tou-zi-liao"><span class="nav-number">2.</span> <span class="nav-text">加入知识星球获取更多渗透资料</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E4%B8%A4%E5%A4%A9%E9%9D%A2%E8%AF%95%E4%BA%86360%EF%BC%8C%E6%80%BB%E7%BB%93%E4%BA%86%E4%B8%8B%E7%AC%94%E8%AF%95%E9%A2%98%E5%8F%8A%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">前两天面试了360，总结了下笔试题及参考答案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%A6%82%E6%9E%9C%E5%AD%98%E5%9C%A8-SQL-%E6%B3%A8%E5%85%A5%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%82"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、如果存在 SQL 注入怎么判断不同的数据库。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E7%AE%80%E8%BF%B0%E4%B8%8B%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E8%87%AA%E8%A7%A3%E7%A0%81%E6%9C%BA%E5%88%B6%E3%80%82"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、简述下浏览器的自解码机制。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E6%8B%BF%E5%88%B0%E7%9B%AE%E6%A0%87%E7%AB%99%E6%80%8E%E4%B9%88%E8%BF%9B%E8%A1%8C%E6%B8%97%E9%80%8F%EF%BC%8C%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%80%E4%B9%88%E3%80%82"><span class="nav-number">1.0.3.</span> <span class="nav-text">3、拿到目标站怎么进行渗透，需要注意什么。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81CSRF-%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%80%8E%E4%B9%88%E4%BF%AE%E5%A4%8D%EF%BC%9F"><span class="nav-number">1.0.4.</span> <span class="nav-text">4、CSRF 漏洞的原理是什么？怎么修复？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E6%80%8E%E4%B9%88%E5%81%9A%EF%BC%9F"><span class="nav-number">1.0.5.</span> <span class="nav-text">5、代码审计怎么做？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E5%93%AA%E4%BA%9B%E6%BC%8F%E6%B4%9E%E6%98%AF-WAF-%E4%B8%8D%E8%83%BD%E9%98%B2%E5%BE%A1%E7%9A%84%EF%BC%9F%E8%AF%B7%E4%B8%BE%E5%87%BA%E8%87%B3%E5%B0%91%E4%B8%89%E7%B1%BB%E6%BC%8F%E6%B4%9E%E3%80%82"><span class="nav-number">1.0.6.</span> <span class="nav-text">6、哪些漏洞是 WAF 不能防御的？请举出至少三类漏洞。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7%E3%80%81%E8%80%83%E8%99%91%E4%BB%A5%E4%B8%8B%E5%9C%BA%E6%99%AF%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%A4%9A%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E7%B1%BB%E4%BC%BC%E4%BA%8E-CSDN%EF%BC%89%EF%BC%8C%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86%E5%88%B0%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%83%E5%90%8E%EF%BC%8C-%E5%8F%91%E7%8E%B0%E5%88%A0%E9%99%A4%E8%87%AA%E5%B7%B1%E6%9F%90%E7%AF%87%E6%96%87%E7%AB%A0%E6%89%80%E8%AF%B7%E6%B1%82%E7%9A%84-URI-%E4%B8%BA-delete-php-article-id-24%EF%BC%8C%E8%AF%B7%E8%80%83%E8%99%91%E8%BF%99%E4%B8%AA%E5%9C%B0%E6%96%B9%E6%9C%80%E6%9C%89%E5%8F%AF%E8%83%BD-%E5%87%BA%E7%8E%B0%E5%93%AA%E4%BA%9B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">1.0.7.</span> <span class="nav-text">7、考虑以下场景：一个多用户的博客系统（类似于 CSDN），普通用户登陆到个人中心后， 发现删除自己某篇文章所请求的 URI 为 delete.php?article_id&#x3D;24，请考虑这个地方最有可能 出现哪些安全问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8%E3%80%81PHP5-%E7%8E%AF%E5%A2%83%E4%B8%8B%EF%BC%8C%E5%A6%82%E6%9E%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD-magic-quotes-gpc-%E4%B8%BA-On%EF%BC%8C%E5%88%99-PHP-%E4%BC%9A%E5%AF%B9%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E4%B8%AD%E7%9A%84%E5%93%AA%E4%BA%9B-%E5%AD%97%E7%AC%A6%E8%BF%9B%E8%A1%8C%E8%87%AA%E5%8A%A8%E8%BD%AC%E4%B9%89%EF%BC%9F"><span class="nav-number">1.0.8.</span> <span class="nav-text">8、PHP5 环境下，如果配置文件中 magic_quotes_gpc 为 On，则 PHP 会对请求参数中的哪些 字符进行自动转义？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9%E3%80%81%E4%BD%BF%E7%94%A8-sqlmap-%E5%B7%A5%E5%85%B7%E8%BF%9B%E8%A1%8C-sql-%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%97%B6%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8%EF%BC%88%EF%BC%89%E9%80%89%E9%A1%B9%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-shell%E3%80%82"><span class="nav-number">1.0.9.</span> <span class="nav-text">9、使用 sqlmap 工具进行 sql 注入漏洞利用时，可以尝试使用（）选项获取一个操作系统 shell。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10%E3%80%81%E6%B8%97%E9%80%8F%E6%97%B6%E5%90%8E%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%98%AF-apache-php-mysql-%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E5%88%A9%E7%94%A8-sql-%E6%B3%A8%E5%85%A5%E5%86%99-webshell-%E4%B8%80%E8%88%AC%E6%9D%A5%E8%AF%B4%E9%9C%80-%E8%A6%81%E6%BB%A1%E8%B6%B3%E4%B8%89%E4%B8%AA%E6%9D%A1%E4%BB%B6%EF%BC%9A1-mysql-%E7%94%A8%E6%88%B7%E9%9C%80%E8%A6%81%E6%9C%89%EF%BC%88%EF%BC%89%E6%9D%83%E9%99%90%EF%BC%9B2-%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%EF%BC%88%EF%BC%89%E8%B7%AF%E5%BE%84%EF%BC%9B3-%EF%BC%88%EF%BC%89%EF%BC%88%E7%AC%A6%E5%8F%B7%EF%BC%89%E4%B8%8D%E8%83%BD-%E8%A2%AB%E8%BF%87%E6%BB%A4%E3%80%82"><span class="nav-number">1.0.10.</span> <span class="nav-text">10、渗透时后端环境是 apache+php+mysql 的情况下，利用 sql 注入写 webshell 一般来说需 要满足三个条件：1.mysql 用户需要有（）权限；2.需要知道（）路径；3.（）（符号）不能 被过滤。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E7%9F%A5%E8%AF%86%E6%98%9F%E7%90%83%E8%8E%B7%E5%8F%96%E6%9B%B4%E5%A4%9A%E6%B8%97%E9%80%8F%E8%B5%84%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">加入知识星球获取更多渗透资料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -177,7 +177,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -269,14 +269,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-01-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-28T00:00:00+08:00">2020-01-28</time>
+      <time title="创建时间：2020-01-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-28T00:00:00-08:00">2020-01-28</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-11-01 20:21:12" itemprop="dateModified" datetime="2021-11-01T20:21:12+08:00">2021-11-01</time>
+        <time title="修改时间：2024-01-18 08:56:05" itemprop="dateModified" datetime="2024-01-18T08:56:05-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,9 +306,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="qian-liang-tian-mian-shi-liao-360-zong-jie-liao-xia-bi-shi-ti-ji-can-kao-da-an" id="前两天面试了360，总结了下笔试题及参考答案">前两天面试了360，总结了下笔试题及参考答案</h2>
-<a id="more"></a>
-<h4 id="1-ru-guo-cun-zai-sql-zhu-ru-zen-yao-pan-duan-bu-tong-de-shu-ju-ku" id="1、如果存在-SQL-注入怎么判断不同的数据库。">1、如果存在 SQL 注入怎么判断不同的数据库。</h4>
+        <h2 id="前两天面试了360，总结了下笔试题及参考答案">前两天面试了360，总结了下笔试题及参考答案</h2>
+<span id="more"></span>
+<h4 id="1、如果存在-SQL-注入怎么判断不同的数据库。">1、如果存在 SQL 注入怎么判断不同的数据库。</h4>
 <blockquote>
 <p>注释符判断<br>
 /*是 MySQL 中的注释符，返回错误说明该注入点不是 MySQL，<br>
@@ -324,15 +324,15 @@ and (select count(*)from sysobjects)&gt;0 返回正常说明是 mssql 数据库<
 and length(user())&gt;10        返回正常说明是 Mysql<br>
 Oracle 可以根据 from dual 虚拟库判断</p>
 </blockquote>
-<h4 id="2-jian-shu-xia-liu-lan-qi-de-zi-jie-ma-ji-zhi" id="2、简述下浏览器的自解码机制。">2、简述下浏览器的自解码机制。</h4>
+<h4 id="2、简述下浏览器的自解码机制。">2、简述下浏览器的自解码机制。</h4>
 <blockquote>
 <p>HTML 解码-&gt;URL 解码(目前只发现 a 标签的 href 属性会进行该解码)-&gt;JS 解码</p>
 </blockquote>
-<h4 id="3-na-dao-mu-biao-zhan-zen-yao-jin-xing-shen-tou-xu-yao-zhu-yi-shi-yao" id="3、拿到目标站怎么进行渗透，需要注意什么。">3、拿到目标站怎么进行渗透，需要注意什么。</h4>
+<h4 id="3、拿到目标站怎么进行渗透，需要注意什么。">3、拿到目标站怎么进行渗透，需要注意什么。</h4>
 <blockquote>
 <p>收集信息：whois、网站源 IP、旁站、C 段网站、服务器系统版本、容器版本、 程序版本、数据库类型、二级域名、防火墙、维护者信息另说…  然后对应端口和漏洞进行攻击。  注意尽量不要使用工具，不影响正常业务。</p>
 </blockquote>
-<h4 id="4-csrf-lou-dong-de-yuan-li-shi-shi-yao-zen-yao-xiu-fu" id="4、CSRF-漏洞的原理是什么？怎么修复？">4、CSRF 漏洞的原理是什么？怎么修复？</h4>
+<h4 id="4、CSRF-漏洞的原理是什么？怎么修复？">4、CSRF 漏洞的原理是什么？怎么修复？</h4>
 <blockquote>
 <p>原理：利用网站对用户标识的信任，欺骗用户的浏览器发送 HTTP 请求给目标站。<br>
 防御的三种策略：<br>
@@ -340,24 +340,24 @@ Oracle 可以根据 from dual 虚拟库判断</p>
 (2)请求地址中添加 token 并验证 token 作用：服务器端会对 Token 值进行验证，判断是否和 session 中的 Token 值相等<br>
 (3)在 http 头中自定义属性并验证</p>
 </blockquote>
-<h4 id="5-dai-ma-shen-ji-zen-yao-zuo" id="5、代码审计怎么做？">5、代码审计怎么做？</h4>
+<h4 id="5、代码审计怎么做？">5、代码审计怎么做？</h4>
 <blockquote>
 <p>根据敏感函数，逆向追踪参数传递的过程<br>
 比如 seay 源代码审计系统，利用正则匹配一些高危函数、关键函数以及敏感关键字，分析 判断敏感函数的上下文，追踪参数源头，尝试控制可控的参数变量。</p>
 </blockquote>
-<h4 id="6-na-xie-lou-dong-shi-waf-bu-neng-fang-yu-de-qing-ju-chu-zhi-shao-san-lei-lou-dong" id="6、哪些漏洞是-WAF-不能防御的？请举出至少三类漏洞。">6、哪些漏洞是 WAF 不能防御的？请举出至少三类漏洞。</h4>
+<h4 id="6、哪些漏洞是-WAF-不能防御的？请举出至少三类漏洞。">6、哪些漏洞是 WAF 不能防御的？请举出至少三类漏洞。</h4>
 <blockquote>
 <p>逻辑漏洞，CSRF，SSRF</p>
 </blockquote>
-<h4 id="7-kao-lu-yi-xia-chang-jing-yi-ge-duo-yong-hu-de-bo-ke-xi-tong-lei-si-yu-csdn-pu-tong-yong-hu-deng-lu-dao-ge-ren-zhong-xin-hou-fa-xian-shan-chu-zi-ji-mou-pian-wen-zhang-suo-qing-qiu-de-uri-wei-delete-php-article-id-24-qing-kao-lu-zhe-ge-di-fang-zui-you-ke-neng-chu-xian-na-xie-an-quan-wen-ti" id="7、考虑以下场景：一个多用户的博客系统（类似于-CSDN），普通用户登陆到个人中心后，-发现删除自己某篇文章所请求的-URI-为-delete-php-article-id-24，请考虑这个地方最有可能-出现哪些安全问题？">7、考虑以下场景：一个多用户的博客系统（类似于 CSDN），普通用户登陆到个人中心后， 发现删除自己某篇文章所请求的 URI 为 delete.php?article_id=24，请考虑这个地方最有可能 出现哪些安全问题？</h4>
+<h4 id="7、考虑以下场景：一个多用户的博客系统（类似于-CSDN），普通用户登陆到个人中心后，-发现删除自己某篇文章所请求的-URI-为-delete-php-article-id-24，请考虑这个地方最有可能-出现哪些安全问题？">7、考虑以下场景：一个多用户的博客系统（类似于 CSDN），普通用户登陆到个人中心后， 发现删除自己某篇文章所请求的 URI 为 delete.php?article_id=24，请考虑这个地方最有可能 出现哪些安全问题？</h4>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1)id&#x3D;24，利用 24-1 检查页面变化，&#39; &quot; &#39;) &#39;)) &quot;) &quot;))字符闭合进行测试，可能存在注入 </span><br><span class="line">(2)通过修改24这个参数，可能会实现任意文章删除</span><br></pre></td></tr></table></figure></div>
-<h4 id="8-php-5-huan-jing-xia-ru-guo-pei-zhi-wen-jian-zhong-magic-quotes-gpc-wei-on-ze-php-hui-dui-qing-qiu-can-shu-zhong-de-na-xie-zi-fu-jin-xing-zi-dong-zhuan-yi" id="8、PHP5-环境下，如果配置文件中-magic-quotes-gpc-为-On，则-PHP-会对请求参数中的哪些-字符进行自动转义？">8、PHP5 环境下，如果配置文件中 magic_quotes_gpc 为 On，则 PHP 会对请求参数中的哪些 字符进行自动转义？</h4>
+<h4 id="8、PHP5-环境下，如果配置文件中-magic-quotes-gpc-为-On，则-PHP-会对请求参数中的哪些-字符进行自动转义？">8、PHP5 环境下，如果配置文件中 magic_quotes_gpc 为 On，则 PHP 会对请求参数中的哪些 字符进行自动转义？</h4>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">该参数为魔术引号，对&#39; &quot; \及 NULL 进行转义</span><br></pre></td></tr></table></figure></div>
-<h4 id="9-shi-yong-sqlmap-gong-ju-jin-xing-sql-zhu-ru-lou-dong-li-yong-shi-ke-yi-chang-shi-shi-yong-xuan-xiang-huo-qu-yi-ge-cao-zuo-xi-tong-shell" id="9、使用-sqlmap-工具进行-sql-注入漏洞利用时，可以尝试使用（）选项获取一个操作系统-shell。">9、使用 sqlmap 工具进行 sql 注入漏洞利用时，可以尝试使用（）选项获取一个操作系统 shell。</h4>
+<h4 id="9、使用-sqlmap-工具进行-sql-注入漏洞利用时，可以尝试使用（）选项获取一个操作系统-shell。">9、使用 sqlmap 工具进行 sql 注入漏洞利用时，可以尝试使用（）选项获取一个操作系统 shell。</h4>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap --os-shell </span><br><span class="line">原理为通过outfile和dumpfile功能,向网站目录写入php代码,执行系统命令</span><br></pre></td></tr></table></figure></div>
-<h4 id="10-shen-tou-shi-hou-duan-huan-jing-shi-apache-php-mysql-de-qing-kuang-xia-li-yong-sql-zhu-ru-xie-webshell-yi-ban-lai-shuo-xu-yao-man-zu-san-ge-tiao-jian-1-mysql-yong-hu-xu-yao-you-quan-xian-2-xu-yao-zhi-dao-lu-jing-3-fu-hao-bu-neng-bei-guo-lu" id="10、渗透时后端环境是-apache-php-mysql-的情况下，利用-sql-注入写-webshell-一般来说需-要满足三个条件：1-mysql-用户需要有（）权限；2-需要知道（）路径；3-（）（符号）不能-被过滤。">10、渗透时后端环境是 apache+php+mysql 的情况下，利用 sql 注入写 webshell 一般来说需 要满足三个条件：1.mysql 用户需要有（）权限；2.需要知道（）路径；3.（）（符号）不能 被过滤。</h4>
+<h4 id="10、渗透时后端环境是-apache-php-mysql-的情况下，利用-sql-注入写-webshell-一般来说需-要满足三个条件：1-mysql-用户需要有（）权限；2-需要知道（）路径；3-（）（符号）不能-被过滤。">10、渗透时后端环境是 apache+php+mysql 的情况下，利用 sql 注入写 webshell 一般来说需 要满足三个条件：1.mysql 用户需要有（）权限；2.需要知道（）路径；3.（）（符号）不能 被过滤。</h4>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">条件：mysql 用户需要有写权限，需要知道网站根目录的绝对路径，&lt; &gt; &#39; &quot; 不能被过滤</span><br></pre></td></tr></table></figure></div>
-<h2 id="jia-ru-zhi-shi-xing-qiu-huo-qu-geng-duo-shen-tou-zi-liao" id="加入知识星球获取更多渗透资料">加入知识星球获取更多渗透资料</h2>
+<h2 id="加入知识星球获取更多渗透资料">加入知识星球获取更多渗透资料</h2>
 <p><img src="/imgss/111.png" alt=""></p>
 
     </div>
@@ -403,7 +403,7 @@ Oracle 可以根据 from dual 虚拟库判断</p>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

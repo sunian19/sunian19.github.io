@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -236,6 +236,782 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc2/" class="post-title-link" itemprop="url">'Java反序列化-cc2'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2022-11-06T00:00:00-07:00">2022-11-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:04" itemprop="dateModified" datetime="2024-01-18T08:56:04-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="环境">环境</h3>
+<p>和cc4相同</p>
+<p>CC2 这条链实际上是在 CC4 链基础上的修改，目的是为了避免使用 Transformer 数组。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc4/" class="post-title-link" itemprop="url">'Java反序列化-cc4'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2022-11-06T00:00:00-07:00">2022-11-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:04" itemprop="dateModified" datetime="2024-01-18T08:56:04-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="环境">环境</h3>
+<ul>
+<li>JDK8u65</li>
+<li>openJDK 8u65</li>
+<li>Maven 3.6.3(其余版本可以先试试，不行再降版本)</li>
+<li>Commons-Collections 4.0<br>
+(除 4.0 的其他版本去掉了 InvokerTransformer 的 Serializable 继承，导致无法序列化。)</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/11/06/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/" class="post-title-link" itemprop="url">'Java反序列化-cc3'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-26 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-26T00:00:00-07:00">2022-10-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="前言">前言</h3>
+<p>原本的 CC1 链与 CC6 链是通过 Runtime.exec() 进行命令执行的。<br>
+而CC3 链这条链子，是使用 <strong>类加载机制</strong> 来执行恶意代码的。<br>
+可以理解为cc1 cc6是命令执行；而cc3是代码执行。</p>
+<h3 id="环境">环境</h3>
+<ul>
+<li>jdk8u65</li>
+<li>Commons-Collections 3.2.1</li>
+</ul>
+<h3 id="TemplatesImpl解析">TemplatesImpl解析</h3>
+<p>前提知识：利用 ClassLoader#defineClass 直接加载字节码。<br>
+忘记的了同学，可以去看，java反序列化-基础中的 <strong>类加载流程(调试)</strong> 部分。</p>
+<blockquote>
+<p>ClassLoader.loadClass() --&gt; ClassLoader.findClass() --&gt; ClassLoader.defineClass()</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/26/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/" class="post-title-link" itemprop="url">'Java反序列化-cc6'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-23 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-23T00:00:00-07:00">2022-10-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>cc6的攻击链后面部分(尾部exec方法)也和之前cc1的一样。<br>
+特点： CC6 链，可以不受 jdk 版本制约。</p>
+<p>LayzMap的get()–&gt;this.factory.transformer()–&gt;ChainedTransformer.transform()–&gt;InvokerTransformer.transform()–&gt;runtime.exec</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/23/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-LazyMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-LazyMap/" class="post-title-link" itemprop="url">'Java反序列化-cc1-LazyMap'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-18 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-18T00:00:00-07:00">2022-10-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:04" itemprop="dateModified" datetime="2024-01-18T08:56:04-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>上一篇我们分析的是TransformedMap的利用链，是此链条传入国内后，国内研究员的分析。<br>
+这次我们分析正版yso中的cc1 LazyMap 利用链。LazyMap相比之前的会更加麻烦一些，同时会用到<strong>动态代理</strong>。<br>
+<img src="/imgss/java117.png" alt=""></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-LazyMap/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/14/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E5%9F%BA%E7%A1%802/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/14/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E5%9F%BA%E7%A1%802/" class="post-title-link" itemprop="url">'Java反序列化-基础2'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-14 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-14T00:00:00-07:00">2022-10-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="暂时两个部分">暂时两个部分</h3>
+<ul>
+<li>一、IO流</li>
+<li>二、runtime解决弹shell</li>
+</ul>
+<h3 id="一、IO流">一、IO流</h3>
+<p>IO是指 Input/Output，即输入和输出。以内存为中心：<br>
+代码是在内存中运行的，数据也必须读到内存，最终的表示方式无非是 byte数 组，字符串等，都必须存放在内存里。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/14/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E5%9F%BA%E7%A1%802/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/05/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-TransformedMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/05/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-TransformedMap/" class="post-title-link" itemprop="url">'Java反序列化-cc1-TransformedMap'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-05 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-05T00:00:00-07:00">2022-10-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:04" itemprop="dateModified" datetime="2024-01-18T08:56:04-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="1、Apache-Commons-Collections包和简介">1、Apache Commons Collections包和简介</h3>
+<p>Apache Commons是Apache开源的Java通用类项目在Java中项目中被广泛的使用，Apache Commons当中有一个组件叫做Apache Commons Collections，主要封装了Java的Collection（集合）相关类对象。</p>
+<p>以下是Collections的包结构和简单介绍，如果你想了解更多的各个包下的接口和实现，请参考<a target="_blank" rel="noopener" href="http://commons.apache.org/proper/commons-collections/javadocs/api-3.2.2/index.html">Apache Commons Collections 3.2.2 API文档</a> 。</p>
+<ul>
+<li>org.apache.commons.collections – CommonsCollections自定义的一组公用的接口和工具类</li>
+<li>org.apache.commons.collections.bag – 实现Bag接口的一组类</li>
+<li>org.apache.commons.collections.bidimap – 实现BidiMap系列接口的一组类</li>
+<li>org.apache.commons.collections.buffer – 实现Buffer接口的一组类</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/05/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-cc1-TransformedMap/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/10/05/Java%E5%AE%89%E5%85%A8-%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/imgss/touxiang.jpg">
+      <meta itemprop="name" content="zer0_c|imb">
+      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zer0_c|imb's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/05/Java%E5%AE%89%E5%85%A8-%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">'Java安全-环境'</a>
+        </h2>
+
+
+        <div class="post-meta">
+        
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-05 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-05T00:00:00-07:00">2022-10-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">java安全系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="jdk的安装">jdk的安装</h3>
+<p>由于我们测试时要用到多个jdk。<br>
+所以直接虚拟机安装多个jdk，将jdk目录拷贝到物理机中。在使用时进行切换。</p>
+<ul>
+<li>jdk1.7.0_21</li>
+<li>jdk1.7.0_51</li>
+<li>jdk1.8.0_65</li>
+<li>jdk1.8.0_66</li>
+<li>jdk1.8.0_71</li>
+<li>jdk1.8.0_73</li>
+<li>jdk1.8.0_121</li>
+<li>jdk1.8.0_141</li>
+<li>jdk1.8.0_271</li>
+<li>jdk11_28</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/05/Java%E5%AE%89%E5%85%A8-%E7%8E%AF%E5%A2%83/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2022/09/30/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-URLDNS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -262,14 +1038,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-09-30 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-30T00:00:00+08:00">2022-09-30</time>
+      <time title="创建时间：2022-09-30 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-30T00:00:00-07:00">2022-09-30</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-10-23 20:27:00" itemprop="dateModified" datetime="2022-10-23T20:27:00+08:00">2022-10-23</time>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -292,7 +1068,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="yi-fan-xu-lie-hua-de-xiang-fa" id="一、反序列化的想法">一、反序列化的想法</h3>
+          <h3 id="一、反序列化的想法">一、反序列化的想法</h3>
 <p>readObject中的代码会自动执行，给予攻击者在服务器上运行代码的能力。</p>
 <ul>
 <li>
@@ -367,14 +1143,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-09-30 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-30T00:00:00+08:00">2022-09-30</time>
+      <time title="创建时间：2022-09-30 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-30T00:00:00-07:00">2022-09-30</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-10-03 23:41:03" itemprop="dateModified" datetime="2022-10-03T23:41:03+08:00">2022-10-03</time>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -397,745 +1173,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="si-ge-bu-fen" id="四个部分">四个部分</h3>
+          <h3 id="四个部分">四个部分</h3>
 <p>一、java SE基础(这部分不写了，自己看菜鸟教程 或者 b站大学视频教程)<br>
 推荐：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12J41137hu/">狂神说java</a><br>
 二、java反射<br>
 三、序列化与反序列化<br>
 四、jdk动态代理<br>
 五、类加载部分</p>
-<h3 id="er-java-fan-she" id="二、java反射">二、java反射</h3>
+<h3 id="二、java反射">二、java反射</h3>
 <p>java反射流程<br>
 <img src="/imgss/java1.png" alt=""></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/09/30/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/09/18/UCMS%20v1.5.0%20Arbitrary%20file%20upload%20vulnerability/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/09/18/UCMS%20v1.5.0%20Arbitrary%20file%20upload%20vulnerability/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-09-18 16:49:16" itemprop="dateCreated datePublished" datetime="2020-09-18T16:49:16+08:00">2020-09-18</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-11-01 20:58:50" itemprop="dateModified" datetime="2021-11-01T20:58:50+08:00">2021-11-01</time>
-      </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="ucms-v-1-5-0-arbitrary-file-upload-vulnerability">UCMS v1.5.0 Arbitrary file upload vulnerability</h1>
-<h2 id="vulnerability-type" id="Vulnerability-Type">Vulnerability Type :</h2>
-<p>File upload</p>
-<h2 id="vulnerability-version" id="Vulnerability-Version">Vulnerability Version :</h2>
-<p>1.5.0</p>
-<h2 id="recurring-environment" id="Recurring-environment">Recurring environment:</h2>
-<ul>
-<li>Windows 10</li>
-<li>PHP 5.4.5</li>
-<li>Apache 2.4.23</li>
-</ul>
-<h2 id="vulnerability-description-and-recurrence" id="Vulnerability-Description-AND-recurrence">Vulnerability Description AND recurrence:</h2>
-<p>The upload bug is very simple</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/18/UCMS%20v1.5.0%20Arbitrary%20file%20upload%20vulnerability/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/09/18/UCMS%20v1.4.0-7%20Information%20leakage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/09/18/UCMS%20v1.4.0-7%20Information%20leakage/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-09-18 12:03:22 / 修改时间：12:48:28" itemprop="dateCreated datePublished" datetime="2020-09-18T12:03:22+08:00">2020-09-18</time>
-    </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="ucms-v-1-4-0-7-information-leakage">UCMS v1.4.0-7 Information leakage</h1>
-<blockquote>
-<p>A problem was found in UCMS v1.4.0-7 In line 2 of ucms/chk.php</p>
-</blockquote>
-<h2 id="vulnerability-type" id="Vulnerability-Type">Vulnerability Type :</h2>
-<p>Information leakage</p>
-<h2 id="vulnerability-version" id="Vulnerability-Version">Vulnerability Version :</h2>
-<p>1.4.0-7</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/18/UCMS%20v1.4.0-7%20Information%20leakage/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/09/09/%E7%B4%A0%E5%BF%B5%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%88%97%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/09/09/%E7%B4%A0%E5%BF%B5%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%88%97%E8%A1%A8/" class="post-title-link" itemprop="url">'常用工具下载'</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-09-09 00:00:00 / 修改时间：21:06:32" itemprop="dateCreated datePublished" datetime="2020-09-09T00:00:00+08:00">2020-09-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>9月9日，暂时这么多，天翼云分享链接有次数限制，明天再更新，不更新请砍死我</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/09/%E7%B4%A0%E5%BF%B5%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%88%97%E8%A1%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/08/26/ucms-Incorrect%20Access%20Control/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/26/ucms-Incorrect%20Access%20Control/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-26 17:00:23" itemprop="dateCreated datePublished" datetime="2020-08-26T17:00:23+08:00">2020-08-26</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-09 20:50:34" itemprop="dateModified" datetime="2020-09-09T20:50:34+08:00">2020-09-09</time>
-      </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="ucms-v-1-4-8-information-leakage">UCMS v.1.4.8 Information leakage</h1>
-<blockquote>
-<p>A problem was found in UCMS 1.4.8. In line 2 of ucms/chk.php</p>
-</blockquote>
-<h2 id="vulnerability-type" id="Vulnerability-Type">Vulnerability Type :</h2>
-<p>Information leakage</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/26/ucms-Incorrect%20Access%20Control/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/16/%E4%BB%A4%E7%89%8C%E7%9B%97%E5%8F%96%E6%8F%90%E6%9D%83%E4%B8%8E%E6%97%A0%E5%87%AD%E8%AF%81%E6%8F%90%E6%9D%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/07/16/%E4%BB%A4%E7%89%8C%E7%9B%97%E5%8F%96%E6%8F%90%E6%9D%83%E4%B8%8E%E6%97%A0%E5%87%AD%E8%AF%81%E6%8F%90%E6%9D%83/" class="post-title-link" itemprop="url">'令牌盗取提权与无凭证(LLMNR和NetBIOS欺骗攻击)提权'</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-07-16 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-16T00:00:00+08:00">2020-07-16</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-07-26 15:56:18" itemprop="dateModified" datetime="2020-07-26T15:56:18+08:00">2020-07-26</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="ling-pai-qie-qu" id="令牌窃取">令牌窃取</h2>
-<h4 id="ji-ben-gai-nian" id="基本概念">基本概念</h4>
-<p>令牌是指系统中的临时密钥，相当于账户和密码，用于决定是否允许当前请求及判断当前请求是属于哪个用户的。获得了令牌，就可以在不提供密码或其他凭证的情况下访问网络和系统资源。令牌持续存在于系统中，除非系统重启。<br>
-令牌特点：随机性、不可预测性<br>
-访问令牌(Access Token)：访问控制操作主体的系统对象。<br>
-密保令牌(Security Token)：用于实现计算机身份校验的物理设备，如U盾。<br>
-会话令牌(Session Token)：交互会话中唯一的身份标识符。</p>
-<p>伪造令牌攻击的核心是kerberos协议。Kerberos 是一种网络认证协议，其设计目标是通过密钥系统为客户机/服务器应用程序<br>
-提供强大的认证服务。<br>
-<img src="/imgss/a68.png" alt=""></p>
-<p>原理：<br>
-1、客户端向认证服务器发送请求，要求得到证书。<br>
-2、认证服务器收到请求后，讲包含客户端密钥的加密证书发送客户端。该证书包含服务器Ticket(由服务器密钥加密的客户端身份和一份会话密钥)还有一个临时加密密钥(会话密钥Session key)。认证服务器会向服务器发送一份该证书，</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/14/%E5%88%A9%E7%94%A8%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF%E6%8F%90%E6%9D%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/07/14/%E5%88%A9%E7%94%A8%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF%E6%8F%90%E6%9D%83/" class="post-title-link" itemprop="url">'利用配置错误提权'</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-07-14 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-14T00:00:00+08:00">2020-07-14</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-07-16 18:35:16" itemprop="dateModified" datetime="2020-07-16T18:35:16+08:00">2020-07-16</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="xi-tong-fu-wu-quan-xian-pei-zhi-cuo-wu-mu-lu-ke-xie" id="系统服务权限配置错误-目录可写">系统服务权限配置错误(目录可写)</h2>
-<p>漏洞原因：Windows操作系统中常见配置错误：如管理员凭证配置错误、服务配置错误、故意削弱的安全措施、用户权限过高等。<br>
-两种情况<br>
-1、服务未运行：攻击者会利用任意服务替换原来的服务，然后重启服务。<br>
-2、服务正在运行且无法被终止：这类情况符合大多数漏洞利用场景，通常利用DLL劫持技术并尝试重启服务来提权。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/14/%E5%88%A9%E7%94%A8%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF%E6%8F%90%E6%9D%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/14/%E7%BB%84%E7%AD%96%E7%95%A5%E9%A6%96%E9%80%89%E9%A1%B9%E6%8F%90%E6%9D%83%E4%B8%8EUAC%E7%BB%95%E8%BF%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/07/14/%E7%BB%84%E7%AD%96%E7%95%A5%E9%A6%96%E9%80%89%E9%A1%B9%E6%8F%90%E6%9D%83%E4%B8%8EUAC%E7%BB%95%E8%BF%87/" class="post-title-link" itemprop="url">'组策略首选项提权与UAC绕过'</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-07-14 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-14T00:00:00+08:00">2020-07-14</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-11 23:49:32" itemprop="dateModified" datetime="2020-09-11T23:49:32+08:00">2020-09-11</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="zu-ce-lue-shou-xuan-xiang" id="组策略首选项">组策略首选项</h3>
-<p>由于数据量巨大，管理员可能会使用脚本批量部署域策略，修改为统一的密码，虽然强度有所提高，但是所有的本地管理员密码是相同的，会导致攻击者获取到一台，就相当于获取了整个域。<br>
-常见组策略首选项：<br>
-映射驱动器(Drives.xml)<br>
-创建本地用户<br>
-数据源(DataSources.xml)<br>
-打印机配置(Printers.xml)<br>
-创建/更新服务(Services.xml)<br>
-计划任务(ScheduledTasks.xml)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/14/%E7%BB%84%E7%AD%96%E7%95%A5%E9%A6%96%E9%80%89%E9%A1%B9%E6%8F%90%E6%9D%83%E4%B8%8EUAC%E7%BB%95%E8%BF%87/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://sunian19.github.io/2020/07/05/powershell%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/imgss/touxiang.jpg">
-      <meta itemprop="name" content="zer0_c|imb">
-      <meta itemprop="description" content="忘川河畔彼岸花，红如鲜血似朱砂">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zer0_c|imb's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/07/05/powershell%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">'powershell基础'</a>
-        </h2>
-
-
-        <div class="post-meta">
-        
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-05T00:00:00+08:00">2020-07-05</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-07-16 19:28:14" itemprop="dateModified" datetime="2020-07-16T19:28:14+08:00">2020-07-16</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">渗透测试</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="powershell-te-dian" id="powershell特点">powershell特点</h3>
-<p>1、win7以上默认安装<br>
-2、脚本可在内存中运行，不需要写入磁盘<br>
-3、几乎不会触发杀软<br>
-4、可远程执行</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/05/powershell%E5%9F%BA%E7%A1%80/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1171,7 +1221,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

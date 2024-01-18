@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,8 +27,8 @@
 <meta property="og:site_name" content="zer0_c|imb&#39;s blog">
 <meta property="og:description" content="循环">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-08-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-06T06:03:50.000Z">
+<meta property="article:published_time" content="2019-08-05T07:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-18T16:56:03.052Z">
 <meta property="article:author" content="zer0_c|imb">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="基础知识">
@@ -150,7 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xun-huan"><span class="nav-number">1.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shu-zu"><span class="nav-number">2.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#han-shu"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -165,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -176,7 +176,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -268,14 +268,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-05T00:00:00+08:00">2019-08-05</time>
+      <time title="创建时间：2019-08-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-05T00:00:00-07:00">2019-08-05</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-04-06 14:03:50" itemprop="dateModified" datetime="2020-04-06T14:03:50+08:00">2020-04-06</time>
+        <time title="修改时间：2024-01-18 08:56:03" itemprop="dateModified" datetime="2024-01-18T08:56:03-08:00">2024-01-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -305,12 +305,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="xun-huan" id="循环">循环</h3>
-<a id="more"></a>
+        <h3 id="循环">循环</h3>
+<span id="more"></span>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if(控制下边的代码是否执行      写的值为bool    true&#x2F;false)</span><br><span class="line">循环    在代码中    重复执行一段相同的代码</span><br><span class="line">if判断的时候，如果有值，就为真，没有就为假</span><br><span class="line">if(NULL)&#123;</span><br><span class="line">    echo 1;  &#x2F;&#x2F;真 </span><br><span class="line">&#125;else&#123;</span><br><span class="line">    echo 2; &#x2F;&#x2F;假</span><br><span class="line">&#125;</span><br><span class="line">此代码中值为空，所以输出2</span><br><span class="line"></span><br><span class="line">for(控制下边代码执行的次数   放一个变量，变量值会变化</span><br><span class="line">（自增或自减），再放一个条件，条件用来限制这个变量的值)</span><br><span class="line">while()</span><br><span class="line">foreach()</span><br><span class="line"></span><br><span class="line">STDIN获取到的内容，会多处一个换行符</span><br><span class="line">continue （含义：继续） 会跳过当前循环中的代码，强迫开始下一次循环</span><br><span class="line">break 是结束整个循环</span><br></pre></td></tr></table></figure></div>
-<h3 id="shu-zu" id="数组">数组</h3>
+<h3 id="数组">数组</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">array创建数组</span><br><span class="line">创建数组时，可以直接向数组中赋值，也可以直接创建一个空数组</span><br><span class="line">分为关联数组和索引数组</span><br><span class="line">$arr &#x3D; array(1,2,3,4);                                     索引数组</span><br><span class="line">取内容      只能通过下标取值</span><br><span class="line">$arr &#x3D; array(&#39;name&#39; &#x3D;&gt; &#39;zs&#39; , &#39;age&#39; &#x3D;&gt; 19);    此为关联数组</span><br><span class="line">取内容     通过键取值</span><br><span class="line"></span><br><span class="line">创建数组三种方式</span><br><span class="line">$arr &#x3D;  array()          </span><br><span class="line">$arr &#x3D;  array（1，2，3，4，5）       </span><br><span class="line">$arr &#x3D;  array（&#39;name&#39; &#x3D;&gt;&#39;zs&#39;,&#39;age&#39;&#x3D;&gt;18）</span><br><span class="line">&#x2F;&#x2F;下边的方法只有在PHP5.4之后才能使用</span><br><span class="line">$arr &#x3D;  [ ]</span><br><span class="line">$arr &#x3D;  [1,2,3,4]   </span><br><span class="line">$arr &#x3D;  [&#39;name&#39; &#x3D;&gt;&#39;zs&#39;,&#39;age&#39;&#x3D;&gt;18]</span><br><span class="line"></span><br><span class="line">索引数组</span><br><span class="line">   赋值 </span><br><span class="line">&#x2F;&#x2F;1， 创建时直接赋值</span><br><span class="line">$arr &#x3D;  array（1，2，3，4，5）</span><br><span class="line">$arr &#x3D;  [1,2,3,4]   </span><br><span class="line">&#x2F;&#x2F;2，先创空数组，然后再更改值</span><br><span class="line">$arr &#x3D;  array()          </span><br><span class="line">$arr &#x3D;  array（1，2，3，4，5）  </span><br><span class="line">$arr &#x3D;  [0]  &#x3D; 123     &#x2F;&#x2F; 内容变成&#x3D;&#x3D;&gt;  [123,2,3,4,5]   </span><br><span class="line">$arr &#x3D;  [100]  &#x3D; 456</span><br><span class="line"></span><br><span class="line">取值</span><br><span class="line">1，通过下标取值</span><br><span class="line">2，通过循环遍历</span><br><span class="line">$arr &#x3D;  array（1，2，3，4，5）  </span><br><span class="line">for（$i &#x3D; 0; $i &lt; 5;$i ++ ）&#123;</span><br><span class="line">echo $arr[$i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for（$i &#x3D; 0; $i &lt; count($arr);$i ++ ）&#123;</span><br><span class="line">echo $arr[$i];</span><br><span class="line">&#125;                                    &#x2F;&#x2F;利用count获取数组个数</span><br><span class="line"></span><br><span class="line">foreach输出          &#x2F;&#x2F;专门遍历数组</span><br><span class="line">foreach（$arr  as  $key  &#x3D;&gt; $value）&#123;</span><br><span class="line">           echo  $key . &#39; &#39; . $value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">关联数组</span><br><span class="line">赋值</span><br><span class="line">$arr &#x3D; array(&#39;name&#39; &#x3D;&gt; &#39;zhangsan&#39; , &#39;age&#39; &#x3D;&gt; 19);</span><br><span class="line">$arr &#x3D; [&#39;name&#39; &#x3D;&gt; &#39;zhangsan&#39;,&#39;age&#39; &#x3D;&gt; 19];</span><br><span class="line">$arr &#x3D; []</span><br><span class="line">$arr &#x3D; array()</span><br><span class="line">$arr[&#39;name&#39;] &#x3D; &#39;zs&#39;;  &#x3D;&#x3D;&gt;  [&#39;name&#39; &#x3D;&gt; &#39;zs&#39;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$_GET[&#39;id&#39;]       $_POST[&#39;uname&#39;]    他们两个是关联数组，找到键就能拿到值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">取值                    &#x2F;&#x2F;不能够通过下标取值</span><br><span class="line">$arr[&#39;id&#39;]</span><br><span class="line"></span><br><span class="line">遍历关联数组</span><br><span class="line">foreach（$arr  as  $key  &#x3D;&gt; $value）&#123;</span><br><span class="line">           echo  $key . &#39;&#x3D;&gt;&#39; . $value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">array_keys输出数组里的所有键          键用数字定义变为下标</span><br><span class="line">array_values输出数组里的所有值</span><br><span class="line">array_merge  把一个或多个数组合并</span><br><span class="line">array_key_exists 判断键是否在数组中</span><br><span class="line">in_array 搜索数组中是否存在指定的值。</span><br><span class="line">array_pop 删除数组里最后一个元素</span><br><span class="line">array_unique（） 删除重复的</span><br><span class="line">count（） 别名sizeof（）      返回数组的数目</span><br><span class="line"></span><br><span class="line">sort() - 对数组进行升序排列</span><br><span class="line">rsort() - 对数组进行降序排列</span><br><span class="line">asort() - 根据关联数组的值，对数组进行升序排列</span><br><span class="line">ksort() - 根据关联数组的键，对数组进行升序排列</span><br><span class="line">arsort() - 根据关联数组的值，对数组进行降序排列</span><br><span class="line">krsort() - 根据关联数组的键，对数组进行降序排列</span><br></pre></td></tr></table></figure></div>
-<h3 id="han-shu" id="函数">函数</h3>
+<h3 id="函数">函数</h3>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">什么是函数</span><br><span class="line">1，将一段代码，封装，然后通过名字，可以多次使用</span><br><span class="line">2，把所有提交的数据，进行安全处理</span><br><span class="line">3，把 &#39;  &#39;&#39;  \   \00  &lt;&gt;   转义     and     union    select       order   by    or    这些关键字替换掉</span><br><span class="line"></span><br><span class="line">function safe_echo ($str)&#123;</span><br><span class="line">    echo htmlspecialchars($str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$data &#x3D; &quot;&lt;script&gt;alert(&#x2F;xss&#x2F;);&lt;&#x2F;script&gt;&quot;;</span><br><span class="line">safe_echo($data);</span><br></pre></td></tr></table></figure></div>
 
     </div>
@@ -357,7 +357,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
